@@ -1,0 +1,1088 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>demo using the post-processed data archive (pp_archive) to assess efffectiveness of SAI across a range of impacts &#8212; GeoCloud; SRM research Community Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Preprocessed_archive/Usage_example/03_Demo_1_using_archive';</script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="GeoCloud; SRM research Community Book - Home"/>
+    <img src="../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="GeoCloud; SRM research Community Book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to the GeoCloud
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Preamble</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../useful_links.html">Useful links</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Resources/pp_archive/pp_archive_intro.html">An archive of pre-processed SAI simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Resources/pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Resources/AWS_ARISE/AWS_ARISE_intro.html">Using the AWS ARISE-SAI-1.5 simulations cloud archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Resources/AWS_ARISE/AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Resources/AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
+
+
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/alistairduffey/GeoCloud/tree/main" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/Preprocessed_archive/Usage_example/03_Demo_1_using_archive.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>demo using the post-processed data archive (pp_archive) to assess efffectiveness of SAI across a range of impacts</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">demo using the post-processed data archive (pp_archive) to assess efffectiveness of SAI across a range of impacts</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#now-try-a-demo-of-the-multi-variable-assessment">Now try a demo of the multi-variable assessment:</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#below-we-move-on-to-the-regional-version">Below, we move on to the regional version:</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="demo-using-the-post-processed-data-archive-pp-archive-to-assess-efffectiveness-of-sai-across-a-range-of-impacts">
+<h1>demo using the post-processed data archive (pp_archive) to assess efffectiveness of SAI across a range of impacts<a class="headerlink" href="#demo-using-the-post-processed-data-archive-pp-archive-to-assess-efffectiveness-of-sai-across-a-range-of-impacts" title="Link to this heading">#</a></h1>
+<p>To show an example of one potential usage, here we reproduce a figure from Irvine et al. (<a class="reference external" href="https://www.nature.com/articles/s41558-019-0398-8">https://www.nature.com/articles/s41558-019-0398-8</a>) showing, for each IPCC region, how SAI is modelled to change a set of climate variables. The approach here is to assign effectiveness labels to each grid point or region based on the ratio of change under warming to change under SAI. For example, if the two values are within 25% of each other in magnitude, and of the opposite sign, then we could call this ‘Effective’. Whereas if the two changes are the same sign, we say that SAI ‘exacerbates’ global warming in this region.</p>
+<p>There are several major caveats to the below code, which are open issues to resolve before the outputs should be taken seriously:</p>
+<ol class="arabic simple">
+<li><p>There are unresolved problems in the ETCCDI data which sits behind this need to be fixed, meaning the temperature extreme indices shown are likely wrong.</p></li>
+<li><p>We do not here apply any test of statistical significance, which should be added, since the ~100 year period (5 members x 20 years) over which each of these metrics is assessed may be fairly short for some variables (e.g. RX1day)</p></li>
+<li><p>we here just use CESM2-WACCM data for the regional plot. The ETCCDI indeces have so far only been calculated for CESM2_WACCM, but this means we have no way yet to account for intermodel uncertainty in the regional plot.</p></li>
+</ol>
+<p>Author:
+Alistair Duffey</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">xmip.preprocessing</span> <span class="kn">import</span> <span class="n">rename_cmip6</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+<span class="kn">from</span> <span class="nn">cartopy.util</span> <span class="kn">import</span> <span class="n">add_cyclic_point</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">get_data</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">CESMize_var_names</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">adjust_longitude</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/pyproj/network.py:59: UserWarning: pyproj unable to set PROJ database path.
+  _set_context_ca_bundle_path(ca_bundle_path)
+</pre></div>
+</div>
+</div>
+</div>
+<p>NB</p>
+<p>we use the nomenclature ‘target’, ‘warming’, and ‘SAI’ to refer consistently to the states which we compare. These three states apply in both ARISE (where they are the 1.5C period world, the late century world under SSP245, and the late century world under ARISE-1.5-SAI, respectively), and in G6sulfur (where they are SSP245-late-century, SSP585-late-century and G6sulfur-late-century).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fraction_of_land</span><span class="p">(</span><span class="n">masked_array</span><span class="p">,</span> <span class="n">sftlf</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    returns fraction of total land area covered by a masked array in which missing values have been dropped</span>
+<span class="sd">    inputs:</span>
+<span class="sd">    dsm: masked array</span>
+<span class="sd">    population_weighted: boolean option TO ADD</span>
+<span class="sd">    </span>
+<span class="sd">    outputs:</span>
+<span class="sd">    single value, giving fraction of the land area covered by the masked array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Convert land fraction to [0, 1] range</span>
+    <span class="n">land_fraction</span> <span class="o">=</span> <span class="n">sftlf</span> <span class="o">/</span> <span class="mf">100.0</span>
+
+    <span class="c1"># Calculate cosine of latitude for weighting</span>
+    <span class="n">cos_lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">masked_array</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]))</span>
+
+    <span class="c1"># Expand dimensions of cos_lat to align with masked_array, if necessary</span>
+    <span class="n">cos_lat</span> <span class="o">=</span> <span class="n">cos_lat</span><span class="o">.</span><span class="n">broadcast_like</span><span class="p">(</span><span class="n">masked_array</span><span class="p">)</span>
+
+    <span class="c1"># Weight by land fraction and cos(latitude)</span>
+    <span class="n">weighted_area</span> <span class="o">=</span> <span class="p">(</span><span class="n">masked_array</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span> <span class="o">*</span> <span class="n">land_fraction</span> <span class="o">*</span> <span class="n">cos_lat</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="c1"># Total possible land area weight (for normalization)</span>
+    <span class="n">total_land_area</span> <span class="o">=</span> <span class="p">(</span><span class="n">land_fraction</span> <span class="o">*</span> <span class="n">cos_lat</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="c1"># Fraction of land area covered by the mask</span>
+    <span class="n">land_area_fraction</span> <span class="o">=</span> <span class="n">weighted_area</span> <span class="o">/</span> <span class="n">total_land_area</span>
+
+    <span class="k">return</span> <span class="n">land_area_fraction</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_fractions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">effectiveness_cats_dict</span><span class="p">,</span>
+                  <span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;tas&#39;</span><span class="p">,</span> <span class="n">season</span> <span class="o">=</span> <span class="s1">&#39;annual&#39;</span><span class="p">,</span>
+                  <span class="n">table</span> <span class="o">=</span> <span class="s1">&#39;Amon&#39;</span><span class="p">,</span>
+                  <span class="n">experiment_group</span> <span class="o">=</span> <span class="s1">&#39;ARISE&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; returns a dataframe of fractions of global land area falling</span>
+<span class="sd">        into categories of effectiveness </span>
+
+<span class="sd">        Inputs:</span>
+<span class="sd">        model : string, any G6 model</span>
+<span class="sd">        effectiveness_cats_dict: dict, list of cateogry names, and associated upper and lower bounds on changes</span>
+<span class="sd">        var: string, any BCEV, cmor names (e.g. &#39;tas&#39;)</span>
+<span class="sd">        season: string, &#39;annual&#39;, &#39;DJF&#39;, &#39;MAM&#39;, &#39;JJA&#39;, &#39;SON&#39;</span>
+<span class="sd">        experiment_group: &#39;ARISE&#39; or &#39;GeoMIP&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">land_area</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;../pp_archive/fx/</span><span class="si">{a}</span><span class="s1">/sftlf/</span><span class="si">{b}</span><span class="s1">_sftlf.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">model</span><span class="p">))</span>
+    
+    
+    
+    <span class="k">if</span> <span class="n">experiment_group</span> <span class="o">==</span> <span class="s1">&#39;ARISE&#39;</span><span class="p">:</span>  
+        <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">table</span> <span class="o">==</span> <span class="s1">&#39;Amon&#39;</span><span class="p">:</span>
+                <span class="n">var</span> <span class="o">=</span> <span class="n">CESMize_var_names</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+        <span class="n">target</span><span class="p">,</span> <span class="n">warming</span><span class="p">,</span> <span class="n">SAI</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s1">&#39;ARISE&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> 
+                                        <span class="n">windows</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;SSP245_baseline&#39;</span><span class="p">,</span> <span class="s1">&#39;SSP245_background&#39;</span><span class="p">,</span> <span class="s1">&#39;ARISE_assmt&#39;</span><span class="p">],</span>
+                                        <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> 
+                                        <span class="n">mean_or_std</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">experiment_group</span> <span class="o">==</span> <span class="s1">&#39;GeoMIP&#39;</span><span class="p">:</span>
+        <span class="n">target</span><span class="p">,</span> <span class="n">warming</span><span class="p">,</span> <span class="n">SAI</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s1">&#39;GeoMIP&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> 
+                                        <span class="n">windows</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;SSP245_target&#39;</span><span class="p">,</span> <span class="s1">&#39;SSP585_background&#39;</span><span class="p">,</span> <span class="s1">&#39;G6sulfur_assmt&#39;</span><span class="p">],</span>
+                                        <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> 
+                                        <span class="n">mean_or_std</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">)</span>
+
+    
+    <span class="n">change_warming</span> <span class="o">=</span> <span class="n">warming</span> <span class="o">-</span> <span class="n">target</span>
+    <span class="n">change_SAI</span> <span class="o">=</span> <span class="n">warming</span> <span class="o">-</span> <span class="n">SAI</span>
+    <span class="n">change_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="n">change_SAI</span><span class="o">/</span><span class="n">change_warming</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+
+    <span class="n">effectiveness_cats</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">effectiveness_cats_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="n">category_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">category_fractions</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">effectiveness_cats</span><span class="p">:</span>
+        <span class="n">region_in_cat</span> <span class="o">=</span> <span class="n">change_ratio</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">change_ratio</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">&gt;</span><span class="n">effectiveness_cats_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">&amp;</span><span class="p">(</span><span class="n">change_ratio</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">&lt;</span><span class="n">effectiveness_cats_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">fraction_in_cat</span> <span class="o">=</span> <span class="n">fraction_of_land</span><span class="p">(</span><span class="n">masked_array</span><span class="o">=</span><span class="n">region_in_cat</span><span class="p">[</span><span class="n">var</span><span class="p">],</span> <span class="n">sftlf</span><span class="o">=</span><span class="n">land_area</span><span class="o">.</span><span class="n">sftlf</span><span class="p">)</span>
+        <span class="n">category_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+        <span class="n">category_fractions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fraction_in_cat</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Effectiveness&#39;</span><span class="p">:</span><span class="n">category_names</span><span class="p">,</span>
+                       <span class="s1">&#39;Fraction_of_land_area&#39;</span><span class="p">:</span><span class="n">category_fractions</span><span class="p">})</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
+    
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># settings </span>
+<span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;tas&#39;</span>
+<span class="n">season</span> <span class="o">=</span> <span class="s1">&#39;annual&#39;</span>
+
+<span class="n">effectiveness_cats_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;overeffective&#39;</span><span class="p">:[</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span>
+                           <span class="s1">&#39;effective&#39;</span><span class="p">:[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">],</span>
+                           <span class="s1">&#39;undereffective&#39;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+                           <span class="s1">&#39;no impact&#39;</span><span class="p">:[</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
+                           <span class="s1">&#39;exacerbates&#39;</span><span class="p">:[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">]}</span>
+
+
+<span class="c1"># run over UKESM and CESM ARISE</span>
+<span class="n">df_arise_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;UKESM1-0-LL&#39;</span><span class="p">,</span> <span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">]:</span>
+    <span class="n">df_arise_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_fractions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">effectiveness_cats_dict</span><span class="o">=</span><span class="n">effectiveness_cats_dict</span><span class="p">,</span>
+                                       <span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="p">,</span> <span class="n">season</span> <span class="o">=</span> <span class="n">season</span><span class="p">,</span> <span class="n">experiment_group</span> <span class="o">=</span> <span class="s1">&#39;ARISE&#39;</span><span class="p">))</span>
+<span class="n">df_arise</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_arise_list</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># run over the G6sulfur models</span>
+<span class="n">df_G6_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;IPSL-CM6A-LR&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM1-0-LL&#39;</span><span class="p">,</span> <span class="s1">&#39;MPI-ESM1-2-HR&#39;</span><span class="p">,</span> <span class="s1">&#39;MPI-ESM1-2-LR&#39;</span><span class="p">,</span> <span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> <span class="s1">&#39;CNRM-ESM2-1&#39;</span><span class="p">]:</span>
+    <span class="n">df_G6_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_fractions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">effectiveness_cats_dict</span><span class="o">=</span><span class="n">effectiveness_cats_dict</span><span class="p">,</span>
+                                    <span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="p">,</span> <span class="n">season</span> <span class="o">=</span> <span class="n">season</span><span class="p">,</span> <span class="n">experiment_group</span> <span class="o">=</span> <span class="s1">&#39;GeoMIP&#39;</span><span class="p">))</span>
+<span class="n">df_G6</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_G6_list</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">## and make a basic plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">df_pivot</span> <span class="o">=</span> <span class="n">df_arise</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Effectiveness&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Fraction_of_land_area&#39;</span><span class="p">)</span>
+<span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ARISE-1.5-SAI&#39;</span><span class="p">)</span>
+<span class="n">df_pivot</span> <span class="o">=</span> <span class="n">df_G6</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Effectiveness&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Fraction_of_land_area&#39;</span><span class="p">)</span>
+<span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;G6sulfur&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">var</span><span class="o">+</span><span class="s1">&#39;; &#39;</span><span class="o">+</span><span class="n">season</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Figures/Demo.jpg&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+</pre></div>
+</div>
+<img alt="../../_images/a6af926d39550e8141f14ccad0685890b9e20f436976700c6c247c59c88cf0bb.png" src="../../_images/a6af926d39550e8141f14ccad0685890b9e20f436976700c6c247c59c88cf0bb.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: divide by zero encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/dask/core.py:133: RuntimeWarning: invalid value encountered in divide
+  return func(*(_execute_task(a, cache) for a in args))
+</pre></div>
+</div>
+</div>
+</div>
+<p>I think that the large amount of ‘undereffective’ land area, particularly for MPI and CNRM comes from imperfectly controlled SAI magnitude in these simulations. I.e. there is global under-cooling, because of imperfect control of the injection magnitude by those running the models.</p>
+</section>
+<section id="now-try-a-demo-of-the-multi-variable-assessment">
+<h1>Now try a demo of the multi-variable assessment:<a class="headerlink" href="#now-try-a-demo-of-the-multi-variable-assessment" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># settings </span>
+<span class="n">season</span> <span class="o">=</span> <span class="s1">&#39;annual&#39;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;CESM2-WACCM&#39;</span>
+
+<span class="n">effectiveness_cats_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;overeffective&#39;</span><span class="p">:[</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span>
+                           <span class="s1">&#39;effective&#39;</span><span class="p">:[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">],</span>
+                           <span class="s1">&#39;undereffective&#39;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span>
+                           <span class="s1">&#39;no impact&#39;</span><span class="p">:[</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span>
+                           <span class="s1">&#39;exacerbates&#39;</span><span class="p">:[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">]}</span>
+
+<span class="n">variables_and_feats</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tas&#39;</span><span class="p">:[</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span><span class="s1">&#39;Mean surface temperature&#39;</span><span class="p">],</span>
+                        <span class="s1">&#39;TXX&#39;</span><span class="p">:[</span><span class="s1">&#39;ETCCDI&#39;</span><span class="p">,</span><span class="s1">&#39;Extreme heat&#39;</span><span class="p">],</span>
+                        <span class="s1">&#39;TNN&#39;</span><span class="p">:[</span><span class="s1">&#39;ETCCDI&#39;</span><span class="p">,</span><span class="s1">&#39;Cold spell&#39;</span><span class="p">],</span>
+                        <span class="s1">&#39;pr&#39;</span><span class="p">:[</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span><span class="s1">&#39;Mean precipitation&#39;</span><span class="p">],</span>
+                        <span class="s1">&#39;RX1D&#39;</span><span class="p">:[</span><span class="s1">&#39;ETCCDI&#39;</span><span class="p">,</span><span class="s1">&#39;Heavy precipitation&#39;</span><span class="p">],</span>
+                        <span class="s1">&#39;RX5D&#39;</span><span class="p">:[</span><span class="s1">&#39;ETCCDI&#39;</span><span class="p">,</span><span class="s1">&#39;River flood&#39;</span><span class="p">],</span>
+                        <span class="s1">&#39;CDD&#39;</span><span class="p">:[</span><span class="s1">&#39;ETCCDI&#39;</span><span class="p">,</span><span class="s1">&#39;Hydrological drought&#39;</span><span class="p">],</span>
+                       <span class="p">}</span>
+
+<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variables_and_feats</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">get_fractions</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">effectiveness_cats_dict</span><span class="o">=</span><span class="n">effectiveness_cats_dict</span><span class="p">,</span>
+                                       <span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="p">,</span> <span class="n">season</span> <span class="o">=</span> <span class="n">season</span><span class="p">,</span> <span class="n">table</span> <span class="o">=</span> <span class="n">variables_and_feats</span><span class="p">[</span><span class="n">var</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                       <span class="n">experiment_group</span> <span class="o">=</span> <span class="s1">&#39;ARISE&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Fraction_of_land_area&#39;</span><span class="p">:</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">variables_and_feats</span><span class="p">[</span><span class="n">var</span><span class="p">][</span><span class="mi">1</span><span class="p">])})</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">df_arise</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_arise</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_arise</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+<span class="c1">## and make a basic plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">df_pivot</span> <span class="o">=</span> <span class="n">df_arise</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Effectiveness&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Fraction_of_land_area&#39;</span><span class="p">)</span>
+<span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ARISE-1.5-SAI&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">var</span><span class="o">+</span><span class="s1">&#39;; &#39;</span><span class="o">+</span><span class="n">season</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Figures/Demo_multi_var.jpg&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File ~/.conda/envs/cmipv2/lib/python3.12/site-packages/pandas/core/indexes/base.py:3805,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3804</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3805</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3806</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File index.pyx:167,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File index.pyx:196,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7081,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;Model&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">32</span><span class="p">],</span> <span class="n">line</span> <span class="mi">35</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="c1">## and make a basic plot</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="ne">---&gt; </span><span class="mi">35</span> <span class="n">df_pivot</span> <span class="o">=</span> <span class="n">df_arise</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Effectiveness&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Fraction_of_land_area&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ARISE-1.5-SAI&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~/.conda/envs/cmipv2/lib/python3.12/site-packages/pandas/core/frame.py:9339,</span> in <span class="ni">DataFrame.pivot</span><span class="nt">(self, columns, index, values)</span>
+<span class="g g-Whitespace">   </span><span class="mi">9332</span> <span class="nd">@Substitution</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">9333</span> <span class="nd">@Appender</span><span class="p">(</span><span class="n">_shared_docs</span><span class="p">[</span><span class="s2">&quot;pivot&quot;</span><span class="p">])</span>
+<span class="g g-Whitespace">   </span><span class="mi">9334</span> <span class="k">def</span> <span class="nf">pivot</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">9335</span>     <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">lib</span><span class="o">.</span><span class="n">no_default</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">lib</span><span class="o">.</span><span class="n">no_default</span>
+<span class="g g-Whitespace">   </span><span class="mi">9336</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">9337</span>     <span class="kn">from</span> <span class="nn">pandas.core.reshape.pivot</span> <span class="kn">import</span> <span class="n">pivot</span>
+<span class="ne">-&gt; </span><span class="mi">9339</span>     <span class="k">return</span> <span class="n">pivot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">)</span>
+
+<span class="nn">File ~/.conda/envs/cmipv2/lib/python3.12/site-packages/pandas/core/reshape/pivot.py:553,</span> in <span class="ni">pivot</span><span class="nt">(data, columns, index, values)</span>
+<span class="g g-Whitespace">    </span><span class="mi">549</span>         <span class="n">index_list</span> <span class="o">=</span> <span class="p">[</span>
+<span class="g g-Whitespace">    </span><span class="mi">550</span>             <span class="n">data</span><span class="o">.</span><span class="n">_constructor_sliced</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">551</span>         <span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">553</span>     <span class="n">index_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">convert_to_list_like</span><span class="p">(</span><span class="n">index</span><span class="p">)]</span>
+<span class="g g-Whitespace">    </span><span class="mi">555</span> <span class="n">data_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns_listlike</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">556</span> <span class="n">index_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">data_columns</span><span class="p">)</span>
+
+<span class="nn">File ~/.conda/envs/cmipv2/lib/python3.12/site-packages/pandas/core/frame.py:4102,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4100</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">4101</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">4102</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4103</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">4104</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File ~/.conda/envs/cmipv2/lib/python3.12/site-packages/pandas/core/indexes/base.py:3812,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3808</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3809</span>         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3810</span>     <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3811</span>         <span class="k">raise</span> <span class="n">InvalidIndexError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3812</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3813</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3814</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3815</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;Model&#39;
+</pre></div>
+</div>
+<img alt="../../_images/f74fa408c86218740f4bc8d8d40be556e1aee16a4b5535e579053fa3887ed409.png" src="../../_images/f74fa408c86218740f4bc8d8d40be556e1aee16a4b5535e579053fa3887ed409.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df_arise</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Set the index to &quot;Effectiveness&quot; for plotting</span>
+<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Effectiveness&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="c1"># Transpose the DataFrame for plotting</span>
+<span class="n">df_t</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Plot a stacked bar chart</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df_t</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;tab20&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add labels and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Fraction of Land Area&quot;</span><span class="p">)</span>
+<span class="c1">#plt.xlabel(&quot;Variables&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ARISE-1.5 SAI CESM2-WACCM, CID land-area effectiveness &quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Effectiveness&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d1b49ab4609ec00aeac2d16ac30b9540fd01ff645b4a3b1cd45991db4b8762eb.png" src="../../_images/d1b49ab4609ec00aeac2d16ac30b9540fd01ff645b4a3b1cd45991db4b8762eb.png" />
+</div>
+</div>
+<section id="below-we-move-on-to-the-regional-version">
+<h2>Below, we move on to the regional version:<a class="headerlink" href="#below-we-move-on-to-the-regional-version" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># need some more packages to handle the shapefile IPCC region data</span>
+
+<span class="kn">import</span> <span class="nn">pyproj</span>
+
+<span class="c1"># the line below is a local fix to set the pyproj installation to the correct place</span>
+<span class="c1"># because my local system was going to the wrong installation of pyproj</span>
+<span class="c1"># it should be unneccesary on other systems, and will throw an error from the filepath</span>
+<span class="n">pyproj</span><span class="o">.</span><span class="n">datadir</span><span class="o">.</span><span class="n">set_data_dir</span><span class="p">(</span><span class="s1">&#39;/home/users/a_duffey/.conda/envs/cmipv2/share/proj&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">rioxarray</span>
+<span class="kn">from</span> <span class="nn">rasterio.features</span> <span class="kn">import</span> <span class="n">geometry_mask</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### v0:</span>
+
+<span class="n">variables_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tas&#39;</span><span class="p">:</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;pr&#39;</span><span class="p">:</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;TXX&#39;</span><span class="p">:</span><span class="s1">&#39;ETCCDI&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;RX1D&#39;</span> <span class="p">:</span><span class="s1">&#39;ETCCDI&#39;</span><span class="p">}</span>
+
+<span class="c1"># read in IPCC reference regions</span>
+<span class="n">shapefile_path</span> <span class="o">=</span> <span class="s1">&#39;extra_data/IPCC_ref_regions/referenceRegions.shp&#39;</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">shapefile_path</span><span class="p">)</span>
+<span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;centroid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span>
+
+
+<span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variables_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">variables_dict</span><span class="p">[</span><span class="n">var</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">table</span> <span class="o">==</span> <span class="s1">&#39;Amon&#39;</span><span class="p">:</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="n">CESMize_var_names</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+    
+    <span class="n">target</span><span class="p">,</span> <span class="n">warming</span><span class="p">,</span> <span class="n">SAI</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s1">&#39;ARISE&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> 
+                                                <span class="n">windows</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;SSP245_baseline&#39;</span><span class="p">,</span> <span class="s1">&#39;SSP245_background&#39;</span><span class="p">,</span> <span class="s1">&#39;ARISE_assmt&#39;</span><span class="p">],</span>
+                                                <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> 
+                                                <span class="n">mean_or_std</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">)</span>
+    
+    <span class="c1">### HACK TO FIX MISLABELLED ETCCDI indices:</span>
+    <span class="c1">### as of tues 21 jan</span>
+    <span class="c1">### remove this shortly when updated dataset</span>
+    <span class="c1">### is provided. </span>
+    <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="s1">&#39;TXX&#39;</span><span class="p">:</span>
+        <span class="n">warming</span><span class="p">,</span> <span class="n">SAI</span> <span class="o">=</span> <span class="n">SAI</span><span class="p">,</span> <span class="n">warming</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NOTE: swapping mislabelled SAI and SSP245 temp indices&#39;</span><span class="p">)</span> 
+    <span class="c1">###</span>
+    <span class="c1">###</span>
+    
+    <span class="c1">## get values for &#39;effectiveness&#39;</span>
+    <span class="n">change_warming</span> <span class="o">=</span> <span class="n">warming</span> <span class="o">-</span> <span class="n">target</span>
+    <span class="n">change_SAI</span> <span class="o">=</span> <span class="n">warming</span> <span class="o">-</span> <span class="n">SAI</span>
+    <span class="n">change_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="n">change_SAI</span><span class="o">/</span><span class="n">change_warming</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+    
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">adjust_longitude</span><span class="p">(</span><span class="n">change_ratio</span><span class="p">)</span>
+    
+    <span class="c1"># Loop through each geometry (region) in the GeoDataFrame</span>
+    <span class="n">region_means</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">region_geometry</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
+        
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">geometry_mask</span><span class="p">([</span><span class="n">region_geometry</span><span class="p">],</span> <span class="n">transform</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">transform</span><span class="p">(),</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">out_shape</span><span class="o">=</span><span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">masked_data</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+    
+        <span class="n">region_mean</span> <span class="o">=</span> <span class="n">masked_data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">region_mean_name</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span> <span class="ow">in</span> <span class="n">effectiveness_cats_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">low</span> <span class="o">&lt;=</span> <span class="n">region_mean</span> <span class="o">&lt;</span> <span class="n">high</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">region_means</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;LAB&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;LAB&#39;</span><span class="p">],</span>  
+            <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_value&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">):</span> <span class="n">region_mean</span><span class="p">,</span>
+            <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_label&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">):</span><span class="n">region_mean_name</span><span class="p">,</span>
+        <span class="p">})</span>
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">region_means</span><span class="p">)</span>
+
+    <span class="c1"># join results back onto the gdf:</span>
+    
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;LAB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_932/2702822268.py:11: UserWarning: Geometry is in a geographic CRS. Results from &#39;centroid&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+
+  gdf[&#39;centroid&#39;] = gdf.geometry.centroid
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NOTE: swapping mislabelled SAI and SSP245 temp indices
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### now plot:</span>
+
+<span class="n">colordict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;overeffective&#39;</span><span class="p">:</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;effective&#39;</span><span class="p">:</span><span class="s1">&#39;lime&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;undereffective&#39;</span><span class="p">:</span><span class="s1">&#39;palegreen&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;no impact&#39;</span><span class="p">:</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;exacerbates&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">Robinson</span><span class="p">()})</span>
+<span class="c1">#ax.add_feature(cfeature.BORDERS, linestyle=&#39;--&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># Loop through each region and plot its geometry with color based on &#39;mean_value&#39;</span>
+<span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+
+<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">offsets_x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> 
+             <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+<span class="n">offsets_y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> 
+             <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;TREFHT&#39;</span><span class="p">:</span><span class="s1">&#39;T&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;PRECT&#39;</span><span class="p">:</span><span class="s1">&#39;P&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;TXX&#39;</span><span class="p">:</span><span class="s1">&#39;TXx&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;RX1D&#39;</span><span class="p">:</span><span class="s1">&#39;RX1D&#39;</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variables_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">variables_dict</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Amon&#39;</span><span class="p">:</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="n">CESMize_var_names</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+    
+    <span class="n">offset_x</span> <span class="o">=</span> <span class="n">offsets_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">offset_y</span> <span class="o">=</span> <span class="n">offsets_y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    
+    
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">colordict</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_label&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">)]]</span>
+        <span class="n">centroid</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;centroid&#39;</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">offset_x</span><span class="p">,</span> <span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="o">+</span><span class="n">offset_y</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">var</span><span class="p">]),</span> 
+            <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> 
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    
+    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">colordict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colordict</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">)</span>       
+<span class="n">ax</span><span class="o">.</span><span class="n">set_global</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Figures/Demo_spatial_v0.jpg&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ecee466fb57d9b8736c0e9674871d2df948d1332395fd35a1e4fa978abfc629b.png" src="../../_images/ecee466fb57d9b8736c0e9674871d2df948d1332395fd35a1e4fa978abfc629b.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "cmipv2"
+        },
+        kernelOptions: {
+            name: "cmipv2",
+            path: "./Preprocessed_archive/Usage_example"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'cmipv2'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">demo using the post-processed data archive (pp_archive) to assess efffectiveness of SAI across a range of impacts</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#now-try-a-demo-of-the-multi-variable-assessment">Now try a demo of the multi-variable assessment:</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#below-we-move-on-to-the-regional-version">Below, we move on to the regional version:</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alistair Duffey, supported by Reflective, with contributions from xx
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
