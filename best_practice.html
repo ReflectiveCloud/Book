@@ -353,8 +353,9 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="best-practices">
 <h1>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h1>
+<p>Modeled on the <a class="reference external" href="https://book.cryointhecloud.com/content/hub_best_practices.html">CryoCloud Best Practices</a></p>
 <hr class="docutils" />
-<p>After loggin in and clicking <code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">server',</span> <span class="pre">there</span> <span class="pre">are</span> <span class="pre">two</span> <span class="pre">options</span> <span class="pre">to</span> <span class="pre">select:</span> </code>environment’ and `resource allocation’.</p>
+<p>After loggin in and clicking <code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">server</span></code>, there are two options to select: <code class="docutils literal notranslate"><span class="pre">environment</span></code> and <code class="docutils literal notranslate"><span class="pre">resource</span> <span class="pre">allocation</span></code>.</p>
 <ul class="simple">
 <li><p>Environment: Select Pangeo Notebook Image to start a python environment with a set of common geoscience packages including those from the <a class="reference external" href="https://pangeo.io/#ecosystem">Pangeo</a> ecosystem. This is the environment required to run our example notebooks.</p></li>
 <li><p>Resource: Please select the smallest resource (RAM and CPUs) which can meet your needs for a given workflow. The higher resource options cost us signficantly more. You can see your memory usage at the bottom of the screen when working in a notebook.</p></li>
@@ -368,9 +369,12 @@
 <li><p>Close that browser tab before starting the server again to prevent errors</p></li>
 </ul>
 <hr class="docutils" />
-<p>The hub will automatically shut off after 90 minute of no active use or by the user logging off</p>
+<p>The hub will automatically shut off after 90 minutes without activity.</p>
 <hr class="docutils" />
-<p>Please keep saved files in your home directory to a minimum. Let us know if you need to store more than around 10GB.</p>
+<p>Please keep saved files in your home directory to a minimum. Let us know if you need to store more than around 10GB. We recommend workflows which stream data without downloading to a file, or which automatically delete files after using them. You can check total usage by running the following command in a terminal: <code class="docutils literal notranslate"><span class="pre">du</span> <span class="pre">-hs</span> <span class="pre">--exclude=&quot;shared*&quot;</span> <span class="pre">~/</span></code>.</p>
+<hr class="docutils" />
+<p>Packages can be installed using pip (<code class="docutils literal notranslate"><span class="pre">%</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">packagename</span></code>) if the standard Pangeo environment does not have them. However, these installs only last for the duration of that session.</p>
+<hr class="docutils" />
 </section>
 
     <script type="text/x-thebe-config">
