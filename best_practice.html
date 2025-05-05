@@ -64,7 +64,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="This section contains two notebooks showing examples of working directly with data on the ESGF nodes, downloading on the fly directly in the notebook." href="Resources/GeoMIP_from_ESGF/ESGF_intro.html" />
+    <link rel="next" title="GeoMIP analysis using ESGF" href="Resources/GeoMIP_from_ESGF/ESGF_intro.html" />
     <link rel="prev" title="Useful links" href="useful_links.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -177,8 +177,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="Resources/GeoMIP_from_ESGF/ESGF_intro.html">This section contains two notebooks showing examples of working directly with data on the ESGF nodes, downloading on the fly directly in the notebook.</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Resources/GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP analysis using ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="Resources/GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Resources/GeoMIP_from_ESGF/G6sulfur_from_ESGF_example.html">Loading and working with GeoMIP (G6sulfur) data directly from ESGF</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="Resources/pp_archive/pp_archive_intro.html">An archive of pre-processed SAI simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -353,16 +354,21 @@
   <section class="tex2jax_ignore mathjax_ignore" id="best-practices">
 <h1>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h1>
 <hr class="docutils" />
-<p>Close out your browser tab every time that you log out. This keeps each log in clean and can prevent weird artifacts from popping up on your next log in.</p>
-<hr class="docutils" />
-<p>To save money for us, when you finish on the Hub</p>
+<p>After loggin in and clicking <code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">server',</span> <span class="pre">there</span> <span class="pre">are</span> <span class="pre">two</span> <span class="pre">options</span> <span class="pre">to</span> <span class="pre">select:</span> </code>environment’ and `resource allocation’.</p>
 <ul class="simple">
-<li><p>Go to <code class="docutils literal notranslate"><span class="pre">File</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Hub</span> <span class="pre">Control</span> <span class="pre">Panel</span></code> &gt; push <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">Server</span></code></p></li>
-<li><p>Once that button disappears, your server has stopped</p></li>
-<li><p>Click <code class="docutils literal notranslate"><span class="pre">Log</span> <span class="pre">Out</span></code></p></li>
-<li><p>Close that browser tab before starting CryoCloud again to prevent errors –&gt; You may receive an error if you try to restart CryoCloud from this same tab</p></li>
+<li><p>Environment: Select Pangeo Notebook Image to start a python environment with a set of common geoscience packages including those from the <a class="reference external" href="https://pangeo.io/#ecosystem">Pangeo</a> ecosystem. This is the environment required to run our example notebooks.</p></li>
+<li><p>Resource: Please select the smallest resource (RAM and CPUs) which can meet your needs for a given workflow. The higher resource options cost us signficantly more. You can see your memory usage at the bottom of the screen when working in a notebook.</p></li>
 </ul>
-<p><font color="red">The hub will automatically shut off after 90 minute of no active use or by the user logging off</font></p>
+<hr class="docutils" />
+<p>To avoid unneccessary costs, please shutdown your server when you finish on the Hub:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">File</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Hub</span> <span class="pre">Control</span> <span class="pre">Panel</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">Server</span></code></p></li>
+<li><p>Once the `Stop Server’ button disappears, your server has stopped</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Log</span> <span class="pre">Out</span></code></p></li>
+<li><p>Close that browser tab before starting the server again to prevent errors</p></li>
+</ul>
+<hr class="docutils" />
+<p>The hub will automatically shut off after 90 minute of no active use or by the user logging off</p>
 <hr class="docutils" />
 <p>Please keep saved files in your home directory to a minimum. Let us know if you need to store more than around 10GB.</p>
 </section>
@@ -411,7 +417,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">This section contains two notebooks showing examples of working directly with data on the ESGF nodes, downloading on the fly directly in the notebook.</p>
+        <p class="prev-next-title">GeoMIP analysis using ESGF</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
