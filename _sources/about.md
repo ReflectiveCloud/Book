@@ -15,7 +15,7 @@ This jupyter book is written to accompany a new cloud hub, which will be a deplo
 * Code examples for working with the Amazon Web Services (AWS) ARISE data store 
 
 ### How to contribute
-Contributions are very welcome! Open pull requests or issues on the Github repo here https://github.com/alistairduffey/GeoCloud/tree/main
+Contributions are very welcome! Open pull requests or issues on the Github repo here https://github.com/ReflectiveCloud/Book
 
 This book was inspired by the CryCloud project. See here (https://book.cryointhecloud.com/contributing/workflow.html) for a useful guide to the general process of contributing to Github based open source projects like this one.  
 

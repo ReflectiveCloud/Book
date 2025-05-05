@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; ReflectiveCloud; SRM research Community Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Resources/GeoMIP_from_ESGF/G6sulfur_from_ESGF_example';</script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="An archive of pre-processed SAI simulations" href="../pp_archive/pp_archive_intro.html" />
+    <link rel="prev" title="Loading data directly from ESGF nodes" href="search_and_load_from_esgf.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="ReflectiveCloud; SRM research Community Book - Home"/>
+    <img src="../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="ReflectiveCloud; SRM research Community Book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to the ReflectiveCloud
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Preamble</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../useful_links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../best_practice.html">Best Practices</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="ESGF_intro.html">This section contains two notebooks showing examples of working directly with data on the ESGF nodes, downloading on the fly directly in the notebook.</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pp_archive/pp_archive_intro.html">An archive of pre-processed SAI simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_intro.html">Using the AWS ARISE-SAI-1.5 simulations cloud archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
+
+
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/ReflectiveCloud/Book/tree/main" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/Resources/GeoMIP_from_ESGF/G6sulfur_from_ESGF_example.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">xmip.preprocessing</span> <span class="kn">import</span> <span class="n">rename_cmip6</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="c1">#from utils import weighted_seasonal_resample, weighted_annual_resample, calc_weighted_spatial_means</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s1">&#39;xarray&#39;</span><span class="p">)</span> <span class="c1"># not great practice, but xarray tends to give lots of verbose warnings</span>
+
+<span class="c1"># user inputs</span>
+<span class="n">scenarios</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ssp245&#39;</span><span class="p">,</span> <span class="s1">&#39;ssp585&#39;</span><span class="p">,</span> <span class="s1">&#39;G6sulfur&#39;</span><span class="p">]</span>
+
+
+<span class="c1"># time-periods over which to take means</span>
+<span class="n">assessment_periods</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Future&#39;</span><span class="p">:</span><span class="nb">slice</span><span class="p">(</span><span class="s1">&#39;2080&#39;</span><span class="p">,</span> <span class="s1">&#39;2099&#39;</span><span class="p">),</span>
+                      <span class="s1">&#39;Baseline&#39;</span><span class="p">:</span><span class="nb">slice</span><span class="p">(</span><span class="s1">&#39;2015&#39;</span><span class="p">,</span> <span class="s1">&#39;2034&#39;</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># on starting the server, we need to run the line below once, as intake_esgf is not yet in our standard pangeo environment</span>
+<span class="c1"># but it can be commented out after this, to save time</span>
+<span class="o">%</span><span class="k">pip</span> install intake_esgf
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">intake_esgf</span>
+<span class="n">cat</span> <span class="o">=</span> <span class="n">ESGFCatalog</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">intake_esgf</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">all_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cat</span> <span class="o">=</span> <span class="n">ESGFCatalog</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+    <span class="n">project</span><span class="o">=</span><span class="s1">&#39;CMIP6&#39;</span><span class="p">,</span>
+    <span class="n">experiment_id</span><span class="o">=</span><span class="n">scenarios</span><span class="p">,</span>
+    <span class="n">source_id</span><span class="o">=</span><span class="s1">&#39;UKESM1-0-LL&#39;</span><span class="p">,</span>
+    <span class="n">variable_id</span><span class="o">=</span><span class="s1">&#39;tas&#39;</span><span class="p">,</span>  <span class="c1"># surface air temperature</span>
+    <span class="n">table_id</span><span class="o">=</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span>    <span class="c1"># monthly atmospheric data</span>
+    <span class="n">variant_label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r1i1p1f2&#39;</span><span class="p">]</span>  <span class="c1"># ensemble member</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "448702d1b66d49ffbc61ad0cc994783c", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Summary information for 3 results:
+mip_era                              [CMIP6]
+activity_drs           [ScenarioMIP, GeoMIP]
+institution_id                        [MOHC]
+source_id                      [UKESM1-0-LL]
+experiment_id     [ssp245, ssp585, G6sulfur]
+member_id                         [r1i1p1f2]
+table_id                              [Amon]
+variable_id                            [tas]
+grid_label                              [gn]
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dsd</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">(</span><span class="n">add_measures</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "667a56a8b16148a086aafd896966f0bf", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading 132.4 [Mb]...
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bb0576945fbc4f9ba485560a3889158b", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "05927c65d9ca4bd5941f65d488842b85", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "c3638250bf9044a68971f359e3b1802e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "3f7fcea6a93840d8b3270bff145cf0ae", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "f143cd96a84d40998a3bb6862180faf7", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;ScenarioMIP.ssp245&#39;: &lt;xarray.Dataset&gt; Size: 120MB
+ Dimensions:    (time: 1032, bnds: 2, lat: 144, lon: 192)
+ Coordinates:
+   * time       (time) object 8kB 2015-01-16 00:00:00 ... 2100-12-16 00:00:00
+   * lat        (lat) float64 1kB -89.38 -88.12 -86.88 ... 86.88 88.12 89.38
+   * lon        (lon) float64 2kB 0.9375 2.812 4.688 6.562 ... 355.3 357.2 359.1
+     height     float64 8B 1.5
+ Dimensions without coordinates: bnds
+ Data variables:
+     time_bnds  (time, bnds) object 17kB dask.array&lt;chunksize=(1, 2), meta=np.ndarray&gt;
+     lat_bnds   (time, lat, bnds) float64 2MB dask.array&lt;chunksize=(420, 144, 2), meta=np.ndarray&gt;
+     lon_bnds   (time, lon, bnds) float64 3MB dask.array&lt;chunksize=(420, 192, 2), meta=np.ndarray&gt;
+     tas        (time, lat, lon) float32 114MB dask.array&lt;chunksize=(1, 144, 192), meta=np.ndarray&gt;
+     areacella  (lat, lon) float32 111kB ...
+ Attributes: (12/48)
+     Conventions:            CF-1.7 CMIP-6.2
+     activity_id:            ScenarioMIP
+     branch_method:          standard
+     branch_time_in_child:   59400.0
+     branch_time_in_parent:  59400.0
+     creation_date:          2019-04-18T14:21:20Z
+     ...                     ...
+     variant_label:          r1i1p1f2
+     license:                CMIP6 model data produced by the Met Office Hadle...
+     cmor_version:           3.4.0
+     tracking_id:            hdl:21.14100/53ca95cf-f8c8-4606-9d5b-2ba5e10907f0
+     activity_drs:           ScenarioMIP
+     member_id:              r1i1p1f2,
+ &#39;ScenarioMIP.ssp585&#39;: &lt;xarray.Dataset&gt; Size: 120MB
+ Dimensions:    (time: 1032, bnds: 2, lat: 144, lon: 192)
+ Coordinates:
+   * time       (time) object 8kB 2015-01-16 00:00:00 ... 2100-12-16 00:00:00
+   * lat        (lat) float64 1kB -89.38 -88.12 -86.88 ... 86.88 88.12 89.38
+   * lon        (lon) float64 2kB 0.9375 2.812 4.688 6.562 ... 355.3 357.2 359.1
+     height     float64 8B 1.5
+ Dimensions without coordinates: bnds
+ Data variables:
+     time_bnds  (time, bnds) object 17kB dask.array&lt;chunksize=(1, 2), meta=np.ndarray&gt;
+     lat_bnds   (time, lat, bnds) float64 2MB dask.array&lt;chunksize=(420, 144, 2), meta=np.ndarray&gt;
+     lon_bnds   (time, lon, bnds) float64 3MB dask.array&lt;chunksize=(420, 192, 2), meta=np.ndarray&gt;
+     tas        (time, lat, lon) float32 114MB dask.array&lt;chunksize=(1, 144, 192), meta=np.ndarray&gt;
+     areacella  (lat, lon) float32 111kB ...
+ Attributes: (12/48)
+     Conventions:            CF-1.7 CMIP-6.2
+     activity_id:            ScenarioMIP
+     branch_method:          standard
+     branch_time_in_child:   59400.0
+     branch_time_in_parent:  59400.0
+     creation_date:          2019-04-18T14:32:46Z
+     ...                     ...
+     variant_label:          r1i1p1f2
+     license:                CMIP6 model data produced by the Met Office Hadle...
+     cmor_version:           3.4.0
+     tracking_id:            hdl:21.14100/99449bbe-e9f9-4da7-aff6-b0e95a6e51ac
+     activity_drs:           ScenarioMIP
+     member_id:              r1i1p1f2,
+ &#39;GeoMIP.G6sulfur&#39;: &lt;xarray.Dataset&gt; Size: 113MB
+ Dimensions:    (time: 972, bnds: 2, lat: 144, lon: 192)
+ Coordinates:
+   * time       (time) object 8kB 2020-01-16 00:00:00 ... 2100-12-16 00:00:00
+   * lat        (lat) float64 1kB -89.38 -88.12 -86.88 ... 86.88 88.12 89.38
+   * lon        (lon) float64 2kB 0.9375 2.812 4.688 6.562 ... 355.3 357.2 359.1
+     height     float64 8B 1.5
+ Dimensions without coordinates: bnds
+ Data variables:
+     time_bnds  (time, bnds) object 16kB dask.array&lt;chunksize=(1, 2), meta=np.ndarray&gt;
+     lat_bnds   (time, lat, bnds) float64 2MB dask.array&lt;chunksize=(360, 144, 2), meta=np.ndarray&gt;
+     lon_bnds   (time, lon, bnds) float64 3MB dask.array&lt;chunksize=(360, 192, 2), meta=np.ndarray&gt;
+     tas        (time, lat, lon) float32 107MB dask.array&lt;chunksize=(1, 144, 192), meta=np.ndarray&gt;
+     areacella  (lat, lon) float32 111kB ...
+ Attributes: (12/49)
+     Conventions:            CF-1.7 CMIP-6.2
+     activity_id:            GeoMIP
+     branch_method:          standard
+     branch_time_in_child:   61200.0
+     branch_time_in_parent:  61200.0
+     creation_date:          2019-11-12T11:49:10Z
+     ...                     ...
+     variant_label:          r1i1p1f2
+     license:                CMIP6 model data produced by the Met Office Hadle...
+     cmor_version:           3.4.0
+     tracking_id:            hdl:21.14100/a2ed4698-3b65-44d8-8599-99490b5b6155
+     activity_drs:           GeoMIP
+     member_id:              r1i1p1f2}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">global_mean</span><span class="p">(</span><span class="n">dsd</span><span class="p">[</span><span class="s1">&#39;ScenarioMIP.ssp245&#39;</span><span class="p">],</span> <span class="s1">&#39;tas&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;AS&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">tas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f2bb821da60&gt;]
+</pre></div>
+</div>
+<img alt="../../_images/4dd83eee83f28229be58603dcf7c26fa888a71d7faa387eeb0239ca8ac251500.png" src="../../_images/4dd83eee83f28229be58603dcf7c26fa888a71d7faa387eeb0239ca8ac251500.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## example usage, lets plot the global spatial mean timeseries under the three scenarios:</span>
+
+<span class="c1"># first, define a function to get the global mean, accounting for area weights (areacella)</span>
+<span class="k">def</span> <span class="nf">global_mean</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">variable</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;areacella&#39;</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span>
+    
+    <span class="c1"># Normalize weights to sum to 1</span>
+    <span class="n">weights_normalized</span> <span class="o">=</span> <span class="n">weights</span> <span class="o">/</span> <span class="n">weights</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="c1"># Apply weighted mean</span>
+    <span class="n">global_mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">*</span> <span class="n">weights_normalized</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">global_mean</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">variable</span><span class="p">)</span>
+    
+<span class="c1"># second, define a function to resample to annual resolution</span>
+<span class="c1"># note, in general we have to account for different month lengths</span>
+<span class="k">def</span> <span class="nf">weighted_annual_resample</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    weight by days in each month</span>
+<span class="sd">    adapted from NCAR docs </span>
+<span class="sd">    https://ncar.github.io/esds/posts/2021/yearly-averages-xarray/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Determine the month length</span>
+    <span class="n">month_length</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">days_in_month</span>
+
+    <span class="c1"># Calculate the weights</span>
+    <span class="n">wgts</span> <span class="o">=</span> <span class="n">month_length</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;time.year&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">month_length</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;time.year&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="c1"># Make sure the weights in each year add up to 1</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">wgts</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;time.year&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">ALL_DIMS</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="n">numerator</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span> <span class="o">*</span> <span class="n">wgts</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">&quot;YS&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">wgts</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">&quot;YS&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">numerator</span><span class="o">/</span><span class="n">denominator</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a quick plot:</span>
+
+<span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ScenarioMIP.ssp245&#39;</span><span class="p">,</span> <span class="s1">&#39;ScenarioMIP.ssp585&#39;</span><span class="p">,</span> <span class="s1">&#39;GeoMIP.G6sulfur&#39;</span><span class="p">]:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">weighted_annual_resample</span><span class="p">(</span><span class="n">global_mean</span><span class="p">(</span><span class="n">dsd</span><span class="p">[</span><span class="n">scenario</span><span class="p">],</span> <span class="s1">&#39;tas&#39;</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">tas</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">scenario</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f2b97965d90&gt;
+</pre></div>
+</div>
+<img alt="../../_images/fba23d73b28369ae4ab47ae23ff3435fafacbea2ad53033246baf3d5a43972bc.png" src="../../_images/fba23d73b28369ae4ab47ae23ff3435fafacbea2ad53033246baf3d5a43972bc.png" />
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Resources/GeoMIP_from_ESGF"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="search_and_load_from_esgf.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Loading data directly from ESGF nodes</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../pp_archive/pp_archive_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">An archive of pre-processed SAI simulations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Reflective, with infrastructure built by 2i2c
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
