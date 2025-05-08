@@ -18,6 +18,7 @@ Several initial resources are gathered here as described below, but this book is
 
 ### Contents
 
+* Code examples for working with GeoMIP and CMIP data stored on the Earth System Grid (ESGF)
 * A new preprocessed archive of some common SAI simulations
 * Code examples for working with the Amazon Web Services (AWS) ARISE data store 
 

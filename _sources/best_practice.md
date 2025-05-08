@@ -20,6 +20,10 @@ To avoid unneccessary costs, please shutdown your server when you finish on the 
 
 The hub will automatically shut off after 90 minutes without activity. 
 
+***
+
+It can take a minute or two for the server to start up when first launching. 
+
 *** 
 
 Please keep saved files in your home directory to a minimum. Let us know if you need to store more than around 10GB. We recommend workflows which stream data without downloading to a file, or which automatically delete files after using them. You can check total usage by running the following command in a terminal: `du -hs --exclude="shared*" ~/`. 
