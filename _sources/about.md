@@ -28,5 +28,7 @@ Contributions are very welcome! Open pull requests or issues on the Github repo 
 This book was inspired by the CryCloud project. See here (https://book.cryointhecloud.com/contributing/workflow.html) for a useful guide to the general process of contributing to Github based open source projects like this one.  
 
 
+***
 
+This resource is in active develoopment and we welcome feedback - get in touch [here](https://forms.reflective.org/cloud-feedback)
 
