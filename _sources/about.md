@@ -5,7 +5,14 @@
 * To support collaborative, reproducible and efficient data science in the SRM research community
 * To equip researchers with computational resources in the cloud
 
-This jupyter book is written to accompany a new cloud hub, which will be a deployment of a pangeo python environment on cloud computing resources, available to the SRM research community. Several initial resources are gathered here as described below, but this book is a work in progress, and we are looking for contributions from the community to help it grow!  
+This jupyter book is written to accompany a cloud hub - the [ReflectiveCloud](https://reflective.2i2c.cloud/) which is a Jupyter notebook server providing free compute power in a pangeo python environment on cloud computing resources, available to the SRM research community.
+***
+
+To apply for access, fill out the [form here](https://forms.reflective.org/cloud-hub-access).
+
+***
+
+Several initial resources are gathered here as described below, but this book is a work in progress, and we are looking for contributions from the community to help it grow! Contributions are welcome [via Github](https://github.com/ReflectiveCloud/Book).  
 
 
 
