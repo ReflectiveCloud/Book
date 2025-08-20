@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>An archive of pre-processed SAI simulations &#8212; ReflectiveCloud; SRM research Community Book</title>
+    <title>An Archive of Pre-processed SAI Simulations &#8212; ReflectiveCloud; SRM research Community Book</title>
   
   
   
@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -68,7 +65,6 @@
     <link rel="prev" title="Loading and working with GeoMIP (G6sulfur) data directly from ESGF" href="../GeoMIP_from_ESGF/G6sulfur_from_ESGF_example.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -84,8 +80,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -93,6 +100,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -100,8 +108,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -117,8 +125,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -148,17 +155,21 @@
     
     
     <img src="../../_static/logo.png" class="logo__image only-light" alt="ReflectiveCloud; SRM research Community Book - Home"/>
-    <img src="../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="ReflectiveCloud; SRM research Community Book - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="ReflectiveCloud; SRM research Community Book - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -172,22 +183,22 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Preamble</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../useful_links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../useful_links.html">Useful Links</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../best_practice.html">Best Practices</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP analysis using ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP Analysis Using ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../GeoMIP_from_ESGF/G6sulfur_from_ESGF_example.html">Loading and working with GeoMIP (G6sulfur) data directly from ESGF</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">An archive of pre-processed SAI simulations</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">An Archive of Pre-processed SAI Simulations</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
 
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_intro.html">Using the AWS ARISE-SAI-1.5 simulations cloud archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_intro.html">Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
@@ -316,16 +327,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -339,7 +358,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>An archive of pre-processed SAI simulations</h1>
+    <h1>An Archive of Pre-processed SAI Simulations</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -349,7 +368,23 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-data">Input Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arise-1-5k-simulations"><strong>ARISE-1.5K Simulations</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#g6sulfur-simulations-6-models"><strong>G6sulfur Simulations</strong> (6 models)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-control-runs"><strong>Background/Control Runs</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-selection">Variable Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data"><strong>1. Download Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup"><strong>2. Setup</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-example"><strong>3. Run Example</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-repository">Code Repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a></li>
 </ul>
             </nav>
         </div>
@@ -362,25 +397,82 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="an-archive-of-pre-processed-sai-simulations">
-<h1>An archive of pre-processed SAI simulations<a class="headerlink" href="#an-archive-of-pre-processed-sai-simulations" title="Link to this heading">#</a></h1>
-<p>process common SAI simulations into a small (~1GB), user-friendly, archive of data in an analysis-ready format. It also has a usage example notebook, showing how to use this pre-procesed archive to derive some common analyses of SAI scenarios.</p>
-<p>Inputs:</p>
+<h1>An Archive of Pre-processed SAI Simulations<a class="headerlink" href="#an-archive-of-pre-processed-sai-simulations" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>This archive processes common SAI simulations into a small (~1GB), user-friendly, analysis-ready format. It includes a usage example notebook showing how to derive common analyses of SAI scenarios.</p>
+</section>
+<hr class="docutils" />
+<section id="input-data">
+<h2>Input Data<a class="headerlink" href="#input-data" title="Link to this heading">#</a></h2>
+<section id="arise-1-5k-simulations">
+<h3><strong>ARISE-1.5K Simulations</strong><a class="headerlink" href="#arise-1-5k-simulations" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>ARISE-1.5K simulations (UKESM1 and CESM2-WACCM)</p></li>
-<li><p>G6sulfur simulations for 6 models: UKESM1, CESM2-WACCM, IPSL-CM6A, MPI-ESM1-2 (High and low resolution), CESM2-WACCM, and CNRM-ESM2</p></li>
+<li><p>UKESM1 and CESM2-WACCM</p></li>
 </ul>
-<p>For each SAI simulation, background/control runs are also used. For ARISE, this is the SSP2-4.5 run (and the end of the historical run for UKESM1). For G6sulfur, this is both the SSP5-8.5 run (the ‘background’) and the SSP2-4.5 run (the ‘baseline’ and ‘target’).
-We calculate outputs for a limited a set of variables. We have prioritised these variables following the list of Baseline Climate Variables defined by Juckes et al.  (<a class="reference external" href="https://egusphere.copernicus.org/preprints/2024/egusphere-2024-2363/">https://egusphere.copernicus.org/preprints/2024/egusphere-2024-2363/</a>), and within this, by the rate of download by the community (as shown here <a class="reference external" href="http://esgf-ui.cmcc.it/esgf-dashboard-ui/cmip6.html">http://esgf-ui.cmcc.it/esgf-dashboard-ui/cmip6.html</a>).</p>
-<p>Outputs:</p>
+</section>
+<section id="g6sulfur-simulations-6-models">
+<h3><strong>G6sulfur Simulations</strong> (6 models)<a class="headerlink" href="#g6sulfur-simulations-6-models" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Maps of time-means and standard deviations</p></li>
-<li><p>Time-series of global, land and ocean means</p></li>
+<li><p>UKESM1, CESM2-WACCM, IPSL-CM6A</p></li>
+<li><p>MPI-ESM1-2 (High and low resolution)</p></li>
+<li><p>CNRM-ESM2</p></li>
 </ul>
-<p>To run the code in pp_archive_usage_example.ipynb, first download the data archive from zenodo, then place the unzipped archive in a folder ‘pp_archive/’ in your working directory.</p>
-<p>To download the data, go to <a class="reference external" href="https://zenodo.org/records/14802397">https://zenodo.org/records/14802397</a>
-The code to make the archive is on Github here <a class="github reference external" href="https://github.com/alistairduffey/SRM_nutshell">alistairduffey/SRM_nutshell</a></p>
+</section>
+<section id="background-control-runs">
+<h3><strong>Background/Control Runs</strong><a class="headerlink" href="#background-control-runs" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>ARISE</strong>: SSP2-4.5 run (and end of historical for UKESM1)</p></li>
+<li><p><strong>G6sulfur</strong>: SSP5-8.5 run (background) and SSP2-4.5 run (baseline/target)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="variable-selection">
+<h2>Variable Selection<a class="headerlink" href="#variable-selection" title="Link to this heading">#</a></h2>
+<p>We prioritize variables based on:</p>
+<ol class="arabic simple">
+<li><p><strong>Baseline Climate Variables</strong> defined by <a class="reference external" href="https://egusphere.copernicus.org/preprints/2024/egusphere-2024-2363/">Juckes et al. (2024)</a></p></li>
+<li><p><strong>Community download rates</strong> from <a class="reference external" href="http://esgf-ui.cmcc.it/esgf-dashboard-ui/cmip6.html">ESGF dashboard</a></p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="outputs">
+<h2>Outputs<a class="headerlink" href="#outputs" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Maps</strong>: Time-means and standard deviations</p></li>
+<li><p><strong>Time-series</strong>: Global, land and ocean means</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<section id="download-data">
+<h3><strong>1. Download Data</strong><a class="headerlink" href="#download-data" title="Link to this heading">#</a></h3>
+<p>Get the archive from: <a class="reference external" href="https://zenodo.org/records/14802397">https://zenodo.org/records/14802397</a></p>
+</section>
+<section id="setup">
+<h3><strong>2. Setup</strong><a class="headerlink" href="#setup" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Unzip the archive</p></li>
+<li><p>Place in a folder named <code class="docutils literal notranslate"><span class="pre">pp_archive/</span></code> in your working directory</p></li>
+</ul>
+</section>
+<section id="run-example">
+<h3><strong>3. Run Example</strong><a class="headerlink" href="#run-example" title="Link to this heading">#</a></h3>
+<p>Use the notebook: <code class="docutils literal notranslate"><span class="pre">pp_archive_usage_example.ipynb</span></code></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="code-repository">
+<h2>Code Repository<a class="headerlink" href="#code-repository" title="Link to this heading">#</a></h2>
+<p>The code to create this archive is available on GitHub: <a class="github reference external" href="https://github.com/alistairduffey/SRM_nutshell">alistairduffey/SRM_nutshell</a></p>
+</section>
+<hr class="docutils" />
 <section id="data-structure">
-<h2>Data structure<a class="headerlink" href="#data-structure" title="Link to this heading">#</a></h2>
+<h2>Data Structure<a class="headerlink" href="#data-structure" title="Link to this heading">#</a></h2>
+<p><em>[Data structure details to be added]</em></p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -441,8 +533,7 @@ The code to make the archive is on Github here <a class="github reference extern
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -451,7 +542,23 @@ The code to make the archive is on Github here <a class="github reference extern
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-data">Input Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arise-1-5k-simulations"><strong>ARISE-1.5K Simulations</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#g6sulfur-simulations-6-models"><strong>G6sulfur Simulations</strong> (6 models)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-control-runs"><strong>Background/Control Runs</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-selection">Variable Selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data"><strong>1. Download Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup"><strong>2. Setup</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-example"><strong>3. Run Example</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-repository">Code Repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a></li>
 </ul>
   </nav></div>
 
@@ -500,8 +607,8 @@ By Reflective, with infrastructure built by 2i2c
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

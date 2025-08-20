@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -64,11 +61,10 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="GeoMIP analysis using ESGF" href="Resources/GeoMIP_from_ESGF/ESGF_intro.html" />
-    <link rel="prev" title="Useful links" href="useful_links.html" />
+    <link rel="next" title="GeoMIP Analysis Using ESGF" href="Resources/GeoMIP_from_ESGF/ESGF_intro.html" />
+    <link rel="prev" title="Useful Links" href="useful_links.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -84,8 +80,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -93,6 +100,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -100,8 +108,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -117,8 +125,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -148,17 +155,21 @@
     
     
     <img src="_static/logo.png" class="logo__image only-light" alt="ReflectiveCloud; SRM research Community Book - Home"/>
-    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="ReflectiveCloud; SRM research Community Book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ReflectiveCloud; SRM research Community Book - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -172,22 +183,22 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Preamble</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
-<li class="toctree-l1"><a class="reference internal" href="useful_links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useful_links.html">Useful Links</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Best Practices</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="Resources/GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP analysis using ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Resources/GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP Analysis Using ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="Resources/GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Resources/GeoMIP_from_ESGF/G6sulfur_from_ESGF_example.html">Loading and working with GeoMIP (G6sulfur) data directly from ESGF</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="Resources/pp_archive/pp_archive_intro.html">An archive of pre-processed SAI simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Resources/pp_archive/pp_archive_intro.html">An Archive of Pre-processed SAI Simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="Resources/pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
 
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="Resources/AWS_ARISE/AWS_ARISE_intro.html">Using the AWS ARISE-SAI-1.5 simulations cloud archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Resources/AWS_ARISE/AWS_ARISE_intro.html">Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="Resources/AWS_ARISE/AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Resources/AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
@@ -316,17 +327,27 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
 </div></div>
       
     </div>
@@ -342,6 +363,35 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#server-launch-configuration">Server Launch Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-selection"><strong>Environment Selection</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-allocation"><strong>Resource Allocation</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-management">Cost Management</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#server-shutdown"><strong>Server Shutdown</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-shutdown"><strong>Automatic Shutdown</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-notes">⏱️ Performance Notes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#storage-management">💾 Storage Management</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-storage-guidelines"><strong>File Storage Guidelines</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-usage"><strong>Check Usage</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intended-use">Intended Use</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primary-purpose"><strong>Primary Purpose</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-intended-for"><strong>Not Intended For</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference">Quick Reference</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -353,32 +403,117 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="best-practices">
 <h1>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h1>
-<p>Modeled on the <a class="reference external" href="https://book.cryointhecloud.com/content/hub_best_practices.html">CryoCloud Best Practices</a></p>
+<p><em>Modeled on the <a class="reference external" href="https://book.cryointhecloud.com/content/hub_best_practices.html">CryoCloud Best Practices</a></em></p>
 <hr class="docutils" />
-<p>After loggin in and clicking <code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">server</span></code>, there are two options to select: <code class="docutils literal notranslate"><span class="pre">environment</span></code> and <code class="docutils literal notranslate"><span class="pre">resource</span> <span class="pre">allocation</span></code>.</p>
+<section id="server-launch-configuration">
+<h2>Server Launch Configuration<a class="headerlink" href="#server-launch-configuration" title="Link to this heading">#</a></h2>
+<p>After logging in and clicking <code class="docutils literal notranslate"><span class="pre">Launch</span> <span class="pre">server</span></code>, there are two options to select: <code class="docutils literal notranslate"><span class="pre">environment</span></code> and <code class="docutils literal notranslate"><span class="pre">resource</span> <span class="pre">allocation</span></code>.</p>
+<section id="environment-selection">
+<h3><strong>Environment Selection</strong><a class="headerlink" href="#environment-selection" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Environment: Select Pangeo Notebook Image to start a python environment with a set of common geoscience packages including those from the <a class="reference external" href="https://pangeo.io/#ecosystem">Pangeo</a> ecosystem. This is the environment required to run our example notebooks.</p></li>
-<li><p>Resource: Please select the smallest resource (RAM and CPUs) which can meet your needs for a given workflow. The higher resource options cost us signficantly more. You can see your memory usage at the bottom of the screen when working in a notebook.</p></li>
+<li><p><strong>Select Pangeo Notebook Image</strong> to start a Python environment with a set of common geoscience packages including those from the <a class="reference external" href="https://pangeo.io/#ecosystem">Pangeo</a> ecosystem</p></li>
+<li><p>This is the environment required to run our example notebooks</p></li>
 </ul>
-<hr class="docutils" />
-<p>To avoid unneccessary costs, please shutdown your server when you finish on the Hub:</p>
+</section>
+<section id="resource-allocation">
+<h3><strong>Resource Allocation</strong><a class="headerlink" href="#resource-allocation" title="Link to this heading">#</a></h3>
 <ul class="simple">
+<li><p><strong>Please select the smallest resource</strong> (RAM and CPUs) which can meet your needs for a given workflow</p></li>
+<li><p>The higher resource options cost us significantly more</p></li>
+<li><p>You can see your memory usage at the bottom of the screen when working in a notebook</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="cost-management">
+<h2>Cost Management<a class="headerlink" href="#cost-management" title="Link to this heading">#</a></h2>
+<section id="server-shutdown">
+<h3><strong>Server Shutdown</strong><a class="headerlink" href="#server-shutdown" title="Link to this heading">#</a></h3>
+<p>To avoid unnecessary costs, please shutdown your server when you finish on the Hub:</p>
+<ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">File</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Hub</span> <span class="pre">Control</span> <span class="pre">Panel</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">Server</span></code></p></li>
-<li><p>Once the `Stop Server’ button disappears, your server has stopped</p></li>
+<li><p>Once the <code class="docutils literal notranslate"><span class="pre">Stop</span> <span class="pre">Server</span></code> button disappears, your server has stopped</p></li>
 <li><p>Click <code class="docutils literal notranslate"><span class="pre">Log</span> <span class="pre">Out</span></code></p></li>
 <li><p>Close that browser tab before starting the server again to prevent errors</p></li>
+</ol>
+</section>
+<section id="automatic-shutdown">
+<h3><strong>Automatic Shutdown</strong><a class="headerlink" href="#automatic-shutdown" title="Link to this heading">#</a></h3>
+<p>The hub will automatically shut off after <strong>90 minutes without activity</strong>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="performance-notes">
+<h2>⏱️ Performance Notes<a class="headerlink" href="#performance-notes" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Server startup</strong> can take a minute or two when first launching</p></li>
+<li><p><strong>Package installations</strong> using pip (<code class="docutils literal notranslate"><span class="pre">%</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">packagename</span></code>) only last for the duration of that session</p></li>
 </ul>
+</section>
 <hr class="docutils" />
-<p>The hub will automatically shut off after 90 minutes without activity.</p>
+<section id="storage-management">
+<h2>💾 Storage Management<a class="headerlink" href="#storage-management" title="Link to this heading">#</a></h2>
+<section id="file-storage-guidelines">
+<h3><strong>File Storage Guidelines</strong><a class="headerlink" href="#file-storage-guidelines" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Keep saved files in your home directory to a minimum</strong></p></li>
+<li><p>Let us know if you need to store more than around <strong>10GB</strong></p></li>
+<li><p>We recommend workflows which:</p>
+<ul>
+<li><p>Stream data without downloading to a file, OR</p></li>
+<li><p>Automatically delete files after using them</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="check-usage">
+<h3><strong>Check Usage</strong><a class="headerlink" href="#check-usage" title="Link to this heading">#</a></h3>
+<p>You can check total usage by running the following command in a terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>du<span class="w"> </span>-hs<span class="w"> </span>--exclude<span class="o">=</span><span class="s2">&quot;shared*&quot;</span><span class="w"> </span>~/
+</pre></div>
+</div>
+</section>
+</section>
 <hr class="docutils" />
-<p>It can take a minute or two for the server to start up when first launching.</p>
+<section id="intended-use">
+<h2>Intended Use<a class="headerlink" href="#intended-use" title="Link to this heading">#</a></h2>
+<section id="primary-purpose">
+<h3><strong>Primary Purpose</strong><a class="headerlink" href="#primary-purpose" title="Link to this heading">#</a></h3>
+<p>This resource is principally intended for <strong>analysis of climate model simulations of SRM simulations</strong>.</p>
+</section>
+<section id="not-intended-for">
+<h3><strong>Not Intended For</strong><a class="headerlink" href="#not-intended-for" title="Link to this heading">#</a></h3>
+<p>❌ <strong>Running climate models in the cloud</strong> - This would take orders of magnitude more computing resources.</p>
+</section>
+</section>
 <hr class="docutils" />
-<p>Please keep saved files in your home directory to a minimum. Let us know if you need to store more than around 10GB. We recommend workflows which stream data without downloading to a file, or which automatically delete files after using them. You can check total usage by running the following command in a terminal: <code class="docutils literal notranslate"><span class="pre">du</span> <span class="pre">-hs</span> <span class="pre">--exclude=&quot;shared*&quot;</span> <span class="pre">~/</span></code>.</p>
+<section id="quick-reference">
+<h2>Quick Reference<a class="headerlink" href="#quick-reference" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Steps</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Start Server</strong></p></td>
+<td><p>Login → Launch Server → Select Environment → Select Resources</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Stop Server</strong></p></td>
+<td><p>File → Hub Control Panel → Stop Server → Log Out</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Check Storage</strong></p></td>
+<td><p>Run <code class="docutils literal notranslate"><span class="pre">du</span> <span class="pre">-hs</span> <span class="pre">--exclude=&quot;shared*&quot;</span> <span class="pre">~/</span></code> in terminal</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Install Packages</strong></p></td>
+<td><p>Use <code class="docutils literal notranslate"><span class="pre">%</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">packagename</span></code> (session-only)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr class="docutils" />
-<p>This resource is principally intended for analysis of climate model simulations of SRM simulations. It is not intended for <strong>running</strong> climate models in the cloud, which would take orders of magnitude more computing resources.</p>
-<hr class="docutils" />
-<p>Packages can be installed using pip (<code class="docutils literal notranslate"><span class="pre">%</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">packagename</span></code>) if the standard Pangeo environment does not have them. However, these installs only last for the duration of that session.</p>
-<hr class="docutils" />
+<p><em>Following these best practices helps ensure efficient resource usage and cost management for all users.</em></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -417,7 +552,7 @@
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Useful links</p>
+        <p class="prev-next-title">Useful Links</p>
       </div>
     </a>
     <a class="right-next"
@@ -425,7 +560,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">GeoMIP analysis using ESGF</p>
+        <p class="prev-next-title">GeoMIP Analysis Using ESGF</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -435,6 +570,42 @@
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#server-launch-configuration">Server Launch Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-selection"><strong>Environment Selection</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-allocation"><strong>Resource Allocation</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-management">Cost Management</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#server-shutdown"><strong>Server Shutdown</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-shutdown"><strong>Automatic Shutdown</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-notes">⏱️ Performance Notes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#storage-management">💾 Storage Management</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-storage-guidelines"><strong>File Storage Guidelines</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-usage"><strong>Check Usage</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intended-use">Intended Use</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primary-purpose"><strong>Primary Purpose</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-intended-for"><strong>Not Intended For</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference">Quick Reference</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
@@ -479,8 +650,8 @@ By Reflective, with infrastructure built by 2i2c
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

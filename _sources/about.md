@@ -1,34 +1,59 @@
 # About
 
+---
 
-### Mission
-* To support collaborative, reproducible and efficient data science in the SRM research community
-* To equip researchers with computational resources in the cloud
+## Mission
 
-This jupyter book is written to accompany a cloud hub - the [ReflectiveCloud](https://reflective.2i2c.cloud/) which is a Jupyter notebook server providing free compute power in a pangeo python environment on cloud computing resources, available to the SRM research community.
-***
+Our mission is twofold:
 
-To apply for access, fill out the [form here](https://forms.reflective.org/cloud-hub-access).
+- **To support collaborative, reproducible and efficient data science** in the SRM research community
+- **To equip researchers with computational resources** in the cloud
 
-***
+---
 
-Several initial resources are gathered here as described below, but this book is a work in progress, and we are looking for contributions from the community to help it grow! Contributions are welcome [via Github](https://github.com/ReflectiveCloud/Book).  
+## Platform Overview
 
+This Jupyter Book accompanies **[ReflectiveCloud](https://reflective.2i2c.cloud/)** - a powerful Jupyter notebook server providing **free compute power** in a Pangeo Python environment on cloud computing resources, available to the SRM research community.
 
+```{admonition} Access to Platform
+:class: important
+**To apply for access, fill out the [form here](https://forms.reflective.org/cloud-hub-access).**
+```
 
-### Contents
+---
 
-* Code examples for working with GeoMIP and CMIP data stored on the Earth System Grid (ESGF)
-* A new preprocessed archive of some common SAI simulations
-* Code examples for working with the Amazon Web Services (AWS) ARISE data store 
+## Available Resources
 
-### How to contribute
-Contributions are very welcome! Open pull requests or issues on the Github repo here https://github.com/ReflectiveCloud/Book
+This book contains several initial resources to get you started:
 
-This book was inspired by the CryCloud project. See here (https://book.cryointhecloud.com/contributing/workflow.html) for a useful guide to the general process of contributing to Github based open source projects like this one.  
+### **Data & Code Examples**
 
+- **GeoMIP & CMIP Data**: Code examples for working with data stored on the Earth System Grid (ESGF)
+- **SAI Simulations**: A new preprocessed archive of common SAI simulations
+- **AWS ARISE**: Code examples for working with the Amazon Web Services (AWS) ARISE data store
 
-***
+---
 
-This resource is in active develoopment and we welcome feedback - get in touch [here](https://forms.reflective.org/cloud-feedback)
+## How to Contribute
 
+**Contributions are very welcome!** 🎉
+
+- **Open pull requests** or **create issues** on our [GitHub repository](https://github.com/ReflectiveCloud/Book)
+- **Help this book grow** with your expertise and experience
+- **Share your knowledge** with the SRM research community
+
+---
+
+## Inspiration & Resources
+
+This book was inspired by the **[CryCloud project](https://book.cryointhecloud.com/contributing/workflow.html)**. Check out their guide for useful information on contributing to GitHub-based open source projects like this one.
+
+---
+
+## Note
+
+This book is a **work in progress** and we're actively looking for contributions from the community to help it grow! 🌱
+
+---
+
+_Last updated: Aug 13, 2025_

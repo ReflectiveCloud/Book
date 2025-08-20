@@ -1,27 +1,71 @@
-# An archive of pre-processed SAI simulations
+# An Archive of Pre-processed SAI Simulations
 
-process common SAI simulations into a small (~1GB), user-friendly, archive of data in an analysis-ready format. It also has a usage example notebook, showing how to use this pre-procesed archive to derive some common analyses of SAI scenarios. 
+---
 
+## Overview
 
-Inputs:
-* ARISE-1.5K simulations (UKESM1 and CESM2-WACCM)
-* G6sulfur simulations for 6 models: UKESM1, CESM2-WACCM, IPSL-CM6A, MPI-ESM1-2 (High and low resolution), CESM2-WACCM, and CNRM-ESM2
+This archive processes common SAI simulations into a small (~1GB), user-friendly, analysis-ready format. It includes a usage example notebook showing how to derive common analyses of SAI scenarios.
 
-For each SAI simulation, background/control runs are also used. For ARISE, this is the SSP2-4.5 run (and the end of the historical run for UKESM1). For G6sulfur, this is both the SSP5-8.5 run (the 'background') and the SSP2-4.5 run (the 'baseline' and 'target').
-We calculate outputs for a limited a set of variables. We have prioritised these variables following the list of Baseline Climate Variables defined by Juckes et al.  (https://egusphere.copernicus.org/preprints/2024/egusphere-2024-2363/), and within this, by the rate of download by the community (as shown here http://esgf-ui.cmcc.it/esgf-dashboard-ui/cmip6.html). 
+---
 
-Outputs:
-* Maps of time-means and standard deviations
-* Time-series of global, land and ocean means
+## Input Data
 
+### **ARISE-1.5K Simulations**
 
-To run the code in pp_archive_usage_example.ipynb, first download the data archive from zenodo, then place the unzipped archive in a folder 'pp_archive/' in your working directory.  
+- UKESM1 and CESM2-WACCM
 
+### **G6sulfur Simulations** (6 models)
 
-To download the data, go to https://zenodo.org/records/14802397
-The code to make the archive is on Github here https://github.com/alistairduffey/SRM_nutshell
+- UKESM1, CESM2-WACCM, IPSL-CM6A
+- MPI-ESM1-2 (High and low resolution)
+- CNRM-ESM2
 
+### **Background/Control Runs**
 
-## Data structure
+- **ARISE**: SSP2-4.5 run (and end of historical for UKESM1)
+- **G6sulfur**: SSP5-8.5 run (background) and SSP2-4.5 run (baseline/target)
 
+---
 
+## Variable Selection
+
+We prioritize variables based on:
+
+1. **Baseline Climate Variables** defined by [Juckes et al. (2024)](https://egusphere.copernicus.org/preprints/2024/egusphere-2024-2363/)
+2. **Community download rates** from [ESGF dashboard](http://esgf-ui.cmcc.it/esgf-dashboard-ui/cmip6.html)
+
+---
+
+## Outputs
+
+- **Maps**: Time-means and standard deviations
+- **Time-series**: Global, land and ocean means
+
+---
+
+## Getting Started
+
+### **1. Download Data**
+
+Get the archive from: [https://zenodo.org/records/14802397](https://zenodo.org/records/14802397)
+
+### **2. Setup**
+
+- Unzip the archive
+- Place in a folder named `pp_archive/` in your working directory
+
+### **3. Run Example**
+
+Use the notebook: `pp_archive_usage_example.ipynb`
+
+---
+
+## Code Repository
+
+The code to create this archive is available on GitHub: [https://github.com/alistairduffey/SRM_nutshell](https://github.com/alistairduffey/SRM_nutshell)
+
+---
+
+## Data Structure
+
+_[Data structure details to be added]_

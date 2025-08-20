@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Using the AWS ARISE-SAI-1.5 simulations cloud archive &#8212; ReflectiveCloud; SRM research Community Book</title>
+    <title>Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive &#8212; ReflectiveCloud; SRM research Community Book</title>
   
   
   
@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -68,7 +65,6 @@
     <link rel="prev" title="Introduction to working with the pre-processed SAI simulations archive" href="../pp_archive/pp_archive_usage_example.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -84,8 +80,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -93,6 +100,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -100,8 +108,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -117,8 +125,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -148,17 +155,21 @@
     
     
     <img src="../../_static/logo.png" class="logo__image only-light" alt="ReflectiveCloud; SRM research Community Book - Home"/>
-    <img src="../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="ReflectiveCloud; SRM research Community Book - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="ReflectiveCloud; SRM research Community Book - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -172,22 +183,22 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Preamble</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../useful_links.html">Useful links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../useful_links.html">Useful Links</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../best_practice.html">Best Practices</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP analysis using ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP Analysis Using ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../GeoMIP_from_ESGF/G6sulfur_from_ESGF_example.html">Loading and working with GeoMIP (G6sulfur) data directly from ESGF</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../pp_archive/pp_archive_intro.html">An archive of pre-processed SAI simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pp_archive/pp_archive_intro.html">An Archive of Pre-processed SAI Simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
 
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Using the AWS ARISE-SAI-1.5 simulations cloud archive</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
@@ -316,16 +327,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -339,7 +358,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Using the AWS ARISE-SAI-1.5 simulations cloud archive</h1>
+    <h1>Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -349,11 +368,17 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-notebooks">Two notebooks:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aws-arise-basic-example-ipynb">(1) AWS_ARISE_basic_example.ipynb</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerchunk-example-aws-arise-kerchunk-test-ipynb">(2) kerchunk_example/AWS_ARISE_kerchunk_test.ipynb</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-information">Repository Information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-arise-sai-1-5k-simulations">About ARISE-SAI-1.5k Simulations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-notebooks">Available Notebooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-example"><strong>1. Basic Example</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerchunk-example"><strong>2. Kerchunk Example</strong></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-cases">Use Cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
 </ul>
             </nav>
         </div>
@@ -366,22 +391,83 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="using-the-aws-arise-sai-1-5-simulations-cloud-archive">
-<h1>Using the AWS ARISE-SAI-1.5 simulations cloud archive<a class="headerlink" href="#using-the-aws-arise-sai-1-5-simulations-cloud-archive" title="Link to this heading">#</a></h1>
-<p>example notebooks</p>
-<p>See github repo here <a class="github reference external" href="https://github.com/alistairduffey/AWS_ARISE">alistairduffey/AWS_ARISE</a></p>
-<p>The ARISE-SAI-1.5k simulations (Richter et al., 2022; <a class="reference external" href="https://www.cesm.ucar.edu/community-projects/arise-sai">https://www.cesm.ucar.edu/community-projects/arise-sai</a>) are available on Amazon Web Services (AWS), here: <a class="reference external" href="https://registry.opendata.aws/ncar-cesm2-arise/">https://registry.opendata.aws/ncar-cesm2-arise/</a></p>
-<p>This repo contains python notebooks showing simple usage examples of this cloud archive.</p>
-<section id="two-notebooks">
-<h2>Two notebooks:<a class="headerlink" href="#two-notebooks" title="Link to this heading">#</a></h2>
-<section id="aws-arise-basic-example-ipynb">
-<h3>(1) AWS_ARISE_basic_example.ipynb<a class="headerlink" href="#aws-arise-basic-example-ipynb" title="Link to this heading">#</a></h3>
-<p>Shows how to use the S3 file system to read in the data and do some basic analysis.</p>
+<h1>Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive<a class="headerlink" href="#using-the-aws-arise-sai-1-5-simulations-cloud-archive" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>This repository contains <strong>Python notebooks</strong> demonstrating simple usage examples of the AWS ARISE-SAI-1.5k simulations cloud archive.</p>
 </section>
-<section id="kerchunk-example-aws-arise-kerchunk-test-ipynb">
-<h3>(2) kerchunk_example/AWS_ARISE_kerchunk_test.ipynb<a class="headerlink" href="#kerchunk-example-aws-arise-kerchunk-test-ipynb" title="Link to this heading">#</a></h3>
-<p>Shows how to use the kerchunk package (<a class="reference external" href="https://guide.cloudnativegeo.org/kerchunk/intro.html">https://guide.cloudnativegeo.org/kerchunk/intro.html</a>) to save metadata (creating a virtual zarr file) to speed up the read-in and processing steps for some analysis of the ARISE simulations.</p>
+<hr class="docutils" />
+<section id="repository-information">
+<h2>Repository Information<a class="headerlink" href="#repository-information" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>GitHub Repository</strong>: <a class="github reference external" href="https://github.com/alistairduffey/AWS_ARISE">alistairduffey/AWS_ARISE</a></p></li>
+<li><p><strong>Data Source</strong>: <a class="reference external" href="https://registry.opendata.aws/ncar-cesm2-arise/">NCAR CESM2 ARISE on AWS Open Data Registry</a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="about-arise-sai-1-5k-simulations">
+<h2>About ARISE-SAI-1.5k Simulations<a class="headerlink" href="#about-arise-sai-1-5k-simulations" title="Link to this heading">#</a></h2>
+<p>The <strong>ARISE-SAI-1.5k simulations</strong> (Richter et al., 2022) are available on Amazon Web Services (AWS). These simulations are part of the <a class="reference external" href="https://www.cesm.ucar.edu/community-projects/arise-sai">CESM Community Projects</a> and provide valuable data for Solar Radiation Management research.</p>
+</section>
+<hr class="docutils" />
+<section id="available-notebooks">
+<h2>Available Notebooks<a class="headerlink" href="#available-notebooks" title="Link to this heading">#</a></h2>
+<section id="basic-example">
+<h3><strong>1. Basic Example</strong><a class="headerlink" href="#basic-example" title="Link to this heading">#</a></h3>
+<p><strong><a class="reference internal" href="AWS_ARISE_basic_example.html"><span class="std std-doc">AWS_ARISE_basic_example.ipynb</span></a></strong></p>
+<p>Shows how to use the <strong>S3 file system</strong> to read in the data and perform basic analysis tasks.</p>
+<p><strong>What you’ll learn:</strong></p>
+<ul class="simple">
+<li><p>Accessing data from AWS S3</p></li>
+<li><p>Basic data reading and manipulation</p></li>
+<li><p>Simple analysis workflows</p></li>
+</ul>
+</section>
+<section id="kerchunk-example">
+<h3><strong>2. Kerchunk Example</strong><a class="headerlink" href="#kerchunk-example" title="Link to this heading">#</a></h3>
+<p><strong><a class="reference internal" href="#kerchunk_example/AWS_ARISE_kerchunk_test.ipynb"><span class="xref myst">kerchunk_example/AWS_ARISE_kerchunk_test.ipynb</span></a></strong></p>
+<p>Demonstrates how to use the <strong><a class="reference external" href="https://guide.cloudnativegeo.org/kerchunk/intro.html">kerchunk package</a></strong> to save metadata and create virtual zarr files, significantly speeding up read-in and processing steps for ARISE simulation analysis.</p>
+<p><strong>What you’ll learn:</strong></p>
+<ul class="simple">
+<li><p>Using kerchunk for metadata management</p></li>
+<li><p>Creating virtual zarr files</p></li>
+<li><p>Optimizing data access and processing</p></li>
+<li><p>Advanced analysis workflows</p></li>
+</ul>
 </section>
 </section>
+<hr class="docutils" />
+<section id="use-cases">
+<h2>Use Cases<a class="headerlink" href="#use-cases" title="Link to this heading">#</a></h2>
+<p>These notebooks are designed for researchers who want to:</p>
+<ul class="simple">
+<li><p><strong>Access ARISE-SAI-1.5k simulations</strong> from AWS cloud storage</p></li>
+<li><p><strong>Learn cloud-native data analysis</strong> techniques</p></li>
+<li><p><strong>Optimize data processing</strong> workflows using kerchunk</p></li>
+<li><p><strong>Perform reproducible research</strong> with cloud-based climate data</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Clone the repository</strong>: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/alistairduffey/AWS_ARISE</span></code></p></li>
+<li><p><strong>Choose your notebook</strong>: Start with the basic example for fundamental concepts</p></li>
+<li><p><strong>Explore kerchunk</strong>: Move to the advanced example for optimization techniques</p></li>
+<li><p><strong>Adapt for your research</strong>: Modify the examples for your specific analysis needs</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><a class="reference external" href="https://guide.cloudnativegeo.org/kerchunk/intro.html">Kerchunk Documentation</a></strong> - Comprehensive guide to the kerchunk package</p></li>
+<li><p><strong><a class="reference external" href="https://registry.opendata.aws/">AWS Open Data Registry</a></strong> - Discover more open datasets</p></li>
+<li><p><strong><a class="reference external" href="https://www.cesm.ucar.edu/community-projects">CESM Community Projects</a></strong> - Explore other climate modeling initiatives</p></li>
+</ul>
+</section>
+<hr class="docutils" />
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -441,8 +527,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -451,11 +536,17 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-notebooks">Two notebooks:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aws-arise-basic-example-ipynb">(1) AWS_ARISE_basic_example.ipynb</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerchunk-example-aws-arise-kerchunk-test-ipynb">(2) kerchunk_example/AWS_ARISE_kerchunk_test.ipynb</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-information">Repository Information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-arise-sai-1-5k-simulations">About ARISE-SAI-1.5k Simulations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-notebooks">Available Notebooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-example"><strong>1. Basic Example</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerchunk-example"><strong>2. Kerchunk Example</strong></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-cases">Use Cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
 </ul>
   </nav></div>
 
@@ -504,8 +595,8 @@ By Reflective, with infrastructure built by 2i2c
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
