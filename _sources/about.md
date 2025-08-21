@@ -40,7 +40,7 @@ This book contains several initial resources to get you started:
 
 ### Contribution Workflow
 
-1. **Upload your content** to the appropriate example folder in our [GitHub repository](https://github.com/ReflectiveCloud/Book)
+1. **Upload your content** to the appropriate [example folder](https://github.com/ReflectiveCloud/Book/tree/main/examples) in our [GitHub repository](https://github.com/ReflectiveCloud/Book)
 2. **Create a pull request** with a clear description of what you're adding
 3. **Follow our guidelines** for code examples, documentation, and tutorials
 
