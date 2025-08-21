@@ -68,5 +68,6 @@ _Welcome to the ReflectiveCloud community! We're excited to have you join us in 
 ---
 
 ```{tableofcontents}
-
+:caption: Contents
+:maxdepth: 2
 ```

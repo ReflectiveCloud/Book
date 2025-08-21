@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive &#8212; ReflectiveCloud; SRM research Community Book</title>
+    <title>S3 Tree Browser Utility &#8212; ReflectiveCloud; SRM research Community Book</title>
   
   
   
@@ -57,12 +57,11 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Resources/AWS_ARISE/AWS_ARISE_intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Resources/GAUSS/s3tree';</script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Example usage of the AWS ARISE-1.5 data set" href="AWS_ARISE_basic_example.html" />
-    <link rel="prev" title="Introduction to working with the pre-processed SAI simulations archive" href="../pp_archive/pp_archive_usage_example.html" />
+    <link rel="prev" title="GAUSS Dataset Intro" href="GAUSS_example.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -198,19 +197,19 @@
 
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_intro.html">Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
 
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS Dataset Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset Intro</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="GAUSS_intro.html">GAUSS Dataset Resources</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="GAUSS_example.html">GAUSS Dataset Intro</a></li>
 
 
 
-<li class="toctree-l2"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">S3 Tree Browser Utility</a></li>
 </ul>
 </details></li>
 </ul>
@@ -282,7 +281,7 @@
       
       
       
-      <li><a href="../../_sources/Resources/AWS_ARISE/AWS_ARISE_intro.md" target="_blank"
+      <li><a href="../../_sources/Resources/GAUSS/s3tree.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -366,7 +365,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</h1>
+    <h1>S3 Tree Browser Utility</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -377,16 +376,19 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-information">Repository Information</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-arise-sai-1-5k-simulations">About ARISE-SAI-1.5k Simulations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-notebooks">Available Notebooks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-example"><strong>1. Basic Example</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerchunk-example"><strong>2. Kerchunk Example</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-examples">Usage Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api">Python API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-interface">Command Line Interface</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-cases">Use Cases</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How It Works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#s3-structure-understanding">S3 Structure Understanding</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-reference">Code Reference</a></li>
 </ul>
             </nav>
         </div>
@@ -398,86 +400,118 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="using-the-aws-arise-sai-1-5-simulations-cloud-archive">
-<h1>Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive<a class="headerlink" href="#using-the-aws-arise-sai-1-5-simulations-cloud-archive" title="Link to this heading">#</a></h1>
-<hr class="docutils" />
+  <section class="tex2jax_ignore mathjax_ignore" id="s3-tree-browser-utility">
+<h1>S3 Tree Browser Utility<a class="headerlink" href="#s3-tree-browser-utility" title="Link to this heading">#</a></h1>
+<p>This utility provides a convenient way to browse and explore S3 datasets, particularly useful for climate simulation data stored in cloud storage.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>This repository contains <strong>Python notebooks</strong> demonstrating simple usage examples of the AWS ARISE-SAI-1.5k simulations cloud archive.</p>
-</section>
-<hr class="docutils" />
-<section id="repository-information">
-<h2>Repository Information<a class="headerlink" href="#repository-information" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">s3tree.py</span></code> utility is designed to help researchers and data scientists navigate large S3 datasets by providing:</p>
 <ul class="simple">
-<li><p><strong>GitHub Repository</strong>: <a class="github reference external" href="https://github.com/alistairduffey/AWS_ARISE">alistairduffey/AWS_ARISE</a></p></li>
-<li><p><strong>Data Source</strong>: <a class="reference external" href="https://registry.opendata.aws/ncar-cesm2-arise/">NCAR CESM2 ARISE on AWS Open Data Registry</a></p></li>
+<li><p><strong>Variable Listing</strong>: Quickly see what variables (subdirectories) are available under a group prefix</p></li>
+<li><p><strong>Tree Visualization</strong>: Display complete directory structures with file sizes</p></li>
+<li><p><strong>Interactive CLI</strong>: Command-line interface for exploring datasets</p></li>
+<li><p><strong>Efficient S3 Operations</strong>: Uses pagination and optimized listing for large datasets</p></li>
 </ul>
 </section>
-<hr class="docutils" />
-<section id="about-arise-sai-1-5k-simulations">
-<h2>About ARISE-SAI-1.5k Simulations<a class="headerlink" href="#about-arise-sai-1-5k-simulations" title="Link to this heading">#</a></h2>
-<p>The <strong>ARISE-SAI-1.5k simulations</strong> (Richter et al., 2022) are available on Amazon Web Services (AWS). These simulations are part of the <a class="reference external" href="https://www.cesm.ucar.edu/community-projects/arise-sai">CESM Community Projects</a> and provide valuable data for Solar Radiation Management research.</p>
-</section>
-<hr class="docutils" />
-<section id="available-notebooks">
-<h2>Available Notebooks<a class="headerlink" href="#available-notebooks" title="Link to this heading">#</a></h2>
-<section id="basic-example">
-<h3><strong>1. Basic Example</strong><a class="headerlink" href="#basic-example" title="Link to this heading">#</a></h3>
-<p><strong><a class="reference internal" href="AWS_ARISE_basic_example.html"><span class="std std-doc">AWS_ARISE_basic_example.ipynb</span></a></strong></p>
-<p>Shows how to use the <strong>S3 file system</strong> to read in the data and perform basic analysis tasks.</p>
-<p><strong>What you’ll learn:</strong></p>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Accessing data from AWS S3</p></li>
-<li><p>Basic data reading and manipulation</p></li>
-<li><p>Simple analysis workflows</p></li>
+<li><p>List variables (subdirectories) under a group prefix</p></li>
+<li><p>Show complete directory trees with file sizes</p></li>
+<li><p>Interactive CLI mode for exploration</p></li>
+<li><p>Efficient S3 listing with pagination</p></li>
+<li><p>Human-readable file size formatting (B, KB, MB, GB, etc.)</p></li>
+<li><p>Support for both API and command-line usage</p></li>
 </ul>
 </section>
-<section id="kerchunk-example">
-<h3><strong>2. Kerchunk Example</strong><a class="headerlink" href="#kerchunk-example" title="Link to this heading">#</a></h3>
-<p><strong><a class="reference internal" href="#kerchunk_example/AWS_ARISE_kerchunk_test.ipynb"><span class="xref myst">kerchunk_example/AWS_ARISE_kerchunk_test.ipynb</span></a></strong></p>
-<p>Demonstrates how to use the <strong><a class="reference external" href="https://guide.cloudnativegeo.org/kerchunk/intro.html">kerchunk package</a></strong> to save metadata and create virtual zarr files, significantly speeding up read-in and processing steps for ARISE simulation analysis.</p>
-<p><strong>What you’ll learn:</strong></p>
-<ul class="simple">
-<li><p>Using kerchunk for metadata management</p></li>
-<li><p>Creating virtual zarr files</p></li>
-<li><p>Optimizing data access and processing</p></li>
-<li><p>Advanced analysis workflows</p></li>
-</ul>
+<section id="usage-examples">
+<h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading">#</a></h2>
+<section id="python-api">
+<h3>Python API<a class="headerlink" href="#python-api" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">s3tree</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">list_variables</span><span class="p">,</span> <span class="n">print_variables</span><span class="p">,</span>
+    <span class="n">show_tree</span><span class="p">,</span> <span class="n">show_tree_for_variable</span><span class="p">,</span>
+    <span class="n">build_tree_with_sizes</span><span class="p">,</span> <span class="n">print_tree_with_sizes</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># List variables under a group prefix (fast, no size computation)</span>
+<span class="n">print_variables</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="s2">&quot;my-bucket&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;gauss&quot;</span><span class="p">,</span> <span class="n">show_sizes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># List variables with sizes (slower but more informative)</span>
+<span class="n">print_variables</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="s2">&quot;my-bucket&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;gauss&quot;</span><span class="p">,</span> <span class="n">show_sizes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Show complete tree for a group</span>
+<span class="n">show_tree</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="s2">&quot;my-bucket&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;gauss&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show tree for a specific variable only</span>
+<span class="n">show_tree_for_variable</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="s2">&quot;my-bucket&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;gauss&quot;</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="s2">&quot;TREFHT&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get raw data for custom processing</span>
+<span class="n">variables</span> <span class="o">=</span> <span class="n">list_variables</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="s2">&quot;my-bucket&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;gauss&quot;</span><span class="p">)</span>
+<span class="n">variables_with_sizes</span> <span class="o">=</span> <span class="n">list_variables_with_sizes</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="s2">&quot;my-bucket&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;gauss&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
-</section>
-<hr class="docutils" />
-<section id="use-cases">
-<h2>Use Cases<a class="headerlink" href="#use-cases" title="Link to this heading">#</a></h2>
-<p>These notebooks are designed for researchers who want to:</p>
-<ul class="simple">
-<li><p><strong>Access ARISE-SAI-1.5k simulations</strong> from AWS cloud storage</p></li>
-<li><p><strong>Learn cloud-native data analysis</strong> techniques</p></li>
-<li><p><strong>Optimize data processing</strong> workflows using kerchunk</p></li>
-<li><p><strong>Perform reproducible research</strong> with cloud-based climate data</p></li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<section id="command-line-interface">
+<h3>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic usage</span>
+python<span class="w"> </span>s3tree.py<span class="w"> </span>&lt;bucket&gt;<span class="w"> </span>&lt;group&gt;
+
+<span class="c1"># Example</span>
+python<span class="w"> </span>s3tree.py<span class="w"> </span>my-climate-data<span class="w"> </span>gauss
+</pre></div>
+</div>
+<p>The CLI will:</p>
 <ol class="arabic simple">
-<li><p><strong>Clone the repository</strong>: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/alistairduffey/AWS_ARISE</span></code></p></li>
-<li><p><strong>Choose your notebook</strong>: Start with the basic example for fundamental concepts</p></li>
-<li><p><strong>Explore kerchunk</strong>: Move to the advanced example for optimization techniques</p></li>
-<li><p><strong>Adapt for your research</strong>: Modify the examples for your specific analysis needs</p></li>
+<li><p>List all available variables under the specified group</p></li>
+<li><p>Prompt you to choose a specific variable or view all</p></li>
+<li><p>Display the tree structure with file sizes</p></li>
 </ol>
 </section>
-<hr class="docutils" />
-<section id="additional-resources">
-<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading">#</a></h2>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>boto3
+</pre></div>
+</div>
+</section>
+<section id="how-it-works">
+<h2>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h2>
+<section id="s3-structure-understanding">
+<h3>S3 Structure Understanding<a class="headerlink" href="#s3-structure-understanding" title="Link to this heading">#</a></h3>
+<p>S3 is actually a flat key-value store, but the utility simulates directory structures using key prefixes separated by <code class="docutils literal notranslate"><span class="pre">/</span></code>. For example:</p>
 <ul class="simple">
-<li><p><strong><a class="reference external" href="https://guide.cloudnativegeo.org/kerchunk/intro.html">Kerchunk Documentation</a></strong> - Comprehensive guide to the kerchunk package</p></li>
-<li><p><strong><a class="reference external" href="https://registry.opendata.aws/">AWS Open Data Registry</a></strong> - Discover more open datasets</p></li>
-<li><p><strong><a class="reference external" href="https://www.cesm.ucar.edu/community-projects">CESM Community Projects</a></strong> - Explore other climate modeling initiatives</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gauss/TREFHT/2020/01/01.nc</span></code> appears as a file in a nested directory structure</p></li>
+<li><p>The utility groups keys by common prefixes to show the “tree” structure</p></li>
 </ul>
 </section>
-<hr class="docutils" />
-<div class="toctree-wrapper compound">
+</section>
+<section id="example-output">
+<h2>Example Output<a class="headerlink" href="#example-output" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Listing</span> <span class="n">variables</span> <span class="n">under</span> <span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">gauss</span><span class="o">/</span> <span class="o">...</span>
+
+ <span class="mf">1.</span> <span class="n">TREFHT</span>                   <span class="mf">2.1</span><span class="n">GB</span>
+ <span class="mf">2.</span> <span class="n">PRECT</span>                    <span class="mf">1.8</span><span class="n">GB</span>
+
+<span class="n">Building</span> <span class="n">tree</span> <span class="k">for</span> <span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">gauss</span><span class="o">/</span><span class="n">TREFHT</span><span class="o">/</span> <span class="o">...</span>
+
+<span class="o">|</span><span class="n">_</span> <span class="n">gauss</span><span class="o">/</span><span class="n">TREFHT</span><span class="o">/</span>  <span class="p">(</span><span class="mf">2.1</span><span class="n">GB</span> <span class="n">total</span><span class="p">)</span>
+  <span class="o">|</span><span class="n">_</span> <span class="mi">2020</span><span class="o">/</span>  <span class="p">(</span><span class="mf">1.1</span><span class="n">GB</span> <span class="n">total</span><span class="p">)</span>
+    <span class="o">|</span><span class="n">_</span> <span class="mi">01</span><span class="o">/</span>  <span class="p">(</span><span class="mi">100</span><span class="n">MB</span> <span class="n">total</span><span class="p">)</span>
+      <span class="o">|</span><span class="n">_</span> <span class="mf">01.</span><span class="n">nc</span>  <span class="p">(</span><span class="mf">3.2</span><span class="n">MB</span><span class="p">)</span>
+      <span class="o">|</span><span class="n">_</span> <span class="mf">02.</span><span class="n">nc</span>  <span class="p">(</span><span class="mf">3.2</span><span class="n">MB</span><span class="p">)</span>
+      <span class="o">|</span><span class="n">_</span> <span class="o">...</span>
+  <span class="o">|</span><span class="n">_</span> <span class="mi">2021</span><span class="o">/</span>  <span class="p">(</span><span class="mf">1.0</span><span class="n">GB</span> <span class="n">total</span><span class="p">)</span>
+    <span class="o">|</span><span class="n">_</span> <span class="mi">01</span><span class="o">/</span>  <span class="p">(</span><span class="mi">90</span><span class="n">MB</span> <span class="n">total</span><span class="p">)</span>
+      <span class="o">|</span><span class="n">_</span> <span class="mf">01.</span><span class="n">nc</span>  <span class="p">(</span><span class="mf">3.0</span><span class="n">MB</span><span class="p">)</span>
+      <span class="o">|</span><span class="n">_</span> <span class="o">...</span>
+</pre></div>
 </div>
+</section>
+<section id="code-reference">
+<h2>Code Reference<a class="headerlink" href="#code-reference" title="Link to this heading">#</a></h2>
+<p>The complete implementation is available in <a class="reference download internal" download="" href="../../_downloads/54864ffd9c9cd903370ba7f050f304ab/s3tree.py"><span class="xref download myst">s3tree.py</span></a>. The utility is well-documented with type hints and includes comprehensive error handling for S3 operations.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -493,7 +527,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./Resources/AWS_ARISE"
+            path: "./Resources/GAUSS"
         },
         predefinedOutput: true
     }
@@ -511,22 +545,13 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../pp_archive/pp_archive_usage_example.html"
+       href="GAUSS_example.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction to working with the pre-processed SAI simulations archive</p>
+        <p class="prev-next-title">GAUSS Dataset Intro</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="AWS_ARISE_basic_example.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Example usage of the AWS ARISE-1.5 data set</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -545,16 +570,19 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-information">Repository Information</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-arise-sai-1-5k-simulations">About ARISE-SAI-1.5k Simulations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-notebooks">Available Notebooks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-example"><strong>1. Basic Example</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerchunk-example"><strong>2. Kerchunk Example</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-examples">Usage Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api">Python API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-interface">Command Line Interface</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-cases">Use Cases</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How It Works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#s3-structure-understanding">S3 Structure Understanding</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-output">Example Output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-reference">Code Reference</a></li>
 </ul>
   </nav></div>
 

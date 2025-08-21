@@ -38,6 +38,22 @@ This book contains several initial resources to get you started:
 
 **Contributions are very welcome!** 🎉
 
+### Contribution Workflow
+
+1. **Upload your content** to the appropriate example folder in our [GitHub repository](https://github.com/ReflectiveCloud/Book)
+2. **Create a pull request** with a clear description of what you're adding
+3. **Follow our guidelines** for code examples, documentation, and tutorials
+
+### What We're Looking For
+
+- **Code examples** and workflows for SRM research
+- **Tutorials** and how-to guides
+- **Documentation** improvements and clarifications
+- **Bug reports** and feature suggestions
+- **Data processing** examples and best practices
+
+### Getting Started
+
 - **Open pull requests** or **create issues** on our [GitHub repository](https://github.com/ReflectiveCloud/Book)
 - **Help this book grow** with your expertise and experience
 - **Share your knowledge** with the SRM research community
