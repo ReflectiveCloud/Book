@@ -20,6 +20,8 @@ This Jupyter Book accompanies **[ReflectiveCloud](https://reflective.2i2c.cloud/
 **To apply for access, fill out the [form here](https://forms.reflective.org/cloud-hub-access).**
 ```
 
+For a quick guide to starting up your server - see **[this video](https://www.loom.com/share/91b458e62ab347ffbd532ac29abf26fd?sid=6366ec4b-f500-45fc-8908-9a273011dfa1)**. 
+
 ---
 
 ## Available Resources
@@ -62,7 +64,7 @@ This book contains several initial resources to get you started:
 
 ## Inspiration & Resources
 
-This book was inspired by the **[CryCloud project](https://book.cryointhecloud.com/contributing/workflow.html)**. Check out their guide for useful information on contributing to GitHub-based open source projects like this one.
+This book was inspired by the **[CryCloud project](https://book.cryointhecloud.com/)**. Check out their guide for useful information on contributing to GitHub-based open source projects like this one.
 
 ---
 
