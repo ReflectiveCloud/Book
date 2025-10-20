@@ -17,7 +17,7 @@ This repository contains **Python notebooks** demonstrating simple usage example
 
 ## About ARISE-SAI-1.5k Simulations
 
-The **ARISE-SAI-1.5k simulations** (Richter et al., 2022) are available on Amazon Web Services (AWS). These simulations are part of the [CESM Community Projects](https://www.cesm.ucar.edu/community-projects/arise-sai) and provide valuable data for Solar Radiation Management research.
+The **ARISE-SAI-1.5k simulations** (Richter et al., 2022) are available on Amazon Web Services (AWS). These simulations are part of the [CESM Community Projects](https://www.cesm.ucar.edu/community-projects/arise-sai). ARISE-SAI-1.5K simulates stratospheric aerosol injection at ~ 21 km altitude starting in 2035. The underlying emission scenario is the middle-of-the-road SSP2-4.5 scenario. SAI is used to keep global mean surface air temperature near 1.5°C above the pre-industrial. 
 
 ---
 
@@ -63,7 +63,7 @@ These notebooks are designed for researchers who want to:
 
 ## Getting Started
 
-1. **Clone the repository**: `git clone https://github.com/alistairduffey/AWS_ARISE`
+1. **Clone the repository**: `git clone https://github.com/alistairduffey/AWS_ARISE` or `git clone https://github.com/ReflectiveCloud/Book.git`
 2. **Choose your notebook**: Start with the basic example for fundamental concepts
 3. **Explore kerchunk**: Move to the advanced example for optimization techniques
 4. **Adapt for your research**: Modify the examples for your specific analysis needs

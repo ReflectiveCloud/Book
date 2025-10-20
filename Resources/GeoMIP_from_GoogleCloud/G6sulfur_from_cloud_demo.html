@@ -197,13 +197,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
 
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS Dataset Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset Intro</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
 </ul>
 </details></li>
@@ -363,10 +361,15 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Working with the GeoMIP (and CMIP6) cloud-store</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-notebook-demonstrates-usage-of-the-google-cloud-store-hosted-version-of-cloud-optimised-zarr-data-for-the-g6sulfur-geomip-scenario">This notebook demonstrates usage of the Google Cloud Store hosted version of cloud-optimised (zarr) data for the G6sulfur GeoMIP scenario</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-to-the-google-cloud-cmip6-catalog">Connect to the Google Cloud CMIP6 catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#search-for-geomip-and-comparison-data">Search for GeoMIP and comparison data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-with-preprocessing">Load data with preprocessing</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#example-usage">Example Usage</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#example-usage">Example Usage</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-model-ensemble-visualization">Multi-model ensemble visualization</a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -381,11 +384,27 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="working-with-the-geomip-and-cmip6-cloud-store">
 <h1>Working with the GeoMIP (and CMIP6) cloud-store<a class="headerlink" href="#working-with-the-geomip-and-cmip6-cloud-store" title="Link to this heading">#</a></h1>
-<section id="this-notebook-demonstrates-usage-of-the-google-cloud-store-hosted-version-of-cloud-optimised-zarr-data-for-the-g6sulfur-geomip-scenario">
-<h2>This notebook demonstrates usage of the Google Cloud Store hosted version of cloud-optimised (zarr) data for the G6sulfur GeoMIP scenario<a class="headerlink" href="#this-notebook-demonstrates-usage-of-the-google-cloud-store-hosted-version-of-cloud-optimised-zarr-data-for-the-g6sulfur-geomip-scenario" title="Link to this heading">#</a></h2>
-<p>This is data which was ingested into the store from ESGF by Julius Busecke, supported by Reflective, in August 2025.</p>
+<p>This notebook demonstrates how to access and analyze GeoMIP G6sulfur data that’s hosted on the Google Cloud Storage in cloud-optimized (zarr) form.</p>
+<ol class="arabic simple">
+<li><p>Connect to the Google Cloud CMIP6 catalog using <code class="docutils literal notranslate"><span class="pre">intake-esm</span></code></p></li>
+<li><p>Search for G6sulfur and comparison scenarios (SSP2-4.5, SSP5-8.5)</p></li>
+<li><p>Load cloud-optimized Zarr data with preprocessing</p></li>
+<li><p>Create multi-model ensemble visualizations</p></li>
+<li><p>Recreate figures from published climate literature (Visioni et al., 2021)</p></li>
+</ol>
+<p>The data was ingested into the store from ESGF by Julius Busecke, supported by Reflective, in August 2025.</p>
 <p>See here for an overview of how to work with this kind of data: <a class="reference external" href="https://pangeo-data.github.io/pangeo-cmip6-cloud/accessing_data.html#loading-an-esm-collection">https://pangeo-data.github.io/pangeo-cmip6-cloud/accessing_data.html#loading-an-esm-collection</a></p>
 <p>And here for some more specific guidance <a class="github reference external" href="https://github.com/leap-stc/cmip6-leap-feedstock#how-to-access-the-newly-uploaded-data">leap-stc/cmip6-leap-feedstock</a></p>
+<section id="connect-to-the-google-cloud-cmip6-catalog">
+<h2>Connect to the Google Cloud CMIP6 catalog<a class="headerlink" href="#connect-to-the-google-cloud-cmip6-catalog" title="Link to this heading">#</a></h2>
+<p>We use <code class="docutils literal notranslate"><span class="pre">intake-esm</span></code> to connect to the Google Cloud-hosted CMIP6 catalog. This catalog contains metadata about available datasets and provides access to cloud-optimized Zarr data.</p>
+<p><strong>Catalog options:</strong></p>
+<ul class="simple">
+<li><p><strong>catalog.json</strong>: Only stores that pass current quality control tests (recommended)</p></li>
+<li><p><strong>catalog_noqc.json</strong>: Stores that fail quality control tests (for testing)</p></li>
+<li><p><strong>catalog_retracted.json</strong>: Stores that have been retracted by ESGF</p></li>
+</ul>
+<p>The catalog acts as a searchable index of all available climate model data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">intake</span> <span class="c1"># see https://intake-esm.readthedocs.io/en/stable/index.html</span>
@@ -399,6 +418,17 @@
 </div>
 </div>
 </div>
+</section>
+<section id="search-for-geomip-and-comparison-data">
+<h2>Search for GeoMIP and comparison data<a class="headerlink" href="#search-for-geomip-and-comparison-data" title="Link to this heading">#</a></h2>
+<p>We search for surface air temperature (<code class="docutils literal notranslate"><span class="pre">tas</span></code>) data from:</p>
+<ul class="simple">
+<li><p><strong>Experiments</strong>: SSP2-4.5, SSP5-8.5, and G6sulfur</p></li>
+<li><p><strong>Frequency</strong>: Monthly atmospheric data (Amon)</p></li>
+<li><p><strong>Variable</strong>: Surface air temperature (tas)</p></li>
+</ul>
+<p><strong>Key filtering step</strong>: We use <code class="docutils literal notranslate"><span class="pre">require_all_on=['source_id',</span> <span class="pre">'institution_id']</span></code> to ensure we only get models that have data for ALL three scenarios. This allows for fair comparison across scenarios.</p>
+<p>The resulting subset shows how many experiment members, variables, and tables each model provides.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># form query dictionary</span>
@@ -406,9 +436,6 @@
              <span class="n">table_id</span><span class="o">=</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span>
              <span class="n">variable_id</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tas&#39;</span><span class="p">],</span>
              <span class="p">)</span>
-
-<span class="c1"># the line above returns all data across these scenarios, but we really only want..</span>
-<span class="c1"># ..models for which all three scenarios are available, so we subset:</span>
 
 <span class="c1"># subset catalog and get some metrics grouped by &#39;source_id&#39;</span>
 <span class="n">col_subset</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">require_all_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;source_id&#39;</span><span class="p">,</span> <span class="s1">&#39;institution_id&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
@@ -475,6 +502,15 @@
 </table>
 </div></div></div>
 </div>
+</section>
+<section id="load-data-with-preprocessing">
+<h2>Load data with preprocessing<a class="headerlink" href="#load-data-with-preprocessing" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">to_dataset_dict()</span></code> method with <code class="docutils literal notranslate"><span class="pre">combined_preprocessing</span></code>:</p>
+<ul class="simple">
+<li><p>Downloads cloud-optimized Zarr data from Google Cloud Storage</p></li>
+<li><p>Applies <code class="docutils literal notranslate"><span class="pre">xmip</span></code> preprocessing to standardize variable names and coordinates</p></li>
+<li><p>Creates a dictionary with keys in the format: <code class="docutils literal notranslate"><span class="pre">activity_id.institution_id.source_id.experiment_id.table_id.grid_label</span></code></p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xmip.preprocessing</span> <span class="kn">import</span> <span class="n">combined_preprocessing</span>
@@ -514,7 +550,8 @@
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="example-usage">
 <h1>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading">#</a></h1>
-<p>We will recreate figure 1 from Visioni et al., 2021; <a class="reference external" href="https://acp.copernicus.org/articles/21/10039/2021/acp-21-10039-2021.html">https://acp.copernicus.org/articles/21/10039/2021/acp-21-10039-2021.html</a></p>
+<p>Recreation of Figure 1 from Visioni et al., 2021; <a class="reference external" href="https://acp.copernicus.org/articles/21/10039/2021/acp-21-10039-2021.html">https://acp.copernicus.org/articles/21/10039/2021/acp-21-10039-2021.html</a>
+We first create a simple map to verify the data loaded correctly and get a first look at the temperature patterns. The map shows the time-averaged surface air temperature for the G6sulfur scenario from UKESM1-0-LL model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the xarray datasets themselves are stored in the dictionary ddict, which has keys in the format shown below:</span>
@@ -530,6 +567,23 @@
 <img alt="../../_images/676d7324d6e56c4f7299bd0143fa97642ffb1a4ffad49529d750066e2de804aa.png" src="../../_images/676d7324d6e56c4f7299bd0143fa97642ffb1a4ffad49529d750066e2de804aa.png" />
 </div>
 </div>
+<section id="multi-model-ensemble-visualization">
+<h2>Multi-model ensemble visualization<a class="headerlink" href="#multi-model-ensemble-visualization" title="Link to this heading">#</a></h2>
+<p>We create a figure that compares temperature trajectories across:</p>
+<ul class="simple">
+<li><p><strong>Multiple models</strong>: Different climate models</p></li>
+<li><p><strong>Three scenarios</strong>: SSP2-4.5, SSP5-8.5, and G6sulfur</p></li>
+<li><p><strong>Ensemble members</strong>: Multiple realizations from each model</p></li>
+</ul>
+<p><strong>Visualization approach:</strong></p>
+<ul class="simple">
+<li><p>Each subplot represents one climate model</p></li>
+<li><p>Solid lines show ensemble means</p></li>
+<li><p>Shaded areas show ensemble spread (min to max)</p></li>
+<li><p>Color coding distinguishes between scenarios</p></li>
+<li><p>Time period: 2015-2100 for future projections</p></li>
+</ul>
+<p>This allows us to see how different models respond to geoengineering and compare their projections.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## we can iterate over the returned datasets to plot across models, scenarios and ensemble members:</span>
@@ -587,6 +641,7 @@ Processing: ScenarioMIP.MOHC.UKESM1-0-LL.ssp245.Amon.gn
 <img alt="../../_images/b45f56568830a3c00a20f7914aa0f15fc1d92df8d48bb8f9312595f933047e6f.png" src="../../_images/b45f56568830a3c00a20f7914aa0f15fc1d92df8d48bb8f9312595f933047e6f.png" />
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -655,10 +710,15 @@ Processing: ScenarioMIP.MOHC.UKESM1-0-LL.ssp245.Amon.gn
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Working with the GeoMIP (and CMIP6) cloud-store</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-notebook-demonstrates-usage-of-the-google-cloud-store-hosted-version-of-cloud-optimised-zarr-data-for-the-g6sulfur-geomip-scenario">This notebook demonstrates usage of the Google Cloud Store hosted version of cloud-optimised (zarr) data for the G6sulfur GeoMIP scenario</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-to-the-google-cloud-cmip6-catalog">Connect to the Google Cloud CMIP6 catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#search-for-geomip-and-comparison-data">Search for GeoMIP and comparison data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-with-preprocessing">Load data with preprocessing</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#example-usage">Example Usage</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#example-usage">Example Usage</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-model-ensemble-visualization">Multi-model ensemble visualization</a></li>
+</ul>
+</li>
 </ul>
 
   </nav></div>

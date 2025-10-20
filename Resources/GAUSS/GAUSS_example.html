@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>GAUSS Dataset Intro &#8212; ReflectiveCloud; SRM research Community Book</title>
+    <title>GAUSS Dataset &#8212; ReflectiveCloud; SRM research Community Book</title>
   
   
   
@@ -197,13 +197,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
 
+
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="GAUSS_intro.html">GAUSS Dataset Resources</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">GAUSS Dataset Intro</a></li>
-
-
-
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">GAUSS Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="s3tree.html">S3 Tree Browser Utility</a></li>
 </ul>
 </details></li>
@@ -352,7 +350,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>GAUSS Dataset Intro</h1>
+    <h1>GAUSS Dataset</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -362,15 +360,20 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">GAUSS Dataset Intro</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-all-netcdf-files-together">Reading all netCDF files together</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-individual-files">Reading individual files</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#timeseries">Timeseries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-gauss-catalog-in-s3">Explore the GAUSS catalog in S3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-on-a-single-variable">Focus on a single variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-several-files-simultaneously-vs-one-file">Loading several files simultaneously vs one file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-multiple-files-by-coordinates">Load multiple files by coordinates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-an-individual-file">Reading an individual file</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-content">Bonus content</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#line-plot-time-series-of-global-temperature-anomaly">Line plot: Time series of global temperature anomaly</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map-decadal-change-relative-to-preindustrial">Map: decadal change relative to preindustrial</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kde-plot-distribution-by-latitude-bands">kde plot: distribution by latitude bands</a></li>
 </ul>
-
+</li>
+</ul>
             </nav>
         </div>
     </div>
@@ -381,76 +384,161 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="gauss-dataset-intro">
-<h1>GAUSS Dataset Intro<a class="headerlink" href="#gauss-dataset-intro" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="gauss-dataset">
+<h1>GAUSS Dataset<a class="headerlink" href="#gauss-dataset" title="Link to this heading">#</a></h1>
+<p>This notebook introduces the GAUSS dataset hosted under the bucket <code class="docutils literal notranslate"><span class="pre">reflective-persistent-prod/gauss</span></code> and demonstrates:</p>
+<ul class="simple">
+<li><p>Investigating available variables and file layout in the S3 bucket</p></li>
+<li><p>Loading data from S3 (single files and many files)</p></li>
+<li><p>Aggregating to annual means and computing area-weighted global averages</p></li>
+<li><p>Plotting temperature anomaly time series, map and Kernel Density Estimation (kde) plot looking at distribution by latitude band</p></li>
+</ul>
+<p>Key ideas:</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">simplecache::s3://</span></code> URLs to locally cache reads for faster access</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">open_mfdataset</span></code> when combining many NetCDF files by coordinates</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">hvplot</span></code>/HoloViews for interactive plots</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>datashader<span class="w"> </span>geoviews<span class="w"> </span>hvplot<span class="w"> </span>dask
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>datashader<span class="w"> </span>geoviews<span class="w"> </span>hvplot<span class="w"> </span>dask<span class="w"> </span>boto
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pip in /srv/conda/envs/notebook/lib/python3.12/site-packages (25.2)
-Requirement already satisfied: datashader in /srv/conda/envs/notebook/lib/python3.12/site-packages (0.18.2)
-Requirement already satisfied: geoviews in /srv/conda/envs/notebook/lib/python3.12/site-packages (1.14.0)
-Requirement already satisfied: hvplot in /srv/conda/envs/notebook/lib/python3.12/site-packages (0.12.0)
-Requirement already satisfied: dask in /srv/conda/envs/notebook/lib/python3.12/site-packages (2025.7.0)
-Requirement already satisfied: colorcet in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (3.1.0)
-Requirement already satisfied: multipledispatch in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (0.6.0)
-Requirement already satisfied: numba in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (0.60.0)
-Requirement already satisfied: numpy in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (2.0.2)
-Requirement already satisfied: packaging in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (24.2)
-Requirement already satisfied: pandas in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (2.2.3)
-Requirement already satisfied: param in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (2.2.0)
-Requirement already satisfied: pyct in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (0.5.0)
-Requirement already satisfied: requests in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (2.32.3)
-Requirement already satisfied: scipy in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (1.15.1)
-Requirement already satisfied: toolz in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (1.0.0)
-Requirement already satisfied: xarray in /srv/conda/envs/notebook/lib/python3.12/site-packages (from datashader) (2025.1.1)
-Requirement already satisfied: bokeh&gt;=3.6.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from geoviews) (3.6.2)
-Requirement already satisfied: cartopy&gt;=0.18.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from geoviews) (0.24.0)
-Requirement already satisfied: holoviews&gt;=1.16.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from geoviews) (1.20.0)
-Requirement already satisfied: panel&gt;=1.0.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from geoviews) (1.5.5)
-Requirement already satisfied: pyproj in /srv/conda/envs/notebook/lib/python3.12/site-packages (from geoviews) (3.7.0)
-Requirement already satisfied: shapely in /srv/conda/envs/notebook/lib/python3.12/site-packages (from geoviews) (2.0.6)
-Requirement already satisfied: xyzservices in /srv/conda/envs/notebook/lib/python3.12/site-packages (from geoviews) (2025.1.0)
-Requirement already satisfied: click&gt;=8.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask) (8.1.8)
-Requirement already satisfied: cloudpickle&gt;=3.0.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask) (3.1.1)
-Requirement already satisfied: fsspec&gt;=2021.09.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask) (2024.12.0)
-Requirement already satisfied: partd&gt;=1.4.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask) (1.4.2)
-Requirement already satisfied: pyyaml&gt;=5.3.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask) (6.0.2)
-Requirement already satisfied: Jinja2&gt;=2.9 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from bokeh&gt;=3.6.0-&gt;geoviews) (3.1.5)
-Requirement already satisfied: contourpy&gt;=1.2 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from bokeh&gt;=3.6.0-&gt;geoviews) (1.3.1)
-Requirement already satisfied: pillow&gt;=7.1.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from bokeh&gt;=3.6.0-&gt;geoviews) (11.1.0)
-Requirement already satisfied: tornado&gt;=6.2 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from bokeh&gt;=3.6.0-&gt;geoviews) (6.4.2)
-Requirement already satisfied: matplotlib&gt;=3.6 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from cartopy&gt;=0.18.0-&gt;geoviews) (3.10.0)
-Requirement already satisfied: pyshp&gt;=2.3 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from cartopy&gt;=0.18.0-&gt;geoviews) (2.3.1)
-Requirement already satisfied: pyviz-comms&gt;=2.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from holoviews&gt;=1.16.0-&gt;geoviews) (3.0.4)
-Requirement already satisfied: MarkupSafe&gt;=2.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from Jinja2&gt;=2.9-&gt;bokeh&gt;=3.6.0-&gt;geoviews) (3.0.2)
-Requirement already satisfied: cycler&gt;=0.10 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (0.12.1)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (4.55.4)
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (1.4.8)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (3.2.1)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (2.9.0)
-Requirement already satisfied: pytz&gt;=2020.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from pandas-&gt;datashader) (2024.1)
-Requirement already satisfied: tzdata&gt;=2022.7 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from pandas-&gt;datashader) (2025.1)
-Requirement already satisfied: bleach in /srv/conda/envs/notebook/lib/python3.12/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (6.2.0)
-Requirement already satisfied: linkify-it-py in /srv/conda/envs/notebook/lib/python3.12/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (2.0.3)
-Requirement already satisfied: markdown in /srv/conda/envs/notebook/lib/python3.12/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (3.6)
-Requirement already satisfied: markdown-it-py in /srv/conda/envs/notebook/lib/python3.12/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (3.0.0)
-Requirement already satisfied: mdit-py-plugins in /srv/conda/envs/notebook/lib/python3.12/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (0.4.2)
-Requirement already satisfied: tqdm in /srv/conda/envs/notebook/lib/python3.12/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (4.67.1)
-Requirement already satisfied: typing-extensions in /srv/conda/envs/notebook/lib/python3.12/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (4.12.2)
-Requirement already satisfied: locket in /srv/conda/envs/notebook/lib/python3.12/site-packages (from partd&gt;=1.4.0-&gt;dask) (1.0.0)
-Requirement already satisfied: certifi in /srv/conda/envs/notebook/lib/python3.12/site-packages (from pyproj-&gt;geoviews) (2024.12.14)
-Requirement already satisfied: six&gt;=1.5 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (1.17.0)
-Requirement already satisfied: webencodings in /srv/conda/envs/notebook/lib/python3.12/site-packages (from bleach-&gt;panel&gt;=1.0.0-&gt;geoviews) (0.5.1)
-Requirement already satisfied: uc-micro-py in /srv/conda/envs/notebook/lib/python3.12/site-packages (from linkify-it-py-&gt;panel&gt;=1.0.0-&gt;geoviews) (1.0.3)
-Requirement already satisfied: mdurl~=0.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from markdown-it-py-&gt;panel&gt;=1.0.0-&gt;geoviews) (0.1.2)
-Requirement already satisfied: llvmlite&lt;0.44,&gt;=0.43.0dev0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from numba-&gt;datashader) (0.43.0)
-Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from requests-&gt;datashader) (3.4.1)
-Requirement already satisfied: idna&lt;4,&gt;=2.5 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from requests-&gt;datashader) (3.10)
-Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from requests-&gt;datashader) (1.26.19)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pip in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (25.2)
+Collecting datashader
+  Downloading datashader-0.18.2-py3-none-any.whl.metadata (7.6 kB)
+Collecting geoviews
+  Downloading geoviews-1.14.1-py3-none-any.whl.metadata (8.5 kB)
+Collecting hvplot
+  Downloading hvplot-0.12.1-py3-none-any.whl.metadata (19 kB)
+Collecting dask
+  Downloading dask-2025.9.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting colorcet (from datashader)
+  Downloading colorcet-3.1.0-py3-none-any.whl.metadata (6.3 kB)
+Collecting multipledispatch (from datashader)
+  Downloading multipledispatch-1.0.0-py3-none-any.whl.metadata (3.8 kB)
+Collecting numba (from datashader)
+  Downloading numba-0.62.0-cp313-cp313-macosx_12_0_arm64.whl.metadata (2.8 kB)
+Requirement already satisfied: numpy in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from datashader) (2.3.2)
+Requirement already satisfied: packaging in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from datashader) (25.0)
+Requirement already satisfied: pandas in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from datashader) (2.3.2)
+Collecting param (from datashader)
+  Downloading param-2.2.1-py3-none-any.whl.metadata (6.6 kB)
+Collecting pyct (from datashader)
+  Downloading pyct-0.6.0-py3-none-any.whl.metadata (7.2 kB)
+Requirement already satisfied: requests in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from datashader) (2.32.4)
+Collecting scipy (from datashader)
+  Downloading scipy-1.16.2-cp313-cp313-macosx_14_0_arm64.whl.metadata (62 kB)
+Collecting toolz (from datashader)
+  Downloading toolz-1.0.0-py3-none-any.whl.metadata (5.1 kB)
+Requirement already satisfied: xarray in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from datashader) (2025.4.0)
+Collecting bokeh&gt;=3.6.0 (from geoviews)
+  Downloading bokeh-3.8.0-py3-none-any.whl.metadata (10 kB)
+Collecting cartopy&gt;=0.18.0 (from geoviews)
+  Downloading cartopy-0.25.0-cp313-cp313-macosx_11_0_arm64.whl.metadata (6.1 kB)
+Collecting holoviews&gt;=1.16.0 (from geoviews)
+  Downloading holoviews-1.21.0-py3-none-any.whl.metadata (10 kB)
+Collecting panel&gt;=1.0.0 (from geoviews)
+  Downloading panel-1.8.1-py3-none-any.whl.metadata (15 kB)
+Collecting pyproj (from geoviews)
+  Downloading pyproj-3.7.2-cp313-cp313-macosx_14_0_arm64.whl.metadata (31 kB)
+Collecting shapely (from geoviews)
+  Downloading shapely-2.1.2-cp313-cp313-macosx_11_0_arm64.whl.metadata (6.8 kB)
+Collecting xyzservices (from geoviews)
+  Downloading xyzservices-2025.4.0-py3-none-any.whl.metadata (4.3 kB)
+Requirement already satisfied: click&gt;=8.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask) (8.2.1)
+Collecting cloudpickle&gt;=3.0.0 (from dask)
+  Downloading cloudpickle-3.1.1-py3-none-any.whl.metadata (7.1 kB)
+Requirement already satisfied: fsspec&gt;=2021.09.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask) (2025.7.0)
+Collecting partd&gt;=1.4.0 (from dask)
+  Using cached partd-1.4.2-py3-none-any.whl.metadata (4.6 kB)
+Requirement already satisfied: pyyaml&gt;=5.3.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask) (6.0.2)
+Requirement already satisfied: Jinja2&gt;=2.9 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from bokeh&gt;=3.6.0-&gt;geoviews) (3.1.6)
+Requirement already satisfied: contourpy&gt;=1.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from bokeh&gt;=3.6.0-&gt;geoviews) (1.3.3)
+Collecting narwhals&gt;=1.13 (from bokeh&gt;=3.6.0-&gt;geoviews)
+  Downloading narwhals-2.5.0-py3-none-any.whl.metadata (11 kB)
+Requirement already satisfied: pillow&gt;=7.1.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from bokeh&gt;=3.6.0-&gt;geoviews) (11.3.0)
+Requirement already satisfied: tornado&gt;=6.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from bokeh&gt;=3.6.0-&gt;geoviews) (6.5.2)
+Requirement already satisfied: matplotlib&gt;=3.6 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from cartopy&gt;=0.18.0-&gt;geoviews) (3.10.5)
+Collecting pyshp&gt;=2.3 (from cartopy&gt;=0.18.0-&gt;geoviews)
+  Using cached pyshp-2.3.1-py2.py3-none-any.whl.metadata (55 kB)
+Collecting pyviz-comms&gt;=2.1 (from holoviews&gt;=1.16.0-&gt;geoviews)
+  Downloading pyviz_comms-3.0.6-py3-none-any.whl.metadata (7.7 kB)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from Jinja2&gt;=2.9-&gt;bokeh&gt;=3.6.0-&gt;geoviews) (3.0.2)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (4.59.0)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (1.4.9)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (3.2.3)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pandas-&gt;datashader) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pandas-&gt;datashader) (2025.2)
+Collecting bleach (from panel&gt;=1.0.0-&gt;geoviews)
+  Downloading bleach-6.2.0-py3-none-any.whl.metadata (30 kB)
+Requirement already satisfied: linkify-it-py in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (2.0.3)
+Collecting markdown (from panel&gt;=1.0.0-&gt;geoviews)
+  Downloading markdown-3.9-py3-none-any.whl.metadata (5.1 kB)
+Requirement already satisfied: markdown-it-py in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (3.0.0)
+Requirement already satisfied: mdit-py-plugins in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (0.5.0)
+Requirement already satisfied: tqdm in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (4.67.1)
+Requirement already satisfied: typing-extensions in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from panel&gt;=1.0.0-&gt;geoviews) (4.14.1)
+Collecting locket (from partd&gt;=1.4.0-&gt;dask)
+  Using cached locket-1.0.0-py2.py3-none-any.whl.metadata (2.8 kB)
+Requirement already satisfied: certifi in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pyproj-&gt;geoviews) (2025.8.3)
+Requirement already satisfied: six&gt;=1.5 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&gt;=3.6-&gt;cartopy&gt;=0.18.0-&gt;geoviews) (1.17.0)
+Collecting webencodings (from bleach-&gt;panel&gt;=1.0.0-&gt;geoviews)
+  Using cached webencodings-0.5.1-py2.py3-none-any.whl.metadata (2.1 kB)
+Requirement already satisfied: uc-micro-py in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from linkify-it-py-&gt;panel&gt;=1.0.0-&gt;geoviews) (1.0.3)
+Requirement already satisfied: mdurl~=0.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from markdown-it-py-&gt;panel&gt;=1.0.0-&gt;geoviews) (0.1.2)
+Collecting llvmlite&lt;0.46,&gt;=0.45.0dev0 (from numba-&gt;datashader)
+  Downloading llvmlite-0.45.0-cp313-cp313-macosx_12_0_arm64.whl.metadata (4.8 kB)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests-&gt;datashader) (3.4.3)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests-&gt;datashader) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests-&gt;datashader) (2.5.0)
+Downloading datashader-0.18.2-py3-none-any.whl (18.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">18.3/18.3 MB</span> <span class=" -Color -Color-Red">9.7 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:01</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>m
+?25hDownloading geoviews-1.14.1-py3-none-any.whl (548 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">548.7/548.7 kB</span> <span class=" -Color -Color-Red">8.5 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span>
+?25hDownloading param-2.2.1-py3-none-any.whl (119 kB)
+Downloading hvplot-0.12.1-py3-none-any.whl (175 kB)
+Downloading dask-2025.9.1-py3-none-any.whl (1.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.5/1.5 MB</span> <span class=" -Color -Color-Red">9.5 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span>
+?25hDownloading bokeh-3.8.0-py3-none-any.whl (7.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">7.2/7.2 MB</span> <span class=" -Color -Color-Red">9.7 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+?25hDownloading cartopy-0.25.0-cp313-cp313-macosx_11_0_arm64.whl (11.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">11.0/11.0 MB</span> <span class=" -Color -Color-Red">10.0 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:01</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+?25hDownloading cloudpickle-3.1.1-py3-none-any.whl (20 kB)
+Downloading colorcet-3.1.0-py3-none-any.whl (260 kB)
+Downloading holoviews-1.21.0-py3-none-any.whl (5.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">5.9/5.9 MB</span> <span class=" -Color -Color-Red">9.8 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span>m0:00:0100:01
+?25hDownloading narwhals-2.5.0-py3-none-any.whl (407 kB)
+Downloading panel-1.8.1-py3-none-any.whl (30.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">30.1/30.1 MB</span> <span class=" -Color -Color-Red">10.1 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:02</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+?25hUsing cached partd-1.4.2-py3-none-any.whl (18 kB)
+Downloading pyproj-3.7.2-cp313-cp313-macosx_14_0_arm64.whl (4.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">4.6/4.6 MB</span> <span class=" -Color -Color-Red">9.8 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>m
+?25hUsing cached pyshp-2.3.1-py2.py3-none-any.whl (46 kB)
+Downloading pyviz_comms-3.0.6-py3-none-any.whl (84 kB)
+Downloading shapely-2.1.2-cp313-cp313-macosx_11_0_arm64.whl (1.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.6/1.6 MB</span> <span class=" -Color -Color-Red">8.9 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span>
+?25hDownloading toolz-1.0.0-py3-none-any.whl (56 kB)
+Downloading xyzservices-2025.4.0-py3-none-any.whl (90 kB)
+Downloading bleach-6.2.0-py3-none-any.whl (163 kB)
+Using cached locket-1.0.0-py2.py3-none-any.whl (4.4 kB)
+Downloading markdown-3.9-py3-none-any.whl (107 kB)
+Downloading multipledispatch-1.0.0-py3-none-any.whl (12 kB)
+Downloading numba-0.62.0-cp313-cp313-macosx_12_0_arm64.whl (2.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">2.7/2.7 MB</span> <span class=" -Color -Color-Red">10.4 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+?25hDownloading llvmlite-0.45.0-cp313-cp313-macosx_12_0_arm64.whl (37.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">9.5 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:03</span>m0:00:0100:01
+?25hDownloading pyct-0.6.0-py3-none-any.whl (16 kB)
+Downloading scipy-1.16.2-cp313-cp313-macosx_14_0_arm64.whl (20.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">20.9/20.9 MB</span> <span class=" -Color -Color-Red">9.3 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:02</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+?25hUsing cached webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+Installing collected packages: webencodings, multipledispatch, xyzservices, toolz, shapely, scipy, pyshp, pyproj, param, narwhals, markdown, locket, llvmlite, colorcet, cloudpickle, bleach, pyviz-comms, pyct, partd, numba, dask, cartopy, bokeh, panel, datashader, holoviews, hvplot, geoviews
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">28/28</span> [geoviews]/28 [hvplot]ws]]
+Successfully installed bleach-6.2.0 bokeh-3.8.0 cartopy-0.25.0 cloudpickle-3.1.1 colorcet-3.1.0 dask-2025.9.1 datashader-0.18.2 geoviews-1.14.1 holoviews-1.21.0 hvplot-0.12.1 llvmlite-0.45.0 locket-1.0.0 markdown-3.9 multipledispatch-1.0.0 narwhals-2.5.0 numba-0.62.0 panel-1.8.1 param-2.2.1 partd-1.4.2 pyct-0.6.0 pyproj-3.7.2 pyshp-2.3.1 pyviz-comms-3.0.6 scipy-1.16.2 shapely-2.1.2 toolz-1.0.0 webencodings-0.5.1 xyzservices-2025.4.0
 </pre></div>
 </div>
 </div>
@@ -475,8 +563,8 @@ Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /srv/conda/envs/noteb
 
 /* Override VSCode background color */
 .cell-output-ipywidget-background:has(
-    > .cell-output-ipywidget-background > .lm-Widget > *[data-root-id]
-  ),
+  > .cell-output-ipywidget-background > .lm-Widget > *[data-root-id]
+),
 .cell-output-ipywidget-background:has(> .lm-Widget > *[data-root-id]) {
   background-color: transparent !important;
 }
@@ -486,7 +574,7 @@ Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /srv/conda/envs/noteb
   }
 
   const force = true;
-  const py_version = '3.6.2'.replace('rc', '-rc.').replace('.dev', '-dev.');
+  const py_version = '3.8.0'.replace('rc', '-rc.').replace('.dev', '-dev.');
   const reloading = false;
   const Bokeh = root.Bokeh;
 
@@ -646,7 +734,7 @@ Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /srv/conda/envs/noteb
     document.body.appendChild(element);
   }
 
-  const js_urls = ["https://cdn.holoviz.org/panel/1.5.5/dist/bundled/reactiveesm/es-module-shims@^1.10.0/dist/es-module-shims.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-3.6.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.6.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.6.2.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.6.2.min.js", "https://cdn.holoviz.org/panel/1.5.5/dist/panel.min.js"];
+  const js_urls = ["https://cdn.holoviz.org/panel/1.8.1/dist/bundled/reactiveesm/es-module-shims@^1.10.0/dist/es-module-shims.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-3.8.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.8.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.8.0.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.8.0.min.js", "https://cdn.holoviz.org/panel/1.8.1/dist/panel.min.js"];
   const js_modules = [];
   const js_exports = {};
   const css_urls = [];
@@ -749,7 +837,6 @@ if ((window.PyViz === undefined) || (window.PyViz instanceof HTMLElement)) {
           var messages = comm.messages[Symbol.asyncIterator]();
           function processIteratorResult(result) {
             var message = result.value;
-            console.log(message)
             var content = {data: message.data, comm_id};
             var buffers = []
             for (var buffer of message.buffers || []) {
@@ -776,7 +863,22 @@ if ((window.PyViz === undefined) || (window.PyViz instanceof HTMLElement)) {
         }
       } else if ((plot_id in window.PyViz.kernels) && (window.PyViz.kernels[plot_id])) {
         var comm = window.PyViz.kernels[plot_id].connectToComm(comm_id);
-        comm.open();
+        let retries = 0;
+        const open = () => {
+          if (comm.active) {
+            comm.open();
+          } else if (retries > 3) {
+            console.warn('Comm target never activated')
+          } else {
+            retries += 1
+            setTimeout(open, 500)
+          }
+        }
+        if (comm.active) {
+          comm.open();
+        } else {
+          setTimeout(open, 500)
+        }
         if (msg_handler) {
           comm.onMsg = msg_handler;
         }
@@ -964,12 +1066,12 @@ if (window.Jupyter !== undefined) {
   } catch(err) {
   }
 }
-</script><div class="output text_html"><div id='a8c74ef8-6920-4a3d-8c18-d4d815765e49'>
-  <div id="a2557496-bfe2-4a68-985e-ff8f55415225" data-root-id="a8c74ef8-6920-4a3d-8c18-d4d815765e49" style="display: contents;"></div>
+</script><div class="output text_html"><div id='b5a4152c-875f-4f7f-a161-8cd1502436f4'>
+  <div id="a4b70521-ad3b-48f5-b541-17354d618ee3" data-root-id="b5a4152c-875f-4f7f-a161-8cd1502436f4" style="display: contents;"></div>
 </div>
 <script type="application/javascript">(function(root) {
-  var docs_json = {"0a4dc27b-e359-4688-b470-acb074c76970":{"version":"3.6.2","title":"Bokeh Application","roots":[{"type":"object","name":"panel.models.browser.BrowserInfo","id":"a8c74ef8-6920-4a3d-8c18-d4d815765e49"},{"type":"object","name":"panel.models.comm_manager.CommManager","id":"f9f6cc8a-f630-4dbe-ad1b-acc947c4d8ce","attributes":{"plot_id":"a8c74ef8-6920-4a3d-8c18-d4d815765e49","comm_id":"acb493b875934413a12413ee8b45b6b8","client_comm_id":"a297df9c65f046be8b1b92904ed8ed47"}}],"defs":[{"type":"model","name":"ReactiveHTML1"},{"type":"model","name":"FlexBox1","properties":[{"name":"align_content","kind":"Any","default":"flex-start"},{"name":"align_items","kind":"Any","default":"flex-start"},{"name":"flex_direction","kind":"Any","default":"row"},{"name":"flex_wrap","kind":"Any","default":"wrap"},{"name":"gap","kind":"Any","default":""},{"name":"justify_content","kind":"Any","default":"flex-start"}]},{"type":"model","name":"FloatPanel1","properties":[{"name":"config","kind":"Any","default":{"type":"map"}},{"name":"contained","kind":"Any","default":true},{"name":"position","kind":"Any","default":"right-top"},{"name":"offsetx","kind":"Any","default":null},{"name":"offsety","kind":"Any","default":null},{"name":"theme","kind":"Any","default":"primary"},{"name":"status","kind":"Any","default":"normalized"}]},{"type":"model","name":"GridStack1","properties":[{"name":"mode","kind":"Any","default":"warn"},{"name":"ncols","kind":"Any","default":null},{"name":"nrows","kind":"Any","default":null},{"name":"allow_resize","kind":"Any","default":true},{"name":"allow_drag","kind":"Any","default":true},{"name":"state","kind":"Any","default":[]}]},{"type":"model","name":"drag1","properties":[{"name":"slider_width","kind":"Any","default":5},{"name":"slider_color","kind":"Any","default":"black"},{"name":"value","kind":"Any","default":50}]},{"type":"model","name":"click1","properties":[{"name":"terminal_output","kind":"Any","default":""},{"name":"debug_name","kind":"Any","default":""},{"name":"clears","kind":"Any","default":0}]},{"type":"model","name":"FastWrapper1","properties":[{"name":"object","kind":"Any","default":null},{"name":"style","kind":"Any","default":null}]},{"type":"model","name":"NotificationAreaBase1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0}]},{"type":"model","name":"NotificationArea1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"notifications","kind":"Any","default":[]},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0},{"name":"types","kind":"Any","default":[{"type":"map","entries":[["type","warning"],["background","#ffc107"],["icon",{"type":"map","entries":[["className","fas fa-exclamation-triangle"],["tagName","i"],["color","white"]]}]]},{"type":"map","entries":[["type","info"],["background","#007bff"],["icon",{"type":"map","entries":[["className","fas fa-info-circle"],["tagName","i"],["color","white"]]}]]}]}]},{"type":"model","name":"Notification","properties":[{"name":"background","kind":"Any","default":null},{"name":"duration","kind":"Any","default":3000},{"name":"icon","kind":"Any","default":null},{"name":"message","kind":"Any","default":""},{"name":"notification_type","kind":"Any","default":null},{"name":"_rendered","kind":"Any","default":false},{"name":"_destroyed","kind":"Any","default":false}]},{"type":"model","name":"TemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"BootstrapTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"TemplateEditor1","properties":[{"name":"layout","kind":"Any","default":[]}]},{"type":"model","name":"MaterialTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"ReactiveESM1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"JSComponent1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"ReactComponent1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"AnyWidgetComponent1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"request_value1","properties":[{"name":"fill","kind":"Any","default":"none"},{"name":"_synced","kind":"Any","default":null},{"name":"_request_sync","kind":"Any","default":0}]}]}};
-  var render_items = [{"docid":"0a4dc27b-e359-4688-b470-acb074c76970","roots":{"a8c74ef8-6920-4a3d-8c18-d4d815765e49":"a2557496-bfe2-4a68-985e-ff8f55415225"},"root_ids":["a8c74ef8-6920-4a3d-8c18-d4d815765e49"]}];
+  var docs_json = {"529e481e-371a-40dc-b813-b17c922c4765":{"version":"3.8.0","title":"Bokeh Application","config":{"type":"object","name":"DocumentConfig","id":"2415d8d0-c5e8-4842-a788-7dac810700e0","attributes":{"notifications":{"type":"object","name":"Notifications","id":"6f6b453a-bbfe-45c1-b4eb-0d7f9534f100"}}},"roots":[{"type":"object","name":"panel.models.browser.BrowserInfo","id":"b5a4152c-875f-4f7f-a161-8cd1502436f4"},{"type":"object","name":"panel.models.comm_manager.CommManager","id":"71819037-594e-4c77-9dbb-f598a57006ba","attributes":{"plot_id":"b5a4152c-875f-4f7f-a161-8cd1502436f4","comm_id":"4f7139959d8a46c0a34dc22663850ed3","client_comm_id":"13d0c5cf65cc457f959862df6133ef78"}}],"defs":[{"type":"model","name":"ReactiveHTML1"},{"type":"model","name":"FlexBox1","properties":[{"name":"align_content","kind":"Any","default":"flex-start"},{"name":"align_items","kind":"Any","default":"flex-start"},{"name":"flex_direction","kind":"Any","default":"row"},{"name":"flex_wrap","kind":"Any","default":"wrap"},{"name":"gap","kind":"Any","default":""},{"name":"justify_content","kind":"Any","default":"flex-start"}]},{"type":"model","name":"FloatPanel1","properties":[{"name":"config","kind":"Any","default":{"type":"map"}},{"name":"contained","kind":"Any","default":true},{"name":"position","kind":"Any","default":"right-top"},{"name":"offsetx","kind":"Any","default":null},{"name":"offsety","kind":"Any","default":null},{"name":"theme","kind":"Any","default":"primary"},{"name":"status","kind":"Any","default":"normalized"}]},{"type":"model","name":"GridStack1","properties":[{"name":"ncols","kind":"Any","default":null},{"name":"nrows","kind":"Any","default":null},{"name":"allow_resize","kind":"Any","default":true},{"name":"allow_drag","kind":"Any","default":true},{"name":"state","kind":"Any","default":[]}]},{"type":"model","name":"drag1","properties":[{"name":"slider_width","kind":"Any","default":5},{"name":"slider_color","kind":"Any","default":"black"},{"name":"start","kind":"Any","default":0},{"name":"end","kind":"Any","default":100},{"name":"value","kind":"Any","default":50}]},{"type":"model","name":"click1","properties":[{"name":"terminal_output","kind":"Any","default":""},{"name":"debug_name","kind":"Any","default":""},{"name":"clears","kind":"Any","default":0}]},{"type":"model","name":"ReactiveESM1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"JSComponent1","properties":[{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"ReactComponent1","properties":[{"name":"use_shadow_dom","kind":"Any","default":true},{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"AnyWidgetComponent1","properties":[{"name":"use_shadow_dom","kind":"Any","default":true},{"name":"esm_constants","kind":"Any","default":{"type":"map"}}]},{"type":"model","name":"FastWrapper1","properties":[{"name":"object","kind":"Any","default":null},{"name":"style","kind":"Any","default":null}]},{"type":"model","name":"NotificationArea1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"max_notifications","kind":"Any","default":5},{"name":"notifications","kind":"Any","default":[]},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0},{"name":"types","kind":"Any","default":[{"type":"map","entries":[["type","warning"],["background","#ffc107"],["icon",{"type":"map","entries":[["className","fas fa-exclamation-triangle"],["tagName","i"],["color","white"]]}]]},{"type":"map","entries":[["type","info"],["background","#007bff"],["icon",{"type":"map","entries":[["className","fas fa-info-circle"],["tagName","i"],["color","white"]]}]]}]}]},{"type":"model","name":"Notification","properties":[{"name":"background","kind":"Any","default":null},{"name":"duration","kind":"Any","default":3000},{"name":"icon","kind":"Any","default":null},{"name":"message","kind":"Any","default":""},{"name":"notification_type","kind":"Any","default":null},{"name":"_rendered","kind":"Any","default":false},{"name":"_destroyed","kind":"Any","default":false}]},{"type":"model","name":"TemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"BootstrapTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"TemplateEditor1","properties":[{"name":"layout","kind":"Any","default":[]}]},{"type":"model","name":"MaterialTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"request_value1","properties":[{"name":"fill","kind":"Any","default":"none"},{"name":"_synced","kind":"Any","default":null},{"name":"_request_sync","kind":"Any","default":0}]},{"type":"model","name":"holoviews.plotting.bokeh.raster.HoverModel","properties":[{"name":"xy","kind":"Any","default":null},{"name":"data","kind":"Any","default":null}]}]}};
+  var render_items = [{"docid":"529e481e-371a-40dc-b813-b17c922c4765","roots":{"b5a4152c-875f-4f7f-a161-8cd1502436f4":"a4b70521-ad3b-48f5-b541-17354d618ee3"},"root_ids":["b5a4152c-875f-4f7f-a161-8cd1502436f4"]}];
   var docs = Object.values(docs_json)
   if (!docs) {
     return
@@ -1035,6 +1137,10 @@ if (window.Jupyter !== undefined) {
   }
 })(window);</script></div></div>
 </div>
+<section id="explore-the-gauss-catalog-in-s3">
+<h2>Explore the GAUSS catalog in S3<a class="headerlink" href="#explore-the-gauss-catalog-in-s3" title="Link to this heading">#</a></h2>
+<p>We first list available variables and sizes, then check out the hierarchical layout to understand scenarios, ensembles, and file naming patterns.</p>
+<p>We import helper functions from <code class="docutils literal notranslate"><span class="pre">s3tree.py</span></code> to summarize the bucket contents and set <code class="docutils literal notranslate"><span class="pre">bucket</span></code>/<code class="docutils literal notranslate"><span class="pre">group</span></code> variables used throughout.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
@@ -1562,6 +1668,10 @@ if (window.Jupyter !== undefined) {
 </div>
 </div>
 </div>
+</section>
+<section id="focus-on-a-single-variable">
+<h2>Focus on a single variable<a class="headerlink" href="#focus-on-a-single-variable" title="Link to this heading">#</a></h2>
+<p>We narrow down to <code class="docutils literal notranslate"><span class="pre">TREFHT</span></code> to keep the example concise and reproducible across runs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only one variable</span>
@@ -1700,8 +1810,16 @@ if (window.Jupyter !== undefined) {
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="reading-all-netcdf-files-together">
-<h1>Reading all netCDF files together<a class="headerlink" href="#reading-all-netcdf-files-together" title="Link to this heading">#</a></h1>
+<section id="loading-several-files-simultaneously-vs-one-file">
+<h2>Loading several files simultaneously vs one file<a class="headerlink" href="#loading-several-files-simultaneously-vs-one-file" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Many files: use <code class="docutils literal notranslate"><span class="pre">xr.open_mfdataset(...,</span> <span class="pre">combine=&quot;by_coords&quot;)</span></code> with <code class="docutils literal notranslate"><span class="pre">simplecache::s3://</span></code> URLs and backend storage options. This merges by shared coordinates.</p></li>
+<li><p>One file: use <code class="docutils literal notranslate"><span class="pre">xr.open_dataset</span></code></p></li>
+</ul>
+<p>We demonstrate both below.</p>
+<section id="load-multiple-files-by-coordinates">
+<h3>Load multiple files by coordinates<a class="headerlink" href="#load-multiple-files-by-coordinates" title="Link to this heading">#</a></h3>
+<p>We use <code class="docutils literal notranslate"><span class="pre">xr.open_mfdataset</span></code> to combine many NetCDF files that share coordinates. The <code class="docutils literal notranslate"><span class="pre">simplecache</span></code> fsspec layer speeds up random access by caching locally.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">variable_name</span> <span class="o">=</span> <span class="s2">&quot;TREFHT&quot;</span>
@@ -3638,6 +3756,7 @@ Attributes:
              2015-01-01 00:00:00],
             dtype=&#x27;object&#x27;, length=1980, calendar=&#x27;noleap&#x27;, freq=&#x27;MS&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-f2088026-bdc0-4054-b63f-db114e5a65a2' class='xr-section-summary-in' type='checkbox'  checked><label for='section-f2088026-bdc0-4054-b63f-db114e5a65a2' class='xr-section-summary' >Attributes: <span>(9)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>Conventions :</span></dt><dd>CF-1.0</dd><dt><span>source :</span></dt><dd>CAM</dd><dt><span>case :</span></dt><dd>b.e21.BWmaHIST.f09_g17.release-cesm2.1.3.WACCM-MA-1deg.002</dd><dt><span>logname :</span></dt><dd>mmills</dd><dt><span>host :</span></dt><dd>cheyenne1</dd><dt><span>initial_file :</span></dt><dd>b.e21.BWma1850.f09_g17.release-cesm2.1.3.c20200918.cam.i.0150-01-01-00000.nc</dd><dt><span>topography_file :</span></dt><dd>/glade/p/cesmdata/cseg/inputdata/atm/cam/topo/fv_0.9x1.25_nc3000_Nsw042_Nrs008_Co060_Fi001_ZR_sgh30_24km_GRNL_c170103.nc</dd><dt><span>model_doi_url :</span></dt><dd>https://doi.org/10.5065/D67H1H0V</dd><dt><span>time_period_freq :</span></dt><dd>month_1</dd></dl></div></li></ul></div></div></div></div>
 </div>
+<p>We aggregate to yearly means using <code class="docutils literal notranslate"><span class="pre">groupby('time.year').mean('time')</span></code> and drop the final year, which is missing some months.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_yearly</span> <span class="o">=</span> <span class="n">ds_all</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;time.year&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="s2">&quot;TREFHT&quot;</span><span class="p">]</span>
@@ -4203,8 +4322,9 @@ Attributes:
       dtype=&#x27;int64&#x27;, name=&#x27;year&#x27;, length=165))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-014e9001-d74b-4faf-8e36-a032cdfdd9e0' class='xr-section-summary-in' type='checkbox'  checked><label for='section-014e9001-d74b-4faf-8e36-a032cdfdd9e0' class='xr-section-summary' >Attributes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>K</dd><dt><span>long_name :</span></dt><dd>Reference height temperature</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div></li></ul></div></div></div></div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="reading-individual-files">
-<h1>Reading individual files<a class="headerlink" href="#reading-individual-files" title="Link to this heading">#</a></h1>
+<section id="reading-an-individual-file">
+<h3>Reading an individual file<a class="headerlink" href="#reading-an-individual-file" title="Link to this heading">#</a></h3>
+<p>We read one NetCDF file via <code class="docutils literal notranslate"><span class="pre">xr.open_dataset</span></code> with <code class="docutils literal notranslate"><span class="pre">engine='h5netcdf'</span></code> and use <code class="docutils literal notranslate"><span class="pre">simplecache::s3://</span></code> for access</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">variable_name</span> <span class="o">=</span> <span class="s2">&quot;TREFHT&quot;</span>
@@ -4765,8 +4885,13 @@ Attributes:
              2000-01-01 00:00:00],
             dtype=&#x27;object&#x27;, length=600, calendar=&#x27;noleap&#x27;, freq=&#x27;MS&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-cef7ea28-1a69-44aa-860b-cfe9d9753463' class='xr-section-summary-in' type='checkbox'  checked><label for='section-cef7ea28-1a69-44aa-860b-cfe9d9753463' class='xr-section-summary' >Attributes: <span>(9)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>Conventions :</span></dt><dd>CF-1.0</dd><dt><span>source :</span></dt><dd>CAM</dd><dt><span>case :</span></dt><dd>b.e21.BWmaHIST.f09_g17.release-cesm2.1.3.WACCM-MA-1deg.002</dd><dt><span>logname :</span></dt><dd>mmills</dd><dt><span>host :</span></dt><dd>r6i6n31</dd><dt><span>initial_file :</span></dt><dd>b.e21.BWma1850.f09_g17.release-cesm2.1.3.c20200918.cam.i.0150-01-01-00000.nc</dd><dt><span>topography_file :</span></dt><dd>/glade/p/cesmdata/cseg/inputdata/atm/cam/topo/fv_0.9x1.25_nc3000_Nsw042_Nrs008_Co060_Fi001_ZR_sgh30_24km_GRNL_c170103.nc</dd><dt><span>model_doi_url :</span></dt><dd>https://doi.org/10.5065/D67H1H0V</dd><dt><span>time_period_freq :</span></dt><dd>month_1</dd></dl></div></li></ul></div></div></div></div>
 </div>
-<section id="timeseries">
-<h2>Timeseries<a class="headerlink" href="#timeseries" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">#</a></h2>
+<section id="line-plot-time-series-of-global-temperature-anomaly">
+<h3>Line plot: Time series of global temperature anomaly<a class="headerlink" href="#line-plot-time-series-of-global-temperature-anomaly" title="Link to this heading">#</a></h3>
+<p>We compute an area-weighted global mean using <code class="docutils literal notranslate"><span class="pre">cos(lat)</span></code> as weights, define a preindustrial baseline (1850–1880), and plot the anomaly time series with <code class="docutils literal notranslate"><span class="pre">hvplot</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># weights for latitudes</span>
@@ -4857,6 +4982,10 @@ Attributes:
   }
 })(window);</script></div></div>
 </div>
+</section>
+<section id="map-decadal-change-relative-to-preindustrial">
+<h3>Map: decadal change relative to preindustrial<a class="headerlink" href="#map-decadal-change-relative-to-preindustrial" title="Link to this heading">#</a></h3>
+<p>We compute the mean over a chosen decade (e.g., 2000–2010) and subtract the preindustrial mean (1850–1880), then render a georeferenced image with coastlines.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the temp difference between preindustrial and 2000-2010 decade</span>
@@ -4944,9 +5073,9 @@ Attributes:
 })(window);</script></div></div>
 </div>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="bonus-content">
-<h1>Bonus content<a class="headerlink" href="#bonus-content" title="Link to this heading">#</a></h1>
+<section id="kde-plot-distribution-by-latitude-bands">
+<h3>kde plot: distribution by latitude bands<a class="headerlink" href="#kde-plot-distribution-by-latitude-bands" title="Link to this heading">#</a></h3>
+<p>We flatten a single time slice to a tidy DataFrame, build labeled latitude bands (N/S × magnitude ranges), and plot kernel density estimates to compare temperature distributions by latitude band.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -6634,6 +6763,8 @@ if (window.Jupyter !== undefined) {
 })(window);</script></div></div>
 </div>
 </section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -6700,15 +6831,20 @@ if (window.Jupyter !== undefined) {
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">GAUSS Dataset Intro</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-all-netcdf-files-together">Reading all netCDF files together</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-individual-files">Reading individual files</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#timeseries">Timeseries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-gauss-catalog-in-s3">Explore the GAUSS catalog in S3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#focus-on-a-single-variable">Focus on a single variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-several-files-simultaneously-vs-one-file">Loading several files simultaneously vs one file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-multiple-files-by-coordinates">Load multiple files by coordinates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-an-individual-file">Reading an individual file</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-content">Bonus content</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#line-plot-time-series-of-global-temperature-anomaly">Line plot: Time series of global temperature anomaly</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map-decadal-change-relative-to-preindustrial">Map: decadal change relative to preindustrial</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kde-plot-distribution-by-latitude-bands">kde plot: distribution by latitude bands</a></li>
 </ul>
-
+</li>
+</ul>
   </nav></div>
 
 </div></div>

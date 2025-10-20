@@ -197,13 +197,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
 
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS Dataset Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset Intro</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
 </ul>
 </details></li>
@@ -362,7 +360,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#widening-search-criteria-if-data-aren-t-found">Widening search criteria if data aren’t found</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-intake-esgf">Install intake_esgf</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-the-esgf-catalog-and-explore-available-variables">Initialize the ESGF catalog and explore available variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-into-xarray">Load data into xarray</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-when-searches-return-no-results">Troubleshooting: When searches return no results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-widening-search-criteria">Solution: Widening search criteria</a></li>
 </ul>
             </nav>
         </div>
@@ -381,74 +383,106 @@
 <li><p>This code is taken from the intake-esgf <a href="https://intake-esgf.readthedocs.io/en/latest/beginner.html" style="color: blue; text-decoration: underline;">tutorial</a>. Please refer there for a fuller explanation of each step.</p></li>
 <li><p>The data search uses the standard CMIP directory structure, see <a href="https://help.ceda.ac.uk/article/4801-cmip6-data#CMIP6%20data%20structure" style="color: blue; text-decoration: underline;">here</a> for an explanation. We make use of xarray; see <a href="https://tutorial.xarray.dev/intro.html" style="color: blue; text-decoration: underline;">this turorial</a> for an introduction.</p></li>
 </ul>
+<p><strong>Key steps:</strong></p>
+<ol class="arabic simple">
+<li><p>Install and configure <code class="docutils literal notranslate"><span class="pre">intake_esgf</span></code> for ESGF data access</p></li>
+<li><p>Search for specific climate variables and experiments</p></li>
+<li><p>Load data into xarray datasets for analysis</p></li>
+<li><p>Handle cases where data might be on different ESGF nodes</p></li>
+</ol>
+<section id="install-intake-esgf">
+<h2>Install intake_esgf<a class="headerlink" href="#install-intake-esgf" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">intake_esgf</span></code> package provides a Python interface to search and load data from ESGF nodes. We install it here since it’s not part of the standard Pangeo environment.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># on starting the server, we need to run the line below once, as intake_esgf is not yet in our standard pangeo environment</span>
-<span class="o">%</span><span class="k">pip</span> install intake_esgf
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install intake_esgf
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting intake_esgf
-  Downloading intake_esgf-2024.12.7-py3-none-any.whl.metadata (4.0 kB)
-Requirement already satisfied: pandas in /srv/conda/envs/notebook/lib/python3.12/site-packages (from intake_esgf) (2.2.3)
-Requirement already satisfied: dask in /srv/conda/envs/notebook/lib/python3.12/site-packages (from intake_esgf) (2025.1.0)
-Requirement already satisfied: xarray in /srv/conda/envs/notebook/lib/python3.12/site-packages (from intake_esgf) (2025.1.1)
-Requirement already satisfied: netCDF4 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from intake_esgf) (1.7.2)
-Collecting globus-sdk (from intake_esgf)
-  Downloading globus_sdk-3.55.0-py3-none-any.whl.metadata (3.3 kB)
-Requirement already satisfied: requests in /srv/conda/envs/notebook/lib/python3.12/site-packages (from intake_esgf) (2.32.3)
-Requirement already satisfied: tqdm[notebook] in /srv/conda/envs/notebook/lib/python3.12/site-packages (from intake_esgf) (4.67.1)
-Requirement already satisfied: pyyaml in /srv/conda/envs/notebook/lib/python3.12/site-packages (from intake_esgf) (6.0.2)
-Requirement already satisfied: click&gt;=8.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask-&gt;intake_esgf) (8.1.8)
-Requirement already satisfied: cloudpickle&gt;=3.0.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask-&gt;intake_esgf) (3.1.1)
-Requirement already satisfied: fsspec&gt;=2021.09.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask-&gt;intake_esgf) (2024.12.0)
-Requirement already satisfied: packaging&gt;=20.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask-&gt;intake_esgf) (24.2)
-Requirement already satisfied: partd&gt;=1.4.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask-&gt;intake_esgf) (1.4.2)
-Requirement already satisfied: toolz&gt;=0.10.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from dask-&gt;intake_esgf) (1.0.0)
-Requirement already satisfied: pyjwt&lt;3.0.0,&gt;=2.0.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from pyjwt[crypto]&lt;3.0.0,&gt;=2.0.0-&gt;globus-sdk-&gt;intake_esgf) (2.10.1)
-Requirement already satisfied: cryptography!=3.4.0,&gt;=3.3.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from globus-sdk-&gt;intake_esgf) (43.0.1)
-Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from requests-&gt;intake_esgf) (3.4.1)
-Requirement already satisfied: idna&lt;4,&gt;=2.5 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from requests-&gt;intake_esgf) (3.10)
-Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from requests-&gt;intake_esgf) (1.26.19)
-Requirement already satisfied: certifi&gt;=2017.4.17 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from requests-&gt;intake_esgf) (2024.12.14)
-Requirement already satisfied: cftime in /srv/conda/envs/notebook/lib/python3.12/site-packages (from netCDF4-&gt;intake_esgf) (1.6.4)
-Requirement already satisfied: numpy in /srv/conda/envs/notebook/lib/python3.12/site-packages (from netCDF4-&gt;intake_esgf) (2.0.2)
-Requirement already satisfied: python-dateutil&gt;=2.8.2 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from pandas-&gt;intake_esgf) (2.9.0)
-Requirement already satisfied: pytz&gt;=2020.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from pandas-&gt;intake_esgf) (2024.1)
-Requirement already satisfied: tzdata&gt;=2022.7 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from pandas-&gt;intake_esgf) (2025.1)
-Requirement already satisfied: ipywidgets&gt;=6 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from tqdm[notebook]-&gt;intake_esgf) (8.1.5)
-Requirement already satisfied: cffi&gt;=1.12 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from cryptography!=3.4.0,&gt;=3.3.1-&gt;globus-sdk-&gt;intake_esgf) (1.17.1)
-Requirement already satisfied: comm&gt;=0.1.3 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (0.2.2)
-Requirement already satisfied: ipython&gt;=6.1.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (8.17.2)
-Requirement already satisfied: traitlets&gt;=4.3.1 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (5.14.3)
-Requirement already satisfied: widgetsnbextension~=4.0.12 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (4.0.13)
-Requirement already satisfied: jupyterlab_widgets~=3.0.12 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (3.0.13)
-Requirement already satisfied: locket in /srv/conda/envs/notebook/lib/python3.12/site-packages (from partd&gt;=1.4.0-&gt;dask-&gt;intake_esgf) (1.0.0)
-Requirement already satisfied: six&gt;=1.5 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas-&gt;intake_esgf) (1.17.0)
-Requirement already satisfied: pycparser in /srv/conda/envs/notebook/lib/python3.12/site-packages (from cffi&gt;=1.12-&gt;cryptography!=3.4.0,&gt;=3.3.1-&gt;globus-sdk-&gt;intake_esgf) (2.22)
-Requirement already satisfied: decorator in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (5.1.1)
-Requirement already satisfied: jedi&gt;=0.16 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (0.19.2)
-Requirement already satisfied: matplotlib-inline in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (0.1.7)
-Requirement already satisfied: prompt-toolkit!=3.0.37,&lt;3.1.0,&gt;=3.0.30 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (3.0.38)
-Requirement already satisfied: pygments&gt;=2.4.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (2.19.1)
-Requirement already satisfied: stack-data in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (0.6.3)
-Requirement already satisfied: pexpect&gt;4.3 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (4.9.0)
-Requirement already satisfied: parso&lt;0.9.0,&gt;=0.8.4 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from jedi&gt;=0.16-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (0.8.4)
-Requirement already satisfied: ptyprocess&gt;=0.5 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from pexpect&gt;4.3-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (0.7.0)
-Requirement already satisfied: wcwidth in /srv/conda/envs/notebook/lib/python3.12/site-packages (from prompt-toolkit!=3.0.37,&lt;3.1.0,&gt;=3.0.30-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (0.2.13)
-Requirement already satisfied: executing&gt;=1.2.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from stack-data-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (2.1.0)
-Requirement already satisfied: asttokens&gt;=2.1.0 in /srv/conda/envs/notebook/lib/python3.12/site-packages (from stack-data-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (3.0.0)
-Requirement already satisfied: pure_eval in /srv/conda/envs/notebook/lib/python3.12/site-packages (from stack-data-&gt;ipython&gt;=6.1.0-&gt;ipywidgets&gt;=6-&gt;tqdm[notebook]-&gt;intake_esgf) (0.2.3)
-Downloading intake_esgf-2024.12.7-py3-none-any.whl (36 kB)
-Downloading globus_sdk-3.55.0-py3-none-any.whl (408 kB)
-Installing collected packages: globus-sdk, intake_esgf
-Successfully installed globus-sdk-3.55.0 intake_esgf-2024.12.7
+  Downloading intake_esgf-2025.9.26-py3-none-any.whl.metadata (6.2 kB)
+Requirement already satisfied: dask&gt;=2024.12.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (2025.9.1)
+Collecting globus-sdk&gt;=3.49.0 (from intake_esgf)
+  Downloading globus_sdk-3.64.0-py3-none-any.whl.metadata (2.1 kB)
+Collecting netcdf4&gt;=1.7.2 (from intake_esgf)
+  Downloading netCDF4-1.7.2-cp313-cp313-macosx_14_0_arm64.whl.metadata (1.8 kB)
+Requirement already satisfied: pandas&gt;=2.2.3 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (2.3.2)
+Collecting pystac-client&gt;=0.8.6 (from intake_esgf)
+  Downloading pystac_client-0.9.0-py3-none-any.whl.metadata (3.1 kB)
+Requirement already satisfied: pyyaml&gt;=6.0.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (6.0.2)
+Requirement already satisfied: requests&gt;=2.32.3 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (2.32.4)
+Collecting requests-cache&gt;=1.2.1 (from intake_esgf)
+  Downloading requests_cache-1.2.1-py3-none-any.whl.metadata (9.9 kB)
+Requirement already satisfied: tqdm&gt;=4.67.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (4.67.1)
+Requirement already satisfied: xarray&gt;=2024.11.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (2025.4.0)
+Requirement already satisfied: click&gt;=8.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (8.2.1)
+Requirement already satisfied: cloudpickle&gt;=3.0.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (3.1.1)
+Requirement already satisfied: fsspec&gt;=2021.09.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (2025.7.0)
+Requirement already satisfied: packaging&gt;=20.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (25.0)
+Requirement already satisfied: partd&gt;=1.4.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (1.4.2)
+Requirement already satisfied: toolz&gt;=0.10.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (1.0.0)
+Collecting pyjwt&lt;3.0.0,&gt;=2.0.0 (from pyjwt[crypto]&lt;3.0.0,&gt;=2.0.0-&gt;globus-sdk&gt;=3.49.0-&gt;intake_esgf)
+  Using cached PyJWT-2.10.1-py3-none-any.whl.metadata (4.0 kB)
+Collecting cryptography!=3.4.0,&gt;=3.3.1 (from globus-sdk&gt;=3.49.0-&gt;intake_esgf)
+  Downloading cryptography-46.0.1-cp311-abi3-macosx_10_9_universal2.whl.metadata (5.7 kB)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests&gt;=2.32.3-&gt;intake_esgf) (3.4.3)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests&gt;=2.32.3-&gt;intake_esgf) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests&gt;=2.32.3-&gt;intake_esgf) (2.5.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests&gt;=2.32.3-&gt;intake_esgf) (2025.8.3)
+Collecting cffi&gt;=2.0.0 (from cryptography!=3.4.0,&gt;=3.3.1-&gt;globus-sdk&gt;=3.49.0-&gt;intake_esgf)
+  Downloading cffi-2.0.0-cp313-cp313-macosx_11_0_arm64.whl.metadata (2.6 kB)
+Requirement already satisfied: pycparser in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from cffi&gt;=2.0.0-&gt;cryptography!=3.4.0,&gt;=3.3.1-&gt;globus-sdk&gt;=3.49.0-&gt;intake_esgf) (2.23)
+Requirement already satisfied: cftime in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from netcdf4&gt;=1.7.2-&gt;intake_esgf) (1.6.4.post1)
+Requirement already satisfied: numpy in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from netcdf4&gt;=1.7.2-&gt;intake_esgf) (2.3.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pandas&gt;=2.2.3-&gt;intake_esgf) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pandas&gt;=2.2.3-&gt;intake_esgf) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pandas&gt;=2.2.3-&gt;intake_esgf) (2025.2)
+Requirement already satisfied: locket in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from partd&gt;=1.4.0-&gt;dask&gt;=2024.12.0-&gt;intake_esgf) (1.0.0)
+Collecting pystac&gt;=1.10.0 (from pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf)
+  Downloading pystac-1.14.1-py3-none-any.whl.metadata (4.7 kB)
+Requirement already satisfied: jsonschema~=4.18 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (4.25.0)
+Requirement already satisfied: attrs&gt;=22.2.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from jsonschema~=4.18-&gt;pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (25.3.0)
+Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from jsonschema~=4.18-&gt;pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (2025.4.1)
+Requirement already satisfied: referencing&gt;=0.28.4 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from jsonschema~=4.18-&gt;pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (0.36.2)
+Requirement already satisfied: rpds-py&gt;=0.7.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from jsonschema~=4.18-&gt;pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (0.27.0)
+Requirement already satisfied: six&gt;=1.5 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=2.2.3-&gt;intake_esgf) (1.17.0)
+Collecting cattrs&gt;=22.2 (from requests-cache&gt;=1.2.1-&gt;intake_esgf)
+  Downloading cattrs-25.2.0-py3-none-any.whl.metadata (8.4 kB)
+Requirement already satisfied: platformdirs&gt;=2.5 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests-cache&gt;=1.2.1-&gt;intake_esgf) (4.3.8)
+Collecting url-normalize&gt;=1.4 (from requests-cache&gt;=1.2.1-&gt;intake_esgf)
+  Downloading url_normalize-2.2.1-py3-none-any.whl.metadata (5.6 kB)
+Requirement already satisfied: typing-extensions&gt;=4.12.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from cattrs&gt;=22.2-&gt;requests-cache&gt;=1.2.1-&gt;intake_esgf) (4.14.1)
+Downloading intake_esgf-2025.9.26-py3-none-any.whl (61 kB)
+Downloading globus_sdk-3.64.0-py3-none-any.whl (416 kB)
+Using cached PyJWT-2.10.1-py3-none-any.whl (22 kB)
+Downloading cryptography-46.0.1-cp311-abi3-macosx_10_9_universal2.whl (7.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">7.3/7.3 MB</span> <span class=" -Color -Color-Red">7.6 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+?25hDownloading cffi-2.0.0-cp313-cp313-macosx_11_0_arm64.whl (181 kB)
+Downloading netCDF4-1.7.2-cp313-cp313-macosx_14_0_arm64.whl (2.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">2.5/2.5 MB</span> <span class=" -Color -Color-Red">11.8 MB/s</span>  <span class=" -Color -Color-Yellow">0:00:00</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+?25hDownloading pystac_client-0.9.0-py3-none-any.whl (41 kB)
+Downloading pystac-1.14.1-py3-none-any.whl (207 kB)
+Downloading requests_cache-1.2.1-py3-none-any.whl (61 kB)
+Downloading cattrs-25.2.0-py3-none-any.whl (70 kB)
+Downloading url_normalize-2.2.1-py3-none-any.whl (14 kB)
+Installing collected packages: url-normalize, pyjwt, cffi, cattrs, requests-cache, pystac, netcdf4, cryptography, globus-sdk, pystac-client, intake_esgf
+  Attempting uninstall: cffi
+    Found existing installation: cffi 1.17.1
+    Uninstalling cffi-1.17.1:
+      Successfully uninstalled cffi-1.17.1━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green"> 2/11</span> [cffi]
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">11/11</span> [intake_esgf] [globus-sdk]
+Successfully installed cattrs-25.2.0 cffi-2.0.0 cryptography-46.0.1 globus-sdk-3.64.0 intake_esgf-2025.9.26 netcdf4-1.7.2 pyjwt-2.10.1 pystac-1.14.1 pystac-client-0.9.0 requests-cache-1.2.1 url-normalize-2.2.1
 Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="initialize-the-esgf-catalog-and-explore-available-variables">
+<h2>Initialize the ESGF catalog and explore available variables<a class="headerlink" href="#initialize-the-esgf-catalog-and-explore-available-variables" title="Link to this heading">#</a></h2>
+<p>We create an <code class="docutils literal notranslate"><span class="pre">ESGFCatalog</span></code> object that provides methods to search for and load climate model data from ESGF nodes. This catalog acts as our interface to the distributed climate data archive.</p>
+<p>Before searching for specific data, we can explore what variables are available. The <code class="docutils literal notranslate"><span class="pre">variable_info()</span></code> method helps us understand the naming conventions and find the right variable IDs for our search.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">intake_esgf</span>
@@ -609,6 +643,11 @@ dtype: object
 </div>
 </div>
 </div>
+</section>
+<section id="load-data-into-xarray">
+<h2>Load data into xarray<a class="headerlink" href="#load-data-into-xarray" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">to_dataset_dict()</span></code> method downloads and loads the data into xarray datasets. This creates a dictionary where keys are variable names and values are xarray datasets containing the actual climate data.</p>
+<p><strong>Note</strong>: This step downloads data from remote ESGF nodes, so it may take some time depending on your internet connection and the size of the dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dsd</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">()</span> <span class="c1"># dsd is a dictionary of xarray datasets</span>
@@ -734,6 +773,12 @@ Attributes: (12/19)
 </div>
 </div>
 </div>
+<p>We create a simple map showing the time-averaged surface air temperature.</p>
+<ul class="simple">
+<li><p>Calculate temporal means</p></li>
+<li><p>Convert from Kelvin to Celsius</p></li>
+<li><p>Create map</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -751,10 +796,15 @@ Attributes: (12/19)
 <img alt="../../_images/073f188da6c83f3fd0998910abbe659ccb6dbb34eaa43535ba0aa2653a4a4574.png" src="../../_images/073f188da6c83f3fd0998910abbe659ccb6dbb34eaa43535ba0aa2653a4a4574.png" />
 </div>
 </div>
-<section id="widening-search-criteria-if-data-aren-t-found">
-<h2>Widening search criteria if data aren’t found<a class="headerlink" href="#widening-search-criteria-if-data-aren-t-found" title="Link to this heading">#</a></h2>
-<p>The default is for intake-esgf NOT to search over all possible sources of data (for performance reasons). But this means we may come back empty handed on a search when in fact the simulation data is available somewhere.</p>
-<p>for example, the code below will throw a “NoSearchResults” errror even though this simulation is available on the CEDA ESGF node:</p>
+</section>
+<section id="troubleshooting-when-searches-return-no-results">
+<h2>Troubleshooting: When searches return no results<a class="headerlink" href="#troubleshooting-when-searches-return-no-results" title="Link to this heading">#</a></h2>
+<p>Sometimes a search returns no results even when the data exists. This often happens because:</p>
+<ol class="arabic simple">
+<li><p><strong>Limited search scope</strong>: By default, intake_esgf only searches a subset of ESGF nodes for performance</p></li>
+<li><p><strong>Data on different nodes</strong>: The data might be available on a different ESGF node than the default ones</p></li>
+</ol>
+<p>For example, the code below shows a search for G6sulfur experiment data that will likely fail with the default configuration even though the data is available on CEDA ESGF node.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
@@ -812,7 +862,15 @@ Attributes: (12/19)
 </div>
 </div>
 </div>
-<p>The solution is to run the following two lines, which turn on all ESGF nodes for the search:</p>
+</section>
+<section id="solution-widening-search-criteria">
+<h2>Solution: Widening search criteria<a class="headerlink" href="#solution-widening-search-criteria" title="Link to this heading">#</a></h2>
+<p>To search across all available ESGF nodes, we need to:</p>
+<ol class="arabic simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">all_indices=True</span></code> in the intake_esgf configuration</p></li>
+<li><p>Create a new catalog instance with the updated configuration</p></li>
+</ol>
+<p>This ensures we search all available data sources, though it may take longer to complete.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## run the following line to widen search criteria to include all ESGF nodes</span>
@@ -915,7 +973,11 @@ dtype: object
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#widening-search-criteria-if-data-aren-t-found">Widening search criteria if data aren’t found</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-intake-esgf">Install intake_esgf</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-the-esgf-catalog-and-explore-available-variables">Initialize the ESGF catalog and explore available variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-into-xarray">Load data into xarray</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-when-searches-return-no-results">Troubleshooting: When searches return no results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-widening-search-criteria">Solution: Widening search criteria</a></li>
 </ul>
   </nav></div>
 

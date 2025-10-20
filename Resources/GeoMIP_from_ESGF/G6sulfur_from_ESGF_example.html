@@ -197,13 +197,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
 
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS Dataset Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset Intro</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
 </ul>
 </details></li>
@@ -339,7 +337,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -355,6 +355,17 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-required-packages">Install required packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-with-preprocessing">Load data with preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-usage">Example Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-temperature-trajectories">Compare temperature trajectories</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -366,6 +377,85 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="loading-and-working-with-geomip-g6sulfur-data-directly-from-esgf">
 <h1>Loading and working with GeoMIP (G6sulfur) data directly from ESGF<a class="headerlink" href="#loading-and-working-with-geomip-g6sulfur-data-directly-from-esgf" title="Link to this heading">#</a></h1>
+<p>This notebook demonstrates how to load and analyze GeoMIP (Geoengineering Model Intercomparison Project) G6sulfur data directly from ESGF, comparing it with standard climate scenarios.</p>
+<ol class="arabic simple">
+<li><p>Install required packages (<code class="docutils literal notranslate"><span class="pre">intake_esgf</span></code>, <code class="docutils literal notranslate"><span class="pre">xmip</span></code>)</p></li>
+<li><p>Search for G6sulfur and comparison scenarios (SSP2-4.5, SSP5-8.5)</p></li>
+<li><p>Load data and apply preprocessing with <code class="docutils literal notranslate"><span class="pre">xmip</span></code></p></li>
+<li><p>Calculate global means and annual resampling</p></li>
+<li><p>Visualize temperature trajectories under different scenarios</p></li>
+</ol>
+<section id="install-required-packages">
+<h2>Install required packages<a class="headerlink" href="#install-required-packages" title="Link to this heading">#</a></h2>
+<p>We need two key packages:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">intake_esgf</span></code></strong>: For searching and loading data from ESGF nodes</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">xmip</span></code></strong>: For preprocessing CMIP6 data (renaming variables, handling coordinates, etc.)</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">xmip</span></code> package is particularly useful for standardizing CMIP6 data across different models and experiments.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># on starting the server, we need to run the line below once, as intake_esgf is not yet in our standard pangeo environment</span>
+<span class="c1"># but it can be commented out after this, to save time</span>
+<span class="o">%</span><span class="k">pip</span> install intake_esgf
+<span class="o">%</span><span class="k">pip</span> install xmip
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: intake_esgf in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (2025.9.26)
+Requirement already satisfied: dask&gt;=2024.12.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (2025.9.1)
+Requirement already satisfied: globus-sdk&gt;=3.49.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (3.64.0)
+Requirement already satisfied: netcdf4&gt;=1.7.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (1.7.2)
+Requirement already satisfied: pandas&gt;=2.2.3 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (2.3.2)
+Requirement already satisfied: pystac-client&gt;=0.8.6 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (0.9.0)
+Requirement already satisfied: pyyaml&gt;=6.0.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (6.0.2)
+Requirement already satisfied: requests&gt;=2.32.3 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (2.32.4)
+Requirement already satisfied: requests-cache&gt;=1.2.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (1.2.1)
+Requirement already satisfied: tqdm&gt;=4.67.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (4.67.1)
+Requirement already satisfied: xarray&gt;=2024.11.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from intake_esgf) (2025.4.0)
+Requirement already satisfied: click&gt;=8.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (8.2.1)
+Requirement already satisfied: cloudpickle&gt;=3.0.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (3.1.1)
+Requirement already satisfied: fsspec&gt;=2021.09.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (2025.7.0)
+Requirement already satisfied: packaging&gt;=20.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (25.0)
+Requirement already satisfied: partd&gt;=1.4.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (1.4.2)
+Requirement already satisfied: toolz&gt;=0.10.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from dask&gt;=2024.12.0-&gt;intake_esgf) (1.0.0)
+Requirement already satisfied: pyjwt&lt;3.0.0,&gt;=2.0.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pyjwt[crypto]&lt;3.0.0,&gt;=2.0.0-&gt;globus-sdk&gt;=3.49.0-&gt;intake_esgf) (2.10.1)
+Requirement already satisfied: cryptography!=3.4.0,&gt;=3.3.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from globus-sdk&gt;=3.49.0-&gt;intake_esgf) (46.0.1)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests&gt;=2.32.3-&gt;intake_esgf) (3.4.3)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests&gt;=2.32.3-&gt;intake_esgf) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests&gt;=2.32.3-&gt;intake_esgf) (2.5.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests&gt;=2.32.3-&gt;intake_esgf) (2025.8.3)
+Requirement already satisfied: cffi&gt;=2.0.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from cryptography!=3.4.0,&gt;=3.3.1-&gt;globus-sdk&gt;=3.49.0-&gt;intake_esgf) (2.0.0)
+Requirement already satisfied: pycparser in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from cffi&gt;=2.0.0-&gt;cryptography!=3.4.0,&gt;=3.3.1-&gt;globus-sdk&gt;=3.49.0-&gt;intake_esgf) (2.23)
+Requirement already satisfied: cftime in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from netcdf4&gt;=1.7.2-&gt;intake_esgf) (1.6.4.post1)
+Requirement already satisfied: numpy in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from netcdf4&gt;=1.7.2-&gt;intake_esgf) (2.3.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pandas&gt;=2.2.3-&gt;intake_esgf) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pandas&gt;=2.2.3-&gt;intake_esgf) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pandas&gt;=2.2.3-&gt;intake_esgf) (2025.2)
+Requirement already satisfied: locket in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from partd&gt;=1.4.0-&gt;dask&gt;=2024.12.0-&gt;intake_esgf) (1.0.0)
+Requirement already satisfied: pystac&gt;=1.10.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (1.14.1)
+Requirement already satisfied: jsonschema~=4.18 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (4.25.0)
+Requirement already satisfied: attrs&gt;=22.2.0 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from jsonschema~=4.18-&gt;pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (25.3.0)
+Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from jsonschema~=4.18-&gt;pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (2025.4.1)
+Requirement already satisfied: referencing&gt;=0.28.4 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from jsonschema~=4.18-&gt;pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (0.36.2)
+Requirement already satisfied: rpds-py&gt;=0.7.1 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from jsonschema~=4.18-&gt;pystac[validation]&gt;=1.10.0-&gt;pystac-client&gt;=0.8.6-&gt;intake_esgf) (0.27.0)
+Requirement already satisfied: six&gt;=1.5 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=2.2.3-&gt;intake_esgf) (1.17.0)
+Requirement already satisfied: cattrs&gt;=22.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests-cache&gt;=1.2.1-&gt;intake_esgf) (25.2.0)
+Requirement already satisfied: platformdirs&gt;=2.5 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests-cache&gt;=1.2.1-&gt;intake_esgf) (4.3.8)
+Requirement already satisfied: url-normalize&gt;=1.4 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from requests-cache&gt;=1.2.1-&gt;intake_esgf) (2.2.1)
+Requirement already satisfied: typing-extensions&gt;=4.12.2 in /Users/susannebaur/miniconda3/envs/CloudHub/lib/python3.13/site-packages (from cattrs&gt;=22.2-&gt;requests-cache&gt;=1.2.1-&gt;intake_esgf) (4.14.1)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<p>We look at global mean temperature trajectories for three scenarios:</p>
+<ul class="simple">
+<li><p><strong>SSP2-4.5</strong>: Moderate emissions scenario (baseline)</p></li>
+<li><p><strong>SSP5-8.5</strong>: High emissions scenario (worst case)</p></li>
+<li><p><strong>G6sulfur</strong>: Geoengineering scenario (aerosol injection)</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -377,6 +467,7 @@
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">intake_esgf</span>
 <span class="c1">#from utils import weighted_seasonal_resample, weighted_annual_resample, calc_weighted_spatial_means</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s1">&#39;xarray&#39;</span><span class="p">)</span> <span class="c1"># not great practice, but xarray tends to give lots of verbose warnings</span>
@@ -388,22 +479,6 @@
 <span class="c1"># time-periods over which to take means</span>
 <span class="n">assessment_periods</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Future&#39;</span><span class="p">:</span><span class="nb">slice</span><span class="p">(</span><span class="s1">&#39;2080&#39;</span><span class="p">,</span> <span class="s1">&#39;2099&#39;</span><span class="p">),</span>
                       <span class="s1">&#39;Baseline&#39;</span><span class="p">:</span><span class="nb">slice</span><span class="p">(</span><span class="s1">&#39;2015&#39;</span><span class="p">,</span> <span class="s1">&#39;2034&#39;</span><span class="p">)}</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># on starting the server, we need to run the line below once, as intake_esgf is not yet in our standard pangeo environment</span>
-<span class="c1"># but it can be commented out after this, to save time</span>
-<span class="o">%</span><span class="k">pip</span> install intake_esgf
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">intake_esgf</span>
 </pre></div>
 </div>
 </div>
@@ -445,6 +520,16 @@ dtype: object
 </div>
 </div>
 </div>
+</section>
+<section id="load-data-with-preprocessing">
+<h2>Load data with preprocessing<a class="headerlink" href="#load-data-with-preprocessing" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">to_dataset_dict(add_measures=True)</span></code> method:</p>
+<ul class="simple">
+<li><p>Downloads data from ESGF nodes</p></li>
+<li><p>Applies <code class="docutils literal notranslate"><span class="pre">xmip</span></code> preprocessing to standardize variable names and coordinates</p></li>
+<li><p>Creates a dictionary with keys for each experiment (e.g., ‘ScenarioMIP.ssp245’, ‘GeoMIP.G6sulfur’)</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">add_measures=True</span></code> parameter ensures we get additional metadata and measures for proper analysis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dsd</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">(</span><span class="n">add_measures</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -556,6 +641,12 @@ dtype: object
 <img alt="../../_images/4dd83eee83f28229be58603dcf7c26fa888a71d7faa387eeb0239ca8ac251500.png" src="../../_images/4dd83eee83f28229be58603dcf7c26fa888a71d7faa387eeb0239ca8ac251500.png" />
 </div>
 </div>
+</section>
+<section id="example-usage">
+<h2>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading">#</a></h2>
+<p>We define two key functions for our analysis:</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">global_mean()</span></code></strong>: Calculates area-weighted global means using the <code class="docutils literal notranslate"><span class="pre">areacella</span></code> variable (grid cell areas) to account for the varying size of grid cells at different latitudes.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">weighted_annual_resample()</span></code></strong>: Converts monthly data to annual means using day-of-month weights to account for different month lengths (e.g., February vs. March).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## example usage, lets plot the global spatial mean timeseries under the three scenarios:</span>
@@ -598,6 +689,9 @@ dtype: object
 </div>
 </div>
 </div>
+</section>
+<section id="compare-temperature-trajectories">
+<h2>Compare temperature trajectories<a class="headerlink" href="#compare-temperature-trajectories" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a quick plot:</span>
@@ -616,6 +710,13 @@ dtype: object
 <img alt="../../_images/fba23d73b28369ae4ab47ae23ff3435fafacbea2ad53033246baf3d5a43972bc.png" src="../../_images/fba23d73b28369ae4ab47ae23ff3435fafacbea2ad53033246baf3d5a43972bc.png" />
 </div>
 </div>
+<p><strong>Resources:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.geoengineeringmonitor.org/geomip/">GeoMIP protocol</a></p></li>
+<li><p><a class="reference external" href="https://intake-esgf.readthedocs.io/">intake_esgf documentation</a></p></li>
+<li><p><a class="reference external" href="https://github.com/xarray-contrib/xmip">xmip preprocessing</a></p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -672,6 +773,25 @@ dtype: object
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-required-packages">Install required packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-with-preprocessing">Load data with preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-usage">Example Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-temperature-trajectories">Compare temperature trajectories</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

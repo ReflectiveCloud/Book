@@ -197,13 +197,11 @@
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
 
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS Dataset Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset Intro</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
 </ul>
 </details></li>
@@ -362,15 +360,28 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ARISE-1.5 in the cloud - using kerchunck to improve access</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-generate-the-jsons">Part 1: generate the JSONs</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-generate-the-jsons">Part 1: generate the JSONs</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discover-files-on-s3">Discover files on S3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-a-dask-cluster">Start a Dask cluster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-per-file-kerchunk-jsons">Generate per-file kerchunk JSONs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-json-generation-in-parallel">Run JSON generation in parallel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-ensemble-member-label-from-the-filename">Extract ensemble member label from the filename</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-jsons-into-a-single-reference">Combine JSONs into a single reference</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-using-our-new-metadata-jsons">Part 2: using our new metadata jsons</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-without-kerchunk-zarr-as-a-test-of-speed-difference">repeat without kerchunk/zarr as a test of speed difference</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-test-the-new-metadata-jsons">Part 2: Test the new metadata jsons</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-combined-reference-monthly">Use the combined reference (monthly)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-without-kerchunk-zarr">Comparison without kerchunk/zarr</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-the-whole-process-on-daily-data-to-show-a-larger-speed-up">Repeat the whole process on daily data, to show a larger speed-up.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-process-with-daily-data">3. Repeat process with daily data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Generate per-file kerchunk JSONs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-daily-jsons">Combine daily JSONs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-the-timing-test-from-above">Repeat the timing test from above</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shutdown-dask-client">Shutdown Dask client</a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -385,16 +396,23 @@
                   
   <section id="arise-1-5-in-the-cloud-using-kerchunck-to-improve-access">
 <h1>ARISE-1.5 in the cloud - using kerchunck to improve access<a class="headerlink" href="#arise-1-5-in-the-cloud-using-kerchunck-to-improve-access" title="Link to this heading">#</a></h1>
-<p>In this notebook we use the kerchunk package to demonstrate a method of speeding up access to the ARISE-1.5 simulations hosted in the cloud on AWS.</p>
-<p>The motivation for using kerchunk is that these simulations, while available on the cloud, are not cloud-native format, such as zarr.</p>
-<p>By creating and then caching metadata reference files using kerchunk, we can speed up the process of working with the data.</p>
-<p>This notebook has several sections:</p>
+<p>Goal: use the kerchunk package to demonstrate a method of speeding up access to the ARISE-1.5 simulations hosted in the cloud on AWS.</p>
+<p>The motivation for using kerchunk is that these simulations, while available on the cloud, are not cloud-native format, such as zarr.<br />
+By creating and then caching metadata reference files using kerchunk, we can speed up the process of working with the data.</p>
+<p>Steps:</p>
 <ol class="arabic simple">
-<li><p>produce metadata jsons using kerchunk for a quick example set of data from the AWS ARISE simulations store - the monthly TREFHT outputs for 10 members. This takes a few minutes to process.</p></li>
-<li><p>demonstrate usage of the kerchunked metadata by comparing time to make a plot of one region and time slice using the kerchunk approach versus directly reading in the files from AWS.</p></li>
-<li><p>Repeat (1), this time for a weightier bit of data, the daily temperature outputs.</p></li>
-<li><p>repeat (2) on these daily tempereature outputs.</p></li>
+<li><p>Generate the JSONs: produce metadata jsons using kerchunk for a quick example set of data from the AWS ARISE simulations store - the monthly TREFHT outputs for 10 members. This takes a few minutes to process. First-time kerchunking is the expensive step, reuse the combined JSON thereafter.</p></li>
+<li><p>Test the new metadata JSONs: demonstrate usage of the kerchunked metadata by comparing time to make a plot of one region and time slice using the kerchunk approach versus directly reading in the files from AWS.</p></li>
+<li><p>Repeat process with daily data to show larger speedups.</p></li>
 </ol>
+<ul class="simple">
+<li><p>Output:</p>
+<ul>
+<li><p>Combined kerchunk references: <code class="docutils literal notranslate"><span class="pre">combined_monthly_TREFHT.json</span></code>, <code class="docutils literal notranslate"><span class="pre">combined_daily_TREFHT.json</span></code>.</p></li>
+<li><p>Timing comparisons for “kerchunk vs direct S3” workflows.</p></li>
+</ul>
+</li>
+</ul>
 <p>The code in this notebook draws heavily on Lucas Sterzinger’s tutorial here:
 <a class="reference external" href="https://medium.com/pangeo/fake-it-until-you-make-it-reading-goes-netcdf4-data-on-aws-s3-as-zarr-for-rapid-data-access-61e33f8fe685">https://medium.com/pangeo/fake-it-until-you-make-it-reading-goes-netcdf4-data-on-aws-s3-as-zarr-for-rapid-data-access-61e33f8fe685</a></p>
 <p>We also use some code from the docs here:
@@ -422,9 +440,13 @@
 </div>
 </div>
 </div>
+</section>
 <section id="part-1-generate-the-jsons">
-<h2>Part 1: generate the JSONs<a class="headerlink" href="#part-1-generate-the-jsons" title="Link to this heading">#</a></h2>
+<h1>Part 1: generate the JSONs<a class="headerlink" href="#part-1-generate-the-jsons" title="Link to this heading">#</a></h1>
 <p>This part is only needed the first time, or can be skipped entirely by downloading our output JSON file. For this test case using monthly data, it only takes around 30 seconds, but in general it can be slow, since the process involves opening and reading lots of .nc files. The time taken for this process is an order of magnitude estimate of the time saved by doing it, each time the pseduo-zarr dataset is used.</p>
+<section id="discover-files-on-s3">
+<h2>Discover files on S3<a class="headerlink" href="#discover-files-on-s3" title="Link to this heading">#</a></h2>
+<p>We use <code class="docutils literal notranslate"><span class="pre">fs.glob</span></code> to list the <code class="docutils literal notranslate"><span class="pre">TREFHT</span></code> monthly files across ensemble members in the ARISE S3 bucket. The result is a list of S3 URLs used downstream by kerchunk.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;TREFHT&#39;</span> <span class="c1"># use surface temp for this example</span>
@@ -457,6 +479,10 @@
 </div>
 </div>
 </div>
+</section>
+<section id="start-a-dask-cluster">
+<h2>Start a Dask cluster<a class="headerlink" href="#start-a-dask-cluster" title="Link to this heading">#</a></h2>
+<p>Kerchunking many files benefits from parallelism. We start a local <code class="docutils literal notranslate"><span class="pre">Client</span></code> with multiple workers to generate JSONs concurrently.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># start a dask client to open and process in parallel</span>
@@ -1047,6 +1073,10 @@
 </div>
 </div>
 </div>
+</section>
+<section id="generate-per-file-kerchunk-jsons">
+<h2>Generate per-file kerchunk JSONs<a class="headerlink" href="#generate-per-file-kerchunk-jsons" title="Link to this heading">#</a></h2>
+<p>For each NetCDF file, <code class="docutils literal notranslate"><span class="pre">SingleHdf5ToZarr</span></code> translates HDF5 structure into a JSON reference that describes how to read the data as Zarr. We write these per-file JSONs under <code class="docutils literal notranslate"><span class="pre">jsons_monthly/</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate 1 json file per .nc file, each json contains the metadata for that .nc</span>
@@ -1064,6 +1094,10 @@
 </div>
 </div>
 </div>
+</section>
+<section id="run-json-generation-in-parallel">
+<h2>Run JSON generation in parallel<a class="headerlink" href="#run-json-generation-in-parallel" title="Link to this heading">#</a></h2>
+<p>We dispatch one delayed task per URL so Dask workers generate JSONs concurrently.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run over the file list:</span>
@@ -1092,10 +1126,13 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 </div>
 </div>
 </div>
+</section>
+<section id="extract-ensemble-member-label-from-the-filename">
+<h2>Extract ensemble member label from the filename<a class="headerlink" href="#extract-ensemble-member-label-from-the-filename" title="Link to this heading">#</a></h2>
+<p>We parse the 3-digit ensemble member ID from filenames so we can construct an <code class="docutils literal notranslate"><span class="pre">Ensemble_member</span></code> coordinate during combination.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we extract the ensemble member label from the filename - a bit of a hack</span>
-<span class="k">def</span> <span class="nf">fn_to_time</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fn_to_time</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
     <span class="kn">import</span> <span class="nn">re</span>
     <span class="n">ex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.(\d</span><span class="si">{3}</span><span class="s1">)\.cam&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -1103,6 +1140,10 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 </div>
 </div>
 </div>
+</section>
+<section id="combine-jsons-into-a-single-reference">
+<h2>Combine JSONs into a single reference<a class="headerlink" href="#combine-jsons-into-a-single-reference" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">MultiZarrToZarr</span></code> merges per-file references into a unified virtual dataset along <code class="docutils literal notranslate"><span class="pre">Ensemble_member</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code>, assuming identical <code class="docutils literal notranslate"><span class="pre">lat</span></code>/<code class="docutils literal notranslate"><span class="pre">lon</span></code> grids. We save to <code class="docutils literal notranslate"><span class="pre">combined_monthly_TREFHT.json</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## combine jsons into one:</span>
@@ -2996,12 +3037,14 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 </div>
 </section>
 </section>
-<section id="part-2-using-our-new-metadata-jsons">
-<h1>Part 2: using our new metadata jsons<a class="headerlink" href="#part-2-using-our-new-metadata-jsons" title="Link to this heading">#</a></h1>
+<section id="part-2-test-the-new-metadata-jsons">
+<h1>Part 2: Test the new metadata jsons<a class="headerlink" href="#part-2-test-the-new-metadata-jsons" title="Link to this heading">#</a></h1>
+<section id="use-the-combined-reference-monthly">
+<h2>Use the combined reference (monthly)<a class="headerlink" href="#use-the-combined-reference-monthly" title="Link to this heading">#</a></h2>
+<p>We open the combined JSON via the <code class="docutils literal notranslate"><span class="pre">reference</span></code> filesystem and <code class="docutils literal notranslate"><span class="pre">engine='zarr'</span></code>. This provides fast, lazy access without downloading the NetCDF files. We then subset a small region/time range and plot a mean.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># lazy load open as a psuedo-zarr from the combined json:</span>
-<span class="c1"># and plot</span>
 <span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">timing</span>
 <span class="n">start_time</span> <span class="o">=</span> <span class="n">timing</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
@@ -3033,8 +3076,10 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 <img alt="../../_images/7ef58c718e588d4b6ab83ca1da00f3bdc0ca8172e1c3b8e2f87f5e85b2318b13.png" src="../../_images/7ef58c718e588d4b6ab83ca1da00f3bdc0ca8172e1c3b8e2f87f5e85b2318b13.png" />
 </div>
 </div>
-<section id="repeat-without-kerchunk-zarr-as-a-test-of-speed-difference">
-<h2>repeat without kerchunk/zarr as a test of speed difference<a class="headerlink" href="#repeat-without-kerchunk-zarr-as-a-test-of-speed-difference" title="Link to this heading">#</a></h2>
+</section>
+<section id="comparison-without-kerchunk-zarr">
+<h2>Comparison without kerchunk/zarr<a class="headerlink" href="#comparison-without-kerchunk-zarr" title="Link to this heading">#</a></h2>
+<p>For comparison, we repeat the same subset/plot using direct <code class="docutils literal notranslate"><span class="pre">xr.open_dataset(...,</span> <span class="pre">engine=&quot;h5netcdf&quot;)</span></code> on S3 URLs, which is typically slower and more memory-intensive.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_trefht_data</span><span class="p">(</span><span class="n">scenario</span><span class="o">=</span><span class="s1">&#39;ARISE&#39;</span><span class="p">):</span>
@@ -3080,13 +3125,13 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 </div>
 </section>
 </section>
-<section id="repeat-the-whole-process-on-daily-data-to-show-a-larger-speed-up">
-<h1>Repeat the whole process on daily data, to show a larger speed-up.<a class="headerlink" href="#repeat-the-whole-process-on-daily-data-to-show-a-larger-speed-up" title="Link to this heading">#</a></h1>
+<section id="repeat-process-with-daily-data">
+<h1>3. Repeat process with daily data<a class="headerlink" href="#repeat-process-with-daily-data" title="Link to this heading">#</a></h1>
+<p>We now repeat the kerchunk process for daily <code class="docutils literal notranslate"><span class="pre">TREFHT</span></code>. Because there are many more time steps, creating the JSONs is much slower initially, but the payoff in repeated reads is larger.</p>
 <p>This time we are saving our kerchunked jsons for the daily data, and as such the process is much (~30x) slower. On my machine, making the jsons takes ~ 20 minutes</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use daily data this time</span>
-<span class="c1"># to save compute time, we do this only for the final five years of the run (files containing 2065)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to save compute time, we do this only for the final five years of the run (files containing 2065)</span>
 
 <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;s3://&#39;</span> <span class="o">+</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fs</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;s3://&quot;</span><span class="o">+</span><span class="s2">&quot;ncar-cesm2-arise/ARISE-SAI-1.5/*/atm/proc/*/day_1/*TREFHT.*2065*.nc&quot;</span><span class="p">)]</span>
 <span class="n">urls</span>
@@ -3108,6 +3153,9 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 </div>
 </div>
 </div>
+<section id="id1">
+<h2>Generate per-file kerchunk JSONs<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>This step is slow. We again translate each HDF5 file into a JSON reference and write to <code class="docutils literal notranslate"><span class="pre">jsons_daily/</span></code>, using Dask to parallelize work.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### NOTE: cell takes 10s of minutes to run! </span>
@@ -3150,6 +3198,10 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 </div>
 </div>
 </div>
+</section>
+<section id="combine-daily-jsons">
+<h2>Combine daily JSONs<a class="headerlink" href="#combine-daily-jsons" title="Link to this heading">#</a></h2>
+<p>We merge across <code class="docutils literal notranslate"><span class="pre">Ensemble_member</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code> into <code class="docutils literal notranslate"><span class="pre">combined_daily_TREFHT.json</span></code> using <code class="docutils literal notranslate"><span class="pre">MultiZarrToZarr</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## combine jsons into one mega json:</span>
@@ -6149,7 +6201,10 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 </div>
 </div>
 </div>
-<p>Now repeat the test from above, plotting one region, both using kerchunked metadata, and directly from the AWS file store.</p>
+</section>
+<section id="repeat-the-timing-test-from-above">
+<h2>Repeat the timing test from above<a class="headerlink" href="#repeat-the-timing-test-from-above" title="Link to this heading">#</a></h2>
+<p>Open the daily combined JSON as a virtual Zarr, subset a small area/time, and plot</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># lazy load open as a psuedo-zarr from the combined json:</span>
@@ -6185,6 +6240,7 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 <img alt="../../_images/31eaa69e6c5f2b1a766096c358477bf1a65ce430a4004bd439ac7ce0bb102e6b.png" src="../../_images/31eaa69e6c5f2b1a766096c358477bf1a65ce430a4004bd439ac7ce0bb102e6b.png" />
 </div>
 </div>
+<p>Repeat plotting using direct NetCDF reads (to compare with the kerchunked approach)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### now repeat without kerchunk/zarr, to show the much slower speed</span>
@@ -6225,14 +6281,18 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
 <p>The above direct plotting takes 30 times longer than using the kerchunk metadata to shortcut the processing. It also uses about 5GB memory, as opposed to 100s MB for the kerchunk version.</p>
 <p>By using kerchunk to save metadata for our AWS archive locally, we reduced the time (and memory) to process the data substantially.</p>
 <p>While the initial kerchunking step was slow, we only need to do it once for a given variable or set of files.</p>
+</section>
+<section id="shutdown-dask-client">
+<h2>Shutdown Dask client<a class="headerlink" href="#shutdown-dask-client" title="Link to this heading">#</a></h2>
+<p>Shut down the Dask client to free local resources when you’re done</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## remember to shutdown dask client!</span>
-<span class="n">client</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -6244,16 +6304,16 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "kerchunk_env"
+            mode: "python"
         },
         kernelOptions: {
-            name: "kerchunk_env",
+            name: "python3",
             path: "./Resources/AWS_ARISE"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'kerchunk_env'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -6300,15 +6360,28 @@ s3://ncar-cesm2-arise/ARISE-SAI-1.5/b.e21.BW.f09_g17.SSP245-TSMLT-GAUSS-DEFAULT.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ARISE-1.5 in the cloud - using kerchunck to improve access</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-generate-the-jsons">Part 1: generate the JSONs</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-generate-the-jsons">Part 1: generate the JSONs</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discover-files-on-s3">Discover files on S3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-a-dask-cluster">Start a Dask cluster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-per-file-kerchunk-jsons">Generate per-file kerchunk JSONs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-json-generation-in-parallel">Run JSON generation in parallel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-ensemble-member-label-from-the-filename">Extract ensemble member label from the filename</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-jsons-into-a-single-reference">Combine JSONs into a single reference</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-using-our-new-metadata-jsons">Part 2: using our new metadata jsons</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-without-kerchunk-zarr-as-a-test-of-speed-difference">repeat without kerchunk/zarr as a test of speed difference</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-test-the-new-metadata-jsons">Part 2: Test the new metadata jsons</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-combined-reference-monthly">Use the combined reference (monthly)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-without-kerchunk-zarr">Comparison without kerchunk/zarr</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-the-whole-process-on-daily-data-to-show-a-larger-speed-up">Repeat the whole process on daily data, to show a larger speed-up.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-process-with-daily-data">3. Repeat process with daily data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Generate per-file kerchunk JSONs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combine-daily-jsons">Combine daily JSONs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeat-the-timing-test-from-above">Repeat the timing test from above</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shutdown-dask-client">Shutdown Dask client</a></li>
+</ul>
+</li>
 </ul>
 
   </nav></div>

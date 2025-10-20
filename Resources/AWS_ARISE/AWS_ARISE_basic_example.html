@@ -197,13 +197,11 @@
 <li class="toctree-l2"><a class="reference internal" href="AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
 
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS Dataset Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset Intro</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
 </ul>
 </details></li>
@@ -362,10 +360,13 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#as-an-example-lets-show-global-mean-timeseries-and-time-mean-maps">As an example, lets show global mean timeseries and time-mean maps</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#now-also-plot-temperature-differences-between-arise-and-the-target-state-as-a-world-map">now also plot temperature differences between ARISE and the target state, as a world map</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-access">Cloud access</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-a-single-file-from-s3">Test a single file from S3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-ensemble-dataset-multiple-members-in-a-single-xarray-dataset">Building the ensemble dataset (multiple members in a single xarray dataset)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annual-mean-with-day-of-month-weights">Annual mean with day-of-month weights</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-mean-time-series">Global mean time series</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arise-minus-baseline-and-significance">ARISE minus baseline and significance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-global-map-with-significance-hatching">Plot global map with significance hatching</a></li>
 </ul>
             </nav>
         </div>
@@ -379,18 +380,28 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="example-usage-of-the-aws-arise-1-5-data-set">
 <h1>Example usage of the AWS ARISE-1.5 data set<a class="headerlink" href="#example-usage-of-the-aws-arise-1-5-data-set" title="Link to this heading">#</a></h1>
-<p>Notebook shows how to access ARISE-1.5 CESM2-WACCM data from the AWS web store.</p>
-<p>Code below:</p>
+<p>Notebook shows how to access ARISE-1.5 CESM2-WACCM data hosted on AWS S3, compute aggregates and visualize results with xarray.</p>
+<p>Goal: Compare near-surface air temperature <code class="docutils literal notranslate"><span class="pre">TREFHT</span></code> under ARISE-SAI-1.5 against the SSP2-4.5 background.</p>
+<p>Steps:</p>
 <ol class="arabic simple">
-<li><p>reads in near-surface air temperature data for ARISE-SAI-1.5 and SSP2-4.5, for 5 members each</p></li>
-<li><p>processes into global and time-means</p></li>
-<li><p>Make two simple plots - timeseries of global means and a spatial map of the temperature anomaly from the target state.</p></li>
+<li><p>Connect to the public S3 storage and open the netcdf files with xarray</p></li>
+<li><p>Load the 5 available ensemble members for each scenario and concatenate them into a single dataset.</p></li>
+<li><p>Convert monthly data into annual means and calculate global, area-weighted means</p></li>
+<li><p>Calculate difference between ARISE and the SSP2 baseline and assess statistical significance</p></li>
+<li><p>Make two plots showing the results</p>
+<ul class="simple">
+<li><p>Time series line plot of global-mean <code class="docutils literal notranslate"><span class="pre">TREFHT</span></code> for ARISE-1.5 and SSP2-4.5</p></li>
+<li><p>A world map of ARISE-1.5 minus baseline <code class="docutils literal notranslate"><span class="pre">TREFHT</span></code> with significance hatching</p></li>
+</ul>
+</li>
 </ol>
+<section id="cloud-access">
+<h2>Cloud access<a class="headerlink" href="#cloud-access" title="Link to this heading">#</a></h2>
+<p>We use the <code class="docutils literal notranslate"><span class="pre">s3fs</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code> packages to mount the cloud repo to read from <code class="docutils literal notranslate"><span class="pre">s3://</span></code> URLs.
+Note as of Sunday 9th February 2025: the approach here is limited by needing to hard code file paths to the data. In theory, intake-esm should help with this, using the catalog here (<a class="github reference external" href="https://github.com/NCAR/CESM2-ARISE/tree/main">NCAR/CESM2-ARISE</a>). However, I couldn’t get this to work. Pull requests to improve this are welcome!</p>
 <p>Data is here:
 <a class="reference external" href="https://aws.amazon.com/marketplace/pp/prodview-7r3ocbnp5exq2#overview">https://aws.amazon.com/marketplace/pp/prodview-7r3ocbnp5exq2#overview</a>
 <a class="reference external" href="https://registry.opendata.aws/ncar-cesm2-arise/">https://registry.opendata.aws/ncar-cesm2-arise/</a></p>
-<p>We use the s3fs and fsspec packages to mount the cloud repo.</p>
-<p>Note as of Sunday 9th February 2025: the approach here is limited by needing to hard code file paths to the data. In theory, intake-esm should help with this, using the catalog here (<a class="github reference external" href="https://github.com/NCAR/CESM2-ARISE/tree/main">NCAR/CESM2-ARISE</a>). However, I couldn’t get this to work. Pull requests to improve this are welcome!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## packages for cloud data intake: </span>
@@ -406,6 +417,10 @@
 </div>
 </div>
 </div>
+</section>
+<section id="test-a-single-file-from-s3">
+<h2>Test a single file from S3<a class="headerlink" href="#test-a-single-file-from-s3" title="Link to this heading">#</a></h2>
+<p>Open one monthly <code class="docutils literal notranslate"><span class="pre">TREFHT</span></code> file from the ARISE S3 bucket to validate access and decoding. We use xarray with an HDF5-based backend and anonymous S3 access.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## test reading in a file to a dataset:</span>
@@ -421,10 +436,6 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/users/a_duffey/.conda/envs/cmipv2/lib/python3.12/site-packages/pyproj/network.py:59: UserWarning: pyproj unable to set PROJ database path.
-  _set_context_ca_bundle_path(ca_bundle_path)
-</pre></div>
-</div>
 <div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewBox="0 0 32 32">
@@ -455,14 +466,14 @@
   --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
 }
 
-html[theme=dark],
-html[data-theme=dark],
-body[data-theme=dark],
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
 body.vscode-dark {
   --xr-font-color0: rgba(255, 255, 255, 1);
   --xr-font-color2: rgba(255, 255, 255, 0.54);
   --xr-font-color3: rgba(255, 255, 255, 0.38);
-  --xr-border-color: #1F1F1F;
+  --xr-border-color: #1f1f1f;
   --xr-disabled-color: #515151;
   --xr-background-color: #111111;
   --xr-background-color-row-even: #111111;
@@ -517,6 +528,7 @@ body.vscode-dark {
 .xr-section-item input {
   display: inline-block;
   opacity: 0;
+  height: 0;
 }
 
 .xr-section-item input + label {
@@ -553,7 +565,7 @@ body.vscode-dark {
 
 .xr-section-summary-in + label:before {
   display: inline-block;
-  content: '►';
+  content: "►";
   font-size: 11px;
   width: 15px;
   text-align: center;
@@ -564,7 +576,7 @@ body.vscode-dark {
 }
 
 .xr-section-summary-in:checked + label:before {
-  content: '▼';
+  content: "▼";
 }
 
 .xr-section-summary-in:checked + label > span {
@@ -636,15 +648,15 @@ body.vscode-dark {
 }
 
 .xr-dim-list:before {
-  content: '(';
+  content: "(";
 }
 
 .xr-dim-list:after {
-  content: ')';
+  content: ")";
 }
 
 .xr-dim-list li:not(:last-child):after {
-  content: ',';
+  content: ",";
   padding-right: 5px;
 }
 
@@ -803,7 +815,7 @@ Coordinates:
 Attributes:
     units:         K
     long_name:     Reference height temperature
-    cell_methods:  time: mean</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'TREFHT'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 420</li><li><span class='xr-has-index'>lat</span>: 192</li><li><span class='xr-has-index'>lon</span>: 288</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-02564582-cbeb-4ac3-b430-84b6292cbd71' class='xr-array-in' type='checkbox' checked><label for='section-02564582-cbeb-4ac3-b430-84b6292cbd71' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>...</span></div><div class='xr-array-data'><pre>[23224320 values with dtype=float32]</pre></div></div></li><li class='xr-section-item'><input id='section-185ed3b5-3603-4adb-abe8-625acd9dccd8' class='xr-section-summary-in' type='checkbox'  checked><label for='section-185ed3b5-3603-4adb-abe8-625acd9dccd8' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>lat</span></div><div class='xr-var-dims'>(lat)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-90.0 -89.06 -88.12 ... 89.06 90.0</div><input id='attrs-31266649-d2dc-47db-a2a2-f17fea57df9a' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-31266649-d2dc-47db-a2a2-f17fea57df9a' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-1c8bb7ee-b704-4270-9fff-d96550c38c16' class='xr-var-data-in' type='checkbox'><label for='data-1c8bb7ee-b704-4270-9fff-d96550c38c16' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class='xr-var-data'><pre>array([-90.      , -89.057592, -88.115183, -87.172775, -86.230366, -85.287958,
+    cell_methods:  time: mean</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'TREFHT'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 420</li><li><span class='xr-has-index'>lat</span>: 192</li><li><span class='xr-has-index'>lon</span>: 288</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-a1764c26-7b49-42c9-8e2a-6bb4698bdc6d' class='xr-array-in' type='checkbox' checked><label for='section-a1764c26-7b49-42c9-8e2a-6bb4698bdc6d' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>...</span></div><div class='xr-array-data'><pre>[23224320 values with dtype=float32]</pre></div></div></li><li class='xr-section-item'><input id='section-03ec1f85-977a-41b2-9624-59016833f770' class='xr-section-summary-in' type='checkbox'  checked><label for='section-03ec1f85-977a-41b2-9624-59016833f770' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>lat</span></div><div class='xr-var-dims'>(lat)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-90.0 -89.06 -88.12 ... 89.06 90.0</div><input id='attrs-6cd3a85f-5003-4785-b12f-9e8e2e8ecd9f' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-6cd3a85f-5003-4785-b12f-9e8e2e8ecd9f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c69500eb-dc58-49e1-9c7c-5201e425f240' class='xr-var-data-in' type='checkbox'><label for='data-c69500eb-dc58-49e1-9c7c-5201e425f240' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class='xr-var-data'><pre>array([-90.      , -89.057592, -88.115183, -87.172775, -86.230366, -85.287958,
        -84.34555 , -83.403141, -82.460733, -81.518325, -80.575916, -79.633508,
        -78.691099, -77.748691, -76.806283, -75.863874, -74.921466, -73.979058,
        -73.036649, -72.094241, -71.151832, -70.209424, -69.267016, -68.324607,
@@ -834,13 +846,13 @@ Attributes:
         68.324607,  69.267016,  70.209424,  71.151832,  72.094241,  73.036649,
         73.979058,  74.921466,  75.863874,  76.806283,  77.748691,  78.691099,
         79.633508,  80.575916,  81.518325,  82.460733,  83.403141,  84.34555 ,
-        85.287958,  86.230366,  87.172775,  88.115183,  89.057592,  90.      ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>lon</span></div><div class='xr-var-dims'>(lon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 1.25 2.5 ... 356.2 357.5 358.8</div><input id='attrs-f149e8bf-4945-46dc-8548-7fc083deb5b6' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-f149e8bf-4945-46dc-8548-7fc083deb5b6' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-39011d1e-2ac4-4f4d-92eb-153b68acff71' class='xr-var-data-in' type='checkbox'><label for='data-39011d1e-2ac4-4f4d-92eb-153b68acff71' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class='xr-var-data'><pre>array([  0.  ,   1.25,   2.5 , ..., 356.25, 357.5 , 358.75])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>object</div><div class='xr-var-preview xr-preview'>2035-02-01 00:00:00 ... 2070-01-...</div><input id='attrs-d409a9dc-e20a-41f7-8343-70cbd9b7d60b' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d409a9dc-e20a-41f7-8343-70cbd9b7d60b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-d8b6e8f9-32f7-4368-8382-cf1a9d38c7b5' class='xr-var-data-in' type='checkbox'><label for='data-d8b6e8f9-32f7-4368-8382-cf1a9d38c7b5' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>time</dd><dt><span>bounds :</span></dt><dd>time_bnds</dd></dl></div><div class='xr-var-data'><pre>array([cftime.DatetimeNoLeap(2035, 2, 1, 0, 0, 0, 0, has_year_zero=True),
+        85.287958,  86.230366,  87.172775,  88.115183,  89.057592,  90.      ])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>lon</span></div><div class='xr-var-dims'>(lon)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 1.25 2.5 ... 356.2 357.5 358.8</div><input id='attrs-cb5415e5-5cc4-4b84-91d1-29e39e17e970' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-cb5415e5-5cc4-4b84-91d1-29e39e17e970' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a69dbf19-9de1-474c-b05b-9a0c5cca2457' class='xr-var-data-in' type='checkbox'><label for='data-a69dbf19-9de1-474c-b05b-9a0c5cca2457' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class='xr-var-data'><pre>array([  0.  ,   1.25,   2.5 , ..., 356.25, 357.5 , 358.75], shape=(288,))</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>object</div><div class='xr-var-preview xr-preview'>2035-02-01 00:00:00 ... 2070-01-...</div><input id='attrs-17945a8f-f2e0-4b5e-9e2f-dc640b226519' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-17945a8f-f2e0-4b5e-9e2f-dc640b226519' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4479d816-19ec-40e7-ad11-e77413148c4e' class='xr-var-data-in' type='checkbox'><label for='data-4479d816-19ec-40e7-ad11-e77413148c4e' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>time</dd><dt><span>bounds :</span></dt><dd>time_bnds</dd></dl></div><div class='xr-var-data'><pre>array([cftime.DatetimeNoLeap(2035, 2, 1, 0, 0, 0, 0, has_year_zero=True),
        cftime.DatetimeNoLeap(2035, 3, 1, 0, 0, 0, 0, has_year_zero=True),
        cftime.DatetimeNoLeap(2035, 4, 1, 0, 0, 0, 0, has_year_zero=True), ...,
        cftime.DatetimeNoLeap(2069, 11, 1, 0, 0, 0, 0, has_year_zero=True),
        cftime.DatetimeNoLeap(2069, 12, 1, 0, 0, 0, 0, has_year_zero=True),
        cftime.DatetimeNoLeap(2070, 1, 1, 0, 0, 0, 0, has_year_zero=True)],
-      dtype=object)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-8d8f48d8-6196-4989-bbf8-88e3a25f65a6' class='xr-section-summary-in' type='checkbox'  ><label for='section-8d8f48d8-6196-4989-bbf8-88e3a25f65a6' class='xr-section-summary' >Indexes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>lat</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-542ae74c-cc6a-4b56-8f4f-3f063f91070f' class='xr-index-data-in' type='checkbox'/><label for='index-542ae74c-cc6a-4b56-8f4f-3f063f91070f' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([             -90.0, -89.05759162303664,  -88.1151832460733,
+      shape=(420,), dtype=object)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-771f5eae-e299-4418-85bf-ec7f0e2d79c9' class='xr-section-summary-in' type='checkbox'  ><label for='section-771f5eae-e299-4418-85bf-ec7f0e2d79c9' class='xr-section-summary' >Indexes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>lat</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-8927593f-e06b-41dd-b80f-a874ef8dd0b4' class='xr-index-data-in' type='checkbox'/><label for='index-8927593f-e06b-41dd-b80f-a874ef8dd0b4' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([             -90.0, -89.05759162303664,  -88.1151832460733,
        -87.17277486910994,  -86.2303664921466, -85.28795811518324,
         -84.3455497382199, -83.40314136125654, -82.46073298429319,
        -81.51832460732984,
@@ -849,12 +861,12 @@ Attributes:
         84.34554973821989,  85.28795811518324,   86.2303664921466,
         87.17277486910996,  88.11518324607329,  89.05759162303664,
                      90.0],
-      dtype=&#x27;float64&#x27;, name=&#x27;lat&#x27;, length=192))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>lon</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-179cc108-d81d-4019-8788-db7409431824' class='xr-index-data-in' type='checkbox'/><label for='index-179cc108-d81d-4019-8788-db7409431824' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([   0.0,   1.25,    2.5,   3.75,    5.0,   6.25,    7.5,   8.75,   10.0,
+      dtype=&#x27;float64&#x27;, name=&#x27;lat&#x27;, length=192))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>lon</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-ac490abe-261d-4e46-a388-c6c0422b1c26' class='xr-index-data-in' type='checkbox'/><label for='index-ac490abe-261d-4e46-a388-c6c0422b1c26' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([   0.0,   1.25,    2.5,   3.75,    5.0,   6.25,    7.5,   8.75,   10.0,
         11.25,
        ...
         347.5, 348.75,  350.0, 351.25,  352.5, 353.75,  355.0, 356.25,  357.5,
        358.75],
-      dtype=&#x27;float64&#x27;, name=&#x27;lon&#x27;, length=288))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><div></div><input id='index-9c48efb5-99cf-45f9-947f-e1d4a7de0978' class='xr-index-data-in' type='checkbox'/><label for='index-9c48efb5-99cf-45f9-947f-e1d4a7de0978' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(CFTimeIndex([2035-02-01 00:00:00, 2035-03-01 00:00:00, 2035-04-01 00:00:00,
+      dtype=&#x27;float64&#x27;, name=&#x27;lon&#x27;, length=288))</pre></div></li><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-3c0bfb6c-d190-47c5-9390-37cdd2518b85' class='xr-index-data-in' type='checkbox'/><label for='index-3c0bfb6c-d190-47c5-9390-37cdd2518b85' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(CFTimeIndex([2035-02-01 00:00:00, 2035-03-01 00:00:00, 2035-04-01 00:00:00,
              2035-05-01 00:00:00, 2035-06-01 00:00:00, 2035-07-01 00:00:00,
              2035-08-01 00:00:00, 2035-09-01 00:00:00, 2035-10-01 00:00:00,
              2035-11-01 00:00:00,
@@ -863,13 +875,15 @@ Attributes:
              2069-07-01 00:00:00, 2069-08-01 00:00:00, 2069-09-01 00:00:00,
              2069-10-01 00:00:00, 2069-11-01 00:00:00, 2069-12-01 00:00:00,
              2070-01-01 00:00:00],
-            dtype=&#x27;object&#x27;, length=420, calendar=&#x27;noleap&#x27;, freq=&#x27;MS&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-a244feda-3b7d-4de9-a4b7-2c82346d5de4' class='xr-section-summary-in' type='checkbox'  checked><label for='section-a244feda-3b7d-4de9-a4b7-2c82346d5de4' class='xr-section-summary' >Attributes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>K</dd><dt><span>long_name :</span></dt><dd>Reference height temperature</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div></li></ul></div></div></div></div>
+            dtype=&#x27;object&#x27;, length=420, calendar=&#x27;noleap&#x27;, freq=&#x27;MS&#x27;))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-da836ebc-005d-4af4-9c99-c49849c4afaf' class='xr-section-summary-in' type='checkbox'  checked><label for='section-da836ebc-005d-4af4-9c99-c49849c4afaf' class='xr-section-summary' >Attributes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>K</dd><dt><span>long_name :</span></dt><dd>Reference height temperature</dd><dt><span>cell_methods :</span></dt><dd>time: mean</dd></dl></div></li></ul></div></div></div></div>
 </div>
+</section>
+<section id="building-the-ensemble-dataset-multiple-members-in-a-single-xarray-dataset">
+<h2>Building the ensemble dataset (multiple members in a single xarray dataset)<a class="headerlink" href="#building-the-ensemble-dataset-multiple-members-in-a-single-xarray-dataset" title="Link to this heading">#</a></h2>
+<p>Assemble multiple ensemble members into a single dataset with a new <code class="docutils literal notranslate"><span class="pre">member_id</span></code> dimension</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## read in multiple members to a single xarray dataset</span>
-
-<span class="k">def</span> <span class="nf">get_trefht_data</span><span class="p">(</span><span class="n">scenario</span><span class="o">=</span><span class="s1">&#39;ARISE&#39;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_trefht_data</span><span class="p">(</span><span class="n">scenario</span><span class="o">=</span><span class="s1">&#39;ARISE&#39;</span><span class="p">):</span>
     <span class="n">ds_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">members</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;001&#39;</span><span class="p">,</span> <span class="s1">&#39;002&#39;</span><span class="p">,</span> <span class="s1">&#39;003&#39;</span><span class="p">,</span> <span class="s1">&#39;004&#39;</span><span class="p">,</span> <span class="s1">&#39;005&#39;</span><span class="p">]</span>
 
@@ -892,10 +906,10 @@ Attributes:
 </div>
 </div>
 </div>
+<p>For SSP2-4.5, the data comes split across two files (early and late periods) so we concatenate them along <code class="docutils literal notranslate"><span class="pre">time</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## get data for the geoengineering and the background (ssp245) scenario. </span>
-<span class="c1">## ssp245 is split into two files, as this run is longer</span>
 <span class="c1">## cell takes a minute or so to run</span>
 
 <span class="n">ds_arise</span> <span class="o">=</span> <span class="n">get_trefht_data</span><span class="p">(</span><span class="s1">&#39;ARISE&#39;</span><span class="p">)</span>
@@ -908,14 +922,19 @@ Attributes:
 </div>
 </div>
 </div>
-<section id="as-an-example-lets-show-global-mean-timeseries-and-time-mean-maps">
-<h2>As an example, lets show global mean timeseries and time-mean maps<a class="headerlink" href="#as-an-example-lets-show-global-mean-timeseries-and-time-mean-maps" title="Link to this heading">#</a></h2>
+</section>
+<section id="annual-mean-with-day-of-month-weights">
+<h2>Annual mean with day-of-month weights<a class="headerlink" href="#annual-mean-with-day-of-month-weights" title="Link to this heading">#</a></h2>
+<p>Monthly model outputs have unequal month lengths. To compute unbiased annual means, we weight each monthly value by its number of days.</p>
+<ol class="arabic simple">
+<li><p>Compute <code class="docutils literal notranslate"><span class="pre">days_in_month</span></code> from the time coordinate (<code class="docutils literal notranslate"><span class="pre">.dt.days_in_month</span></code>).</p></li>
+<li><p>Normalize weights within each calendar year so they sum to 1.</p></li>
+<li><p>Apply the weights to the monthly data and sum within each year (<code class="docutils literal notranslate"><span class="pre">time=&quot;YS&quot;</span></code>).</p></li>
+<li><p>Drop incomplete last year</p></li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## first resample data to yearly resolution </span>
-<span class="c1">## we need to use a month weighting function here:</span>
-
-<span class="k">def</span> <span class="nf">weighted_annual_resample</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">weighted_annual_resample</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    weight by days in each month</span>
 <span class="sd">    adapted from NCAR docs </span>
@@ -945,6 +964,21 @@ Attributes:
 </div>
 </div>
 </div>
+</section>
+<section id="global-mean-time-series">
+<h2>Global mean time series<a class="headerlink" href="#global-mean-time-series" title="Link to this heading">#</a></h2>
+<p>Compute area-weighted global means using latitude weights <code class="docutils literal notranslate"><span class="pre">cos(lat)</span></code> and then average over <code class="docutils literal notranslate"><span class="pre">lon</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">ds_arise</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]))</span>
+<span class="n">ds_arise_global_mean</span> <span class="o">=</span>  <span class="n">ds_arise</span><span class="o">.</span><span class="n">weighted</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">ds_ssp245</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]))</span>
+<span class="n">ds_ssp245_global_mean</span> <span class="o">=</span>  <span class="n">ds_ssp245</span><span class="o">.</span><span class="n">weighted</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plot the global mean timeseries. The ensemble mean is shown as a thick line and individual members as thin lines for both scenarios</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## plot global spatial mean timeseries:</span>
@@ -953,10 +987,6 @@ Attributes:
 <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">})</span>
 
 <span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;TREFHT&#39;</span>
-<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">ds_arise</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]))</span>
-<span class="n">ds_arise_global_mean</span> <span class="o">=</span>  <span class="n">ds_arise</span><span class="o">.</span><span class="n">weighted</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
-<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">ds_ssp245</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]))</span>
-<span class="n">ds_ssp245_global_mean</span> <span class="o">=</span>  <span class="n">ds_ssp245</span><span class="o">.</span><span class="n">weighted</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
 
 <span class="c1">## and plot a timeseries figure</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -989,8 +1019,14 @@ Attributes:
 <img alt="../../_images/c3578a8741e9877080042abb87aac4785578ef59bd18ab7664d65e70e2c19966.png" src="../../_images/c3578a8741e9877080042abb87aac4785578ef59bd18ab7664d65e70e2c19966.png" />
 </div>
 </div>
-<section id="now-also-plot-temperature-differences-between-arise-and-the-target-state-as-a-world-map">
-<h3>now also plot temperature differences between ARISE and the target state, as a world map<a class="headerlink" href="#now-also-plot-temperature-differences-between-arise-and-the-target-state-as-a-world-map" title="Link to this heading">#</a></h3>
+</section>
+<section id="arise-minus-baseline-and-significance">
+<h2>ARISE minus baseline and significance<a class="headerlink" href="#arise-minus-baseline-and-significance" title="Link to this heading">#</a></h2>
+<p>Compare late-period ARISE (2050–2069) against an early baseline (2020–2039) in SSP2-4.5.</p>
+<ul class="simple">
+<li><p>For each grid cell, compute Welch’s t-statistic from ensemble means, standard deviations, and sample sizes.</p></li>
+<li><p>Convert to two-sided p-values and apply a False Discovery Rate (FDR) threshold to control field-wise error (Wilks 2016).</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## define some functions to assign statistical significance</span>
@@ -1027,6 +1063,13 @@ Attributes:
 </div>
 </div>
 </div>
+</section>
+<section id="plot-global-map-with-significance-hatching">
+<h2>Plot global map with significance hatching<a class="headerlink" href="#plot-global-map-with-significance-hatching" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Show the mean difference map <code class="docutils literal notranslate"><span class="pre">ARISE</span> <span class="pre">−</span> <span class="pre">baseline</span></code>.</p></li>
+<li><p>Overlay hatching for grid cells with p-values below the FDR threshold.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import mapping tools</span>
@@ -1085,12 +1128,8 @@ Attributes:
 <span class="n">cax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;TREFHT&#39;</span><span class="p">)</span>
 
+<span class="c1">### save the figure</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Figures/ARISE_AWS_map_example.jpg&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
-
-
-<span class="c1">## plot shows the difference between temperature under ARISE-SAI-1.5K over the period 2050-2069</span>
-<span class="c1">## in CESM2, and the baseline temperature (2020-2039). Insignificant changes (at a 5% false-dicovery rate </span>
-<span class="c1">## threshold) are hatched. </span>
 </pre></div>
 </div>
 </div>
@@ -1098,7 +1137,6 @@ Attributes:
 <img alt="../../_images/816be5ca23a2e412b8935ccb36b577ced1a88ae0d1220397f39014f98effbeeb.png" src="../../_images/816be5ca23a2e412b8935ccb36b577ced1a88ae0d1220397f39014f98effbeeb.png" />
 </div>
 </div>
-</section>
 </section>
 </section>
 
@@ -1111,16 +1149,16 @@ Attributes:
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "cmipv2"
+            mode: "python"
         },
         kernelOptions: {
-            name: "cmipv2",
+            name: "python3",
             path: "./Resources/AWS_ARISE"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'cmipv2'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -1167,10 +1205,13 @@ Attributes:
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#as-an-example-lets-show-global-mean-timeseries-and-time-mean-maps">As an example, lets show global mean timeseries and time-mean maps</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#now-also-plot-temperature-differences-between-arise-and-the-target-state-as-a-world-map">now also plot temperature differences between ARISE and the target state, as a world map</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-access">Cloud access</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-a-single-file-from-s3">Test a single file from S3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-ensemble-dataset-multiple-members-in-a-single-xarray-dataset">Building the ensemble dataset (multiple members in a single xarray dataset)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annual-mean-with-day-of-month-weights">Annual mean with day-of-month weights</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-mean-time-series">Global mean time series</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arise-minus-baseline-and-significance">ARISE minus baseline and significance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-global-map-with-significance-hatching">Plot global map with significance hatching</a></li>
 </ul>
   </nav></div>
 
