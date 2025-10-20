@@ -10,15 +10,8 @@ The `s3tree.py` utility is designed to help researchers and data scientists navi
 - **Tree Visualization**: Display complete directory structures with file sizes
 - **Interactive CLI**: Command-line interface for exploring datasets
 - **Efficient S3 Operations**: Uses pagination and optimized listing for large datasets
-
-## Features
-
-- List variables (subdirectories) under a group prefix
-- Show complete directory trees with file sizes
-- Interactive CLI mode for exploration
-- Efficient S3 listing with pagination
-- Human-readable file size formatting (B, KB, MB, GB, etc.)
-- Support for both API and command-line usage
+- **File Formatting**: Human-readable file size formatting (B, KB, MB, GB, etc.)
+- **Python API**: Support for both API and command-line usage
 
 ## Usage Examples
 

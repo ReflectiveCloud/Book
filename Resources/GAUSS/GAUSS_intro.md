@@ -4,12 +4,12 @@ The GAUSS (Geoengineering Assessment Using Stratospheric Sulfur) dataset provide
 
 ## Overview
 
-GAUSS contains climate model outputs from multiple Earth System Models (ESMs) simulating various geoengineering scenarios, including:
+GAUSS contains climate model outputs from multiple Earth System Models (ESMs) simulating various scenarios targeted at analysis Stratospheric Aerosol Injection, such as:
 
-- **Control runs** (no geoengineering)
-- **Stratospheric aerosol injection** scenarios
-- **Multiple emission pathways** and time periods
-- **High-resolution** climate variables
+- **Control run** (SSP2-4.5; no geoengineering)
+- **Stratospheric aerosol injection** scenarios (3 different cooling targets, different termination scenarios, different start dates)
+
+For more information on GAUSS see here: https://climate-engineering.mae.cornell.edu/gauss-geoengineering-assessment-across-uncertainty-scenarios-and-strategies/
 
 ## Available Resources
 
@@ -19,8 +19,6 @@ GAUSS contains climate model outputs from multiple Earth System Models (ESMs) si
 - **[S3 Tree Browser](s3tree.md)** - Utility for exploring GAUSS data structure in cloud storage
 
 ### Key Variables
-
-Few climate variables are available in GAUSS.
 
 - **Temperature fields** (TREFHT, TREFHTMN, TREFHTMX)
 - **Precipitation** (PRECT, PRECC, PRECL)
