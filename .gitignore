@@ -1,2 +1,9 @@
+# environment variables
 *.venv
 *.env
+
+# macos
+.DS_Store
+
+# jupyter book build
+_build/
