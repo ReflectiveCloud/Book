@@ -10,14 +10,14 @@ After logging in and clicking `Launch server`, there are two options to select: 
 
 ### **Environment Selection**
 
-- **Select Pangeo Notebook Image** to start a Python environment with a set of common geoscience packages including those from the [Pangeo](https://pangeo.io/#ecosystem) ecosystem
+- **Select Reflective Image** to start a Python environment with a set of common geoscience packages including those from the [Pangeo](https://pangeo.io/#ecosystem) ecosystem
 - This is the environment required to run our example notebooks
 
 ### **Resource Allocation**
 
 - **Please select the smallest resource** (RAM and CPUs) which can meet your needs for a given workflow
 - The higher resource options cost us significantly more
-- You can see your memory usage at the bottom of the screen when working in a notebook
+- You can see your memory usage at the bottom of the screen when working in a notebook 
 
 ---
 

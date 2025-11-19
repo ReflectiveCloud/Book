@@ -8,7 +8,11 @@ parts:
     chapters:
       - file: about
       - file: useful_links
-      - file: best_practice
+  - caption: Usage guide
+    chapters:
+      - file: usage_guide/best_practice.md
+      - file: usage_guide/storing_data.md
+      - file: usage_guide/accessing_simulations.md
   - caption: Resources
     chapters:
       - file: Resources/GeoMIP_from_GoogleCloud/GCS_intro.md
