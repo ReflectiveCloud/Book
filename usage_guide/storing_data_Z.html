@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Example Codes &#8212; ReflectiveCloud; SRM research Community Book</title>
+    <title>Storing your data &#8212; ReflectiveCloud; SRM research Community Book</title>
   
   
   
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -60,7 +60,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/README';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'usage_guide/storing_data_Z';</script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -176,9 +176,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage guide</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../usage_guide/best_practice.html">Best Practices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage_guide/storing_data.html">Storing files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage_guide/accessing_simulations.html">Accessing community datasets on the hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practice.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storing_data.html">Storing files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_simulations.html">Accessing community datasets on the hub</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="nav bd-sidenav">
@@ -279,7 +279,7 @@
       
       
       
-      <li><a href="../_sources/examples/README.md" target="_blank"
+      <li><a href="../_sources/usage_guide/storing_data_Z.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -342,7 +342,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -353,11 +355,24 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Example Codes</h1>
+    <h1>Storing your data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-directories">User Directories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-buckets">Cloud buckets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub">Do not put ever sensitive data (e.g. passwords) on the hub!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-writing-a-netcdf-file-to-the-scratch-bucket">example - writing a netcdf file to the scratch bucket</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -367,21 +382,59 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="example-codes">
-<h1>Example Codes<a class="headerlink" href="#example-codes" title="Link to this heading">#</a></h1>
-<p>This directory is for sharing example code with the community. To contribute:</p>
-<ol class="arabic simple">
-<li><p>Upload your example code to this directory</p></li>
-<li><p>Submit a pull request</p></li>
-<li><p>The Reflective team will review and integrate it into:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="storing-your-data">
+<h1>Storing your data<a class="headerlink" href="#storing-your-data" title="Link to this heading">#</a></h1>
+<p>There are two types of storage on the cloud hub:</p>
 <ul class="simple">
-<li><p>The CloudHub platform</p></li>
-<li><p>This documentation repository</p></li>
-<li><p>The public website</p></li>
+<li><p>user directories, under /home, for notebooks, scripts and very small data files</p></li>
+<li><p>shared cloud buckets - storage on our S3 buckets associated with the hub</p></li>
 </ul>
-</li>
-</ol>
-<p>We welcome contributions that demonstrate useful workflows and best practices!</p>
+<section id="user-directories">
+<h2>User Directories<a class="headerlink" href="#user-directories" title="Link to this heading">#</a></h2>
+<p>You can navigate this storage like a normal file browser when you open the hub. They behave as a normal UNIX file system. From a terminal on the hub, directories can be navigated and moved around as on a local machine:</p>
+</section>
+<section id="cloud-buckets">
+<h2>Cloud buckets<a class="headerlink" href="#cloud-buckets" title="Link to this heading">#</a></h2>
+<p>For medium-sized data used as part of ongoing projects, two S3 buckets can be used:</p>
+<ul class="simple">
+<li><p>The scratch bucket at <code class="docutils literal notranslate"><span class="pre">s3://reflective-scratch-prod/&lt;username&gt;</span></code>, (also saved in the convenience variable <code class="docutils literal notranslate"><span class="pre">$SCRATCH_BUCKET</span></code>)</p></li>
+<li><p>The persistent bucket, at <code class="docutils literal notranslate"><span class="pre">s3://reflective-persistent-prod/&lt;username&gt;</span></code>, (also saved in the convenience variable <code class="docutils literal notranslate"><span class="pre">$PERSISTENT_BUCKET</span></code>)</p></li>
+</ul>
+<p>Data saved in the scratch bucket is <strong>deleted every 7 days</strong>, so the scratch bucket should be used only for intermediate data produced temporarily during analysis, or as a staging location.</p>
+<p>Data produced as part of analyses and in active use, or data which you need to upload for use in a project should typically be stored in the persistent bucket.</p>
+<p>Please only ever write to the folder under your own username on the persistent bucket, except if agreed beforehand with Reflective, as will be the case for some community datasets which we want to store in a more visible location.</p>
+<p>The environment variables <code class="docutils literal notranslate"><span class="pre">SCRATCH_BUCKET</span></code> and <code class="docutils literal notranslate"><span class="pre">PERSISTENT_BUCKET</span></code> come preloaded with your username, e.g. s3://reflective-persistent-prod/alistairduffey for AD. This is on purpose to track file ownership and prevent overwriting of other users’ data. Using these environment variables rather hard coded file paths is therefore preferable for safety!</p>
+<section id="do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub">
+<h3>Do not put ever sensitive data (e.g. passwords) on the hub!<a class="headerlink" href="#do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Data under user directories can be accessed by hub admins.</p></li>
+<li><p>Data on cloud buckets is freely accessible by any user of the hub.</p></li>
+</ul>
+</section>
+</section>
+<section id="example-writing-a-netcdf-file-to-the-scratch-bucket">
+<h2>example - writing a netcdf file to the scratch bucket<a class="headerlink" href="#example-writing-a-netcdf-file-to-the-scratch-bucket" title="Link to this heading">#</a></h2>
+<p>The code below shows an example of writing a netcdf file from the hub. It uses two steps as netcdf files (unlike zarr) can’t be written directly onto an S3 bucket.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="n">s3</span> <span class="o">=</span> <span class="n">s3fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">()</span>
+
+<span class="n">scratch</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;SCRATCH_BUCKET&#39;</span><span class="p">]</span>
+
+<span class="n">out_path_on_scratch</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scratch</span><span class="si">}</span><span class="s2">/test_loc.nc&quot;</span> <span class="c1"># Where we want to store it</span>
+
+  
+
+<span class="c1"># Create a temporary intermediate netcdf on user directory, then move it to the bucket</span>
+
+<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;.nc&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="c1"># save to a temporary file</span>
+
+<span class="n">s3</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">out_path_on_scratch</span><span class="p">)</span> <span class="c1"># move that file to the scratch bucket</span>
+
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -397,7 +450,7 @@
         },
         kernelOptions: {
             name: "python3",
-            path: "./examples"
+            path: "./usage_guide"
         },
         predefinedOutput: true
     }
@@ -420,6 +473,27 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-directories">User Directories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-buckets">Cloud buckets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub">Do not put ever sensitive data (e.g. passwords) on the hub!</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-writing-a-netcdf-file-to-the-scratch-bucket">example - writing a netcdf file to the scratch bucket</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
