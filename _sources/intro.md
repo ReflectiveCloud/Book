@@ -1,4 +1,4 @@
-# Welcome to the ReflectiveCloud
+# Welcome to the Reflective Cloud Hub
 
 ---
 
@@ -10,7 +10,7 @@ A **community hub** for open-source and reproducible **Solar Radiation Managemen
 
 ## Access the Platform
 
-The cloud hub is located at: **[https://reflective.2i2c.cloud/](https://reflective.2i2c.cloud/)**
+The Cloud Hub is located at: **[https://reflective.2i2c.cloud/](https://reflective.2i2c.cloud/)**
 
 ---
 
@@ -18,7 +18,7 @@ The cloud hub is located at: **[https://reflective.2i2c.cloud/](https://reflecti
 
 ### **Access Control**
 
-Access is controlled via membership of the **[ReflectiveCloud GitHub organisation](https://github.com/ReflectiveCloud)**.
+Access is controlled via membership of the **[Reflective Cloud Hub GitHub organisation](https://github.com/ReflectiveCloud)**.
 
 ### **Apply for Access**
 
@@ -63,7 +63,7 @@ This book contains:
 
 ---
 
-_Welcome to the ReflectiveCloud community! We're excited to have you join us in advancing SRM research._ 🌍✨
+_Welcome to the Cloud Hub community! We're excited to have you join us in advancing SRM research._ 🌍✨
 
 ---
 

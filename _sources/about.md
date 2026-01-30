@@ -13,7 +13,7 @@ Our mission is twofold:
 
 ## Platform Overview
 
-This Jupyter Book accompanies **[ReflectiveCloud](https://reflective.2i2c.cloud/)** - a powerful Jupyter notebook server providing **free compute power** in a Pangeo Python environment on cloud computing resources, available to the SRM research community.
+This Jupyter Book accompanies the **[Reflective Cloud Hub](https://reflective.2i2c.cloud/)** - a powerful Jupyter notebook server providing **free compute power** in a Pangeo Python environment on cloud computing resources, available to the SRM research community.
 
 ```{admonition} Access to Platform
 :class: important
