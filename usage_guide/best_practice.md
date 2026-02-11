@@ -65,6 +65,18 @@ du -hs --exclude="shared*" ~/
 
 ---
 
+### **See data on S3 buckets**
+
+You can list data on the S3 bucekts using commands like:
+
+```bash
+aws s3 ls s3://reflective-scratch-prod-large/ 
+```
+
+Adding a `--recursive` flag will show files recursively (expanding sub-directories)
+
+---
+
 ## Intended Use
 
 ### **Primary Purpose**
@@ -79,12 +91,13 @@ This resource is principally intended for **analysis of climate model simulation
 
 ## Quick Reference
 
-| Action               | Steps                                                         |
-| -------------------- | ------------------------------------------------------------- |
-| **Start Server**     | Login → Launch Server → Select Environment → Select Resources |
-| **Stop Server**      | File → Hub Control Panel → Stop Server → Log Out              |
-| **Check Storage**    | Run `du -hs --exclude="shared*" ~/` in terminal               |
-| **Install Packages** | Use `% pip install packagename` (session-only)                |
+| Action               | Steps                                                           |
+| -------------------- | ----------------------------------------------------------------|
+| **Start Server**     | Login → Launch Server → Select Environment → Select Resources   |
+| **Stop Server**      | File → Hub Control Panel → Stop Server → Log Out                |
+| **Check Storage**    | Run `du -hs --exclude="shared*" ~/` in terminal                 |
+| **Explore S3 bucket**| Run `aws s3 ls s3://reflective-scratch-prod-large/` in terminal |
+| **Install Packages** | Use `% pip install packagename` (session-only)                  |
 
 ---
 

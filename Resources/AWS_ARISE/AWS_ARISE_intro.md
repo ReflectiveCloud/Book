@@ -1,10 +1,10 @@
-# Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive
+# ARISE-SAI-1.5 via AWS
 
 ---
 
 ## Overview
 
-This repository contains **Python notebooks** demonstrating simple usage examples of the AWS ARISE-SAI-1.5k simulations cloud archive.
+This repository contains **Python notebooks** demonstrating simple usage examples of the AWS ARISE-SAI-1.5k simulations cloud archive on AWS, for UKESM1 and CESM2-WACCM.
 
 ---
 

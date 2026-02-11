@@ -16,10 +16,11 @@ Some resources for Solar Radiation Management research:
 
 ### **Climate Model Simulations**
 
-- **[CESM2-WACCM ARISE-SAI simulations](https://www.cesm.ucar.edu/community-projects/arise-sai)** - Community Earth System Model simulations
-- **[UKESM1 ARISE-SAI-1.5K simulations](https://catalogue.ceda.ac.uk/uuid/26b89d8d76bd40bfbaf9fedfa383e9cf/)** - UK Earth System Model simulations
+- **[Locations and details of recent SAI simulations](https://docs.google.com/spreadsheets/d/1gNgWTGHZ3BsKzuqri2lVTJa8JW2lFuQQwUmzLS8boG0/edit?usp=sharing)**
+- **[SAI simulations on the Cloud Hub](https://docs.google.com/spreadsheets/d/1cjgJQSrDV_IQVN68HoTQpy_xGQQhPy4wz1N0u8E2Pe4/edit?usp=sharing)**
 
-### **CMIP Data Access**
+
+### **CMIP Data Access from ESGF**
 
 - **CMIP data** (including ScenarioMIP and GeoMIP) - Available from ESGF nodes:
   - [LLNL AIMS2](https://aims2.llnl.gov/search)
@@ -29,13 +30,13 @@ Some resources for Solar Radiation Management research:
 ### **Processed Data Archives**
 
 - **[Extremes indices for CESM ARISE simulations](https://zenodo.org/records/14816586)** - By Mari Tye
-- **[Pre-processed archive of common SAI simulation outputs](https://zenodo.org/records/14802397)** - By Reflective
+- **[Pre-processed archive of global, time and zonal means for common SAI simulation outputs](https://zenodo.org/records/14802397)** - By Alistair Duffey
 
 ---
 
 ## CMIP Information
 
-Essential documentation for working with CMIP data:
+Documentation for working with CMIP data:
 
 - **[CMIP6 Dataset Nomenclature Guide](https://docs.google.com/document/d/1yUx6jr9EdedCOLd--CPdTfGDwEwzPpCF6p1jRmqx-0Q/edit?tab=t.0)** - Understanding CMIP6 naming conventions
 - **[CMIP6 Variable Names List](https://docs.google.com/spreadsheets/d/1UUtoz6Ofyjlpx5LdqhKcwHFz2SGoTQV2_yekHyMfL9Y/edit?gid=1221485271#gid=1221485271)** - Complete variable reference
@@ -55,13 +56,4 @@ Essential documentation for working with CMIP data:
 
 - **[The Turing Way](https://book.the-turing-way.org/)** - Guide to conducting reproducible, ethical, and collaborative data science
 
----
 
-## Quick Reference
-
-| Category          | Key Resources                        |
-| ----------------- | ------------------------------------ |
-| **SRM Modelling** | GeoMIP Website, Reflective Simulator |
-| **Data Access**   | ESGF nodes, CMIP6 Walkthrough        |
-| **Documentation** | CMIP6 guides, variable lists         |
-| **Learning**      | Project Pythia, Climatematch         |

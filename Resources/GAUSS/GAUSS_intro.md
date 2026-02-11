@@ -1,4 +1,4 @@
-# GAUSS Dataset Resources
+# GAUSS simulations
 
 The GAUSS (Geoengineering Assessment Using Stratospheric Sulfur) dataset provides climate model simulations for solar radiation management (SRM) research.
 

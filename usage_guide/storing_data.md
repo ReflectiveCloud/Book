@@ -38,7 +38,7 @@ Please only ever write to the folder under your own username on the persistent b
 
   
 
-The environment variables `SCRATCH_BUCKET` and `PERSISTENT_BUCKET` come preloaded with your username, e.g. s3://reflective-persistent-prod/alistairduffey for AD. This is on purpose to track file ownership and prevent overwriting of other users' data. Using these environment variables rather hard coded file paths is therefore preferable for safety!
+The environment variables `SCRATCH_BUCKET` and `PERSISTENT_BUCKET` come preloaded with your username, e.g. s3://reflective-persistent-prod/alistairduffey. This is on purpose to track file ownership and prevent overwriting of other users' data. Using these environment variables rather than hard coded file paths is therefore preferable for safety!
 
   
 
@@ -46,10 +46,16 @@ The environment variables `SCRATCH_BUCKET` and `PERSISTENT_BUCKET` come preloa
 
 * Data under user directories can be accessed by hub admins.
 
-* Data on cloud buckets is freely accessible by any user of the hub.
+* Data on S3 buckets is freely accessible by any user of the hub, even if under your username.
 
   
   
+### Uploading data to the hub
+
+- for **small-to-medium** files, you can upload in the jupyterlab interface (via the GUI), or run wget scripts on the hub to download from the web, and then move files to buckets using ``` aws s3 mv <source> <destination>``` or via the python commands below.
+- for **larger** datasets (>10s GB), get in touch with our team and we will advise on if we can store the data, and if we can, share guidance for uploading to the buckets via the command line. 
+
+
 
 ### Example - writing a netcdf file to the scratch bucket
 
@@ -78,3 +84,4 @@ ds.to_netcdf(tmp.name) # save to a temporary file
 s3.put(tmp.name, out_path_on_scratch) # move that file to the scratch bucket
 
 ```
+
