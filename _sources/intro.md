@@ -6,60 +6,52 @@
 
 A **community hub** for open-source and reproducible **Solar Radiation Management (SRM)** research.
 
----
+This Jupyter Book accompanies the **[Reflective Cloud Hub](https://reflective.2i2c.cloud/)** - a Jupyter notebook server providing **free compute power** in a Pangeo Python environment on cloud computing resources, available to the SRM research community.
 
-## Access the Platform
+Our mission is to support the SRM research community by:
+- **Reducing** duplication of effort across analyses and workflows
+- **Lowering** barriers to accessing data and cloud compute resources
+- **Improving** reproducibility and transparency in computational research
+- **Fostering** open, collaborative development of methods and results
+
 
 The Cloud Hub is located at: **[https://reflective.2i2c.cloud/](https://reflective.2i2c.cloud/)**
 
 ---
 
-## 🔐 Getting Access
-
-### **Access Control**
+### 🔐 Getting Access
 
 Access is controlled via membership of the **[Reflective Cloud Hub GitHub organisation](https://github.com/ReflectiveCloud)**.
 
-### **Apply for Access**
+Please fill out the **[access form here](https://forms.reflective.org/cloud-hub-access)** if you would like to get access to the Hub. We will get back to you as soon as we can. 
 
-Please fill out the **[access form here](https://forms.reflective.org/cloud-hub-access)** if you would like to get access. We will get back to you as soon as we can.
+For a quick guide to starting up your server - see **[this video](https://www.loom.com/share/91b458e62ab347ffbd532ac29abf26fd?sid=6366ec4b-f500-45fc-8908-9a273011dfa1)**. 
+
 
 ---
 
-## 🤝 Community Contributions
+### 🤝 Community Contributions
 
-This Jupyter Book is **under development** and we would love contributions of:
+Both the Cloud Hub and this website are under development. We would love contributions of:
 
 - **Code** examples and workflows
 - **Information** and documentation
 - **Resources** and datasets
 - **Feedback** and suggestions
 
-### **How to Contribute**
-
-See the **"How to Contribute"** section under **"About"** for detailed information.
 
 ---
 
-## What You'll Find Here
 
 This book contains:
 
-- **Tutorials** and examples
-- **Code snippets** for common tasks
-- **Best practices** for using the platform
-- **Resource guides** and documentation
-- **Community-contributed** content
+- An overview of the Cloud Hub
+- Best practices for using the platform
+- A directory of the SAI datasets accessible from the Cloud Hub
+- A directory of the notebook tutorials hosted on the Cloud Hub
+- Resource guides and documentation
+- Community-contributed content
 
----
-
-## Getting Started
-
-1. **Apply for access** using the form above
-2. **Wait for approval** from our team
-3. **Explore the platform** at [reflective.2i2c.cloud](https://reflective.2i2c.cloud/)
-4. **Check out this book** for tutorials and examples
-5. **Contribute back** to help the community grow
 
 ---
 

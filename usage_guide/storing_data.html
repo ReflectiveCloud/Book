@@ -61,10 +61,9 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'usage_guide/storing_data';</script>
-    <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Accessing community datasets on the hub" href="accessing_simulations.html" />
+    <link rel="next" title="Accessing community datasets on the hub" href="accessing_community_datasets.html" />
     <link rel="prev" title="Best Practices" href="best_practice.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -169,45 +168,46 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Preamble</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../useful_links.html">Useful Links</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage guide</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage guide</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="best_practice.html">Best Practices</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Storing files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="accessing_simulations.html">Accessing community datasets on the hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_community_datasets.html">Accessing community datasets on the hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how_to_contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support_and_feedback.html">Support and Feedback</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Resources/GeoMIP_from_GoogleCloud/GCS_intro.html">GeoMIP Analysis Using the CMIP6 Google cloud Store</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Resources/GeoMIP_from_GoogleCloud/G6sulfur_from_cloud_demo.html">Working with the GeoMIP (and CMIP6) cloud-store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Resources/useful_links.html">Useful Links</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Resources/example_notebooks.html">Example notebooks and code resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Resources/GeoMIP_from_GoogleCloud/GCS_intro.html">GeoMIP via Google Cloud</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Resources/GeoMIP_from_GoogleCloud/G6sulfur_from_cloud_demo.html">Working with the GeoMIP (and CMIP6) cloud-store</a></li>
 
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Resources/GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP Analysis Using ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Resources/GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Resources/GeoMIP_from_ESGF/G6sulfur_from_ESGF_example.html">Loading and working with GeoMIP (G6sulfur) data directly from ESGF</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Resources/GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP via ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Resources/GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Resources/pp_archive/pp_archive_intro.html">An Archive of Pre-processed SAI Simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Resources/pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
-
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Resources/AWS_ARISE/AWS_ARISE_intro.html">Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Resources/AWS_ARISE/AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Resources/AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Resources/AWS_ARISE/AWS_ARISE_intro.html">ARISE-SAI-1.5 via AWS</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Resources/AWS_ARISE/AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Resources/AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
 
 
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Resources/GAUSS/GAUSS_intro.html">GAUSS Dataset Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Resources/GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Resources/GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Resources/GAUSS/GAUSS_intro.html">GAUSS simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Resources/GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Resources/GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Resources/pp_archive/pp_archive_intro.html">Pre-processed ARISE and G6sulfur simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Resources/pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
+
+</ul>
+</details></li>
 </ul>
 </details></li>
 </ul>
@@ -370,6 +370,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub">Do not put ever sensitive data (e.g. passwords) on the hub!</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-data-to-the-hub">Uploading data to the hub</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-writing-a-netcdf-file-to-the-scratch-bucket">Example - writing a netcdf file to the scratch bucket</a></li>
 </ul>
             </nav>
@@ -403,14 +404,21 @@
 <p>Data saved in the scratch bucket is <strong>deleted every 7 days</strong>, so the scratch bucket should be used only for intermediate data produced temporarily during analysis, or as a staging location.</p>
 <p>Data produced as part of analyses and in active use, or data which you need to upload for use in a project should typically be stored in the persistent bucket.</p>
 <p>Please only ever write to the folder under your own username on the persistent bucket, except if agreed beforehand with Reflective, as will be the case for some community datasets which we want to store in a more visible location.</p>
-<p>The environment variables <code class="docutils literal notranslate"><span class="pre">SCRATCH_BUCKET</span></code> and <code class="docutils literal notranslate"><span class="pre">PERSISTENT_BUCKET</span></code> come preloaded with your username, e.g. s3://reflective-persistent-prod/alistairduffey for AD. This is on purpose to track file ownership and prevent overwriting of other users’ data. Using these environment variables rather hard coded file paths is therefore preferable for safety!</p>
+<p>The environment variables <code class="docutils literal notranslate"><span class="pre">SCRATCH_BUCKET</span></code> and <code class="docutils literal notranslate"><span class="pre">PERSISTENT_BUCKET</span></code> come preloaded with your username, e.g. s3://reflective-persistent-prod/alistairduffey. This is on purpose to track file ownership and prevent overwriting of other users’ data. Using these environment variables rather than hard coded file paths is therefore preferable for safety!</p>
 <section id="do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub">
 <h3>Do not put ever sensitive data (e.g. passwords) on the hub!<a class="headerlink" href="#do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Data under user directories can be accessed by hub admins.</p></li>
-<li><p>Data on cloud buckets is freely accessible by any user of the hub.</p></li>
+<li><p>Data on S3 buckets is freely accessible by any user of the hub, even if under your username.</p></li>
 </ul>
 </section>
+</section>
+<section id="uploading-data-to-the-hub">
+<h2>Uploading data to the hub<a class="headerlink" href="#uploading-data-to-the-hub" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>for <strong>small-to-medium</strong> files, you can upload in the jupyterlab interface (via the GUI), or run wget scripts on the hub to download from the web, and then move files to buckets using <code class="docutils literal notranslate"> <span class="pre">aws</span> <span class="pre">s3</span> <span class="pre">mv</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;destination&gt;</span></code> or via the python commands below.</p></li>
+<li><p>for <strong>larger</strong> datasets (&gt;10s GB), get in touch with our team and we will advise on if we can store the data, and if we can, share guidance for uploading to the buckets via the command line.</p></li>
+</ul>
 </section>
 <section id="example-writing-a-netcdf-file-to-the-scratch-bucket">
 <h2>Example - writing a netcdf file to the scratch bucket<a class="headerlink" href="#example-writing-a-netcdf-file-to-the-scratch-bucket" title="Link to this heading">#</a></h2>
@@ -478,7 +486,7 @@
       </div>
     </a>
     <a class="right-next"
-       href="accessing_simulations.html"
+       href="accessing_community_datasets.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
@@ -508,6 +516,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub">Do not put ever sensitive data (e.g. passwords) on the hub!</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-data-to-the-hub">Uploading data to the hub</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-writing-a-netcdf-file-to-the-scratch-bucket">Example - writing a netcdf file to the scratch bucket</a></li>
 </ul>
   </nav></div>

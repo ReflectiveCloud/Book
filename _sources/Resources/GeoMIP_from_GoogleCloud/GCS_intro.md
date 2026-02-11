@@ -1,4 +1,4 @@
-# GeoMIP Analysis Using the CMIP6 Google cloud Store 
+# GeoMIP via Google Cloud 
 
 ---
 

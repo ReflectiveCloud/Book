@@ -1,4 +1,4 @@
-# GeoMIP Analysis Using ESGF
+# GeoMIP via ESGF
 
 ---
 

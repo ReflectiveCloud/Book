@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive &#8212; The Reflective Cloud Hub; SRM research Community Book</title>
+    <title>ARISE-SAI-1.5 via AWS &#8212; The Reflective Cloud Hub; SRM research Community Book</title>
   
   
   
@@ -61,11 +61,10 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Resources/AWS_ARISE/AWS_ARISE_intro';</script>
-    <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Example usage of the AWS ARISE-1.5 data set" href="AWS_ARISE_basic_example.html" />
-    <link rel="prev" title="Introduction to working with the pre-processed SAI simulations archive" href="../pp_archive/pp_archive_usage_example.html" />
+    <link rel="prev" title="Loading data directly from ESGF nodes" href="../GeoMIP_from_ESGF/search_and_load_from_esgf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -169,45 +168,46 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Preamble</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage guide</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../useful_links.html">Useful Links</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage guide</span></p>
-<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage_guide/best_practice.html">Best Practices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage_guide/storing_data.html">Storing files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/accessing_simulations.html">Accessing community datasets on the hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/accessing_community_datasets.html">Accessing community datasets on the hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/how_to_contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/support_and_feedback.html">Support and Feedback</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../GeoMIP_from_GoogleCloud/GCS_intro.html">GeoMIP Analysis Using the CMIP6 Google cloud Store</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../GeoMIP_from_GoogleCloud/G6sulfur_from_cloud_demo.html">Working with the GeoMIP (and CMIP6) cloud-store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../useful_links.html">Useful Links</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../example_notebooks.html">Example notebooks and code resources</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GeoMIP_from_GoogleCloud/GCS_intro.html">GeoMIP via Google Cloud</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GeoMIP_from_GoogleCloud/G6sulfur_from_cloud_demo.html">Working with the GeoMIP (and CMIP6) cloud-store</a></li>
 
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP Analysis Using ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../GeoMIP_from_ESGF/G6sulfur_from_ESGF_example.html">Loading and working with GeoMIP (G6sulfur) data directly from ESGF</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP via ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../pp_archive/pp_archive_intro.html">An Archive of Pre-processed SAI Simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
-
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">ARISE-SAI-1.5 via AWS</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
 
 
 
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS Dataset Resources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pp_archive/pp_archive_intro.html">Pre-processed ARISE and G6sulfur simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
+
+</ul>
+</details></li>
 </ul>
 </details></li>
 </ul>
@@ -355,7 +355,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive</h1>
+    <h1>ARISE-SAI-1.5 via AWS</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -387,12 +387,12 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="using-the-aws-arise-sai-1-5-simulations-cloud-archive">
-<h1>Using the AWS ARISE-SAI-1.5 Simulations Cloud Archive<a class="headerlink" href="#using-the-aws-arise-sai-1-5-simulations-cloud-archive" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="arise-sai-1-5-via-aws">
+<h1>ARISE-SAI-1.5 via AWS<a class="headerlink" href="#arise-sai-1-5-via-aws" title="Link to this heading">#</a></h1>
 <hr class="docutils" />
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
-<p>This repository contains <strong>Python notebooks</strong> demonstrating simple usage examples of the AWS ARISE-SAI-1.5k simulations cloud archive.</p>
+<p>This repository contains <strong>Python notebooks</strong> demonstrating simple usage examples of the AWS ARISE-SAI-1.5k simulations cloud archive on AWS, for UKESM1 and CESM2-WACCM.</p>
 </section>
 <hr class="docutils" />
 <section id="repository-information">
@@ -500,12 +500,12 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../pp_archive/pp_archive_usage_example.html"
+       href="../GeoMIP_from_ESGF/search_and_load_from_esgf.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction to working with the pre-processed SAI simulations archive</p>
+        <p class="prev-next-title">Loading data directly from ESGF nodes</p>
       </div>
     </a>
     <a class="right-next"
