@@ -1,10 +1,10 @@
-# An Archive of Pre-processed SAI Simulations
+# Pre-processed ARISE and G6sulfur simulations
 
 ---
 
 ## Overview
 
-This archive processes common SAI simulations into a small (~1GB), user-friendly, analysis-ready format. It includes a usage example notebook showing how to derive common analyses of SAI scenarios.
+This archive contains the ARISE and G6sulfur simulations, pre-processed into a small (~1GB), user-friendly, analysis-ready format of various time and spatial means and standard deviations. There is a usage example notebook showing how to derive some common analyses. 
 
 ---
 
