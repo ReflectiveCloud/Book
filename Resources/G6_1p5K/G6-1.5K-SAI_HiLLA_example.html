@@ -1,0 +1,1399 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>G6-1.5K- cloud data workflow example &#8212; The Reflective Cloud Hub; SRM research Community Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Resources/G6_1p5K/G6-1.5K-SAI_HiLLA_example';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GeoMIP via Google Cloud" href="../GeoMIP_from_GoogleCloud/GCS_intro.html" />
+    <link rel="prev" title="G6-1.5K-SAI/HiLLA on the Cloud Hub" href="GeoMIP_G6_1p5K_on_CloudHub.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="The Reflective Cloud Hub; SRM research Community Book - Home"/>
+    <img src="../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="The Reflective Cloud Hub; SRM research Community Book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to the Reflective Cloud Hub
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/best_practice.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/storing_data.html">Storing files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/accessing_community_datasets.html">Accessing community datasets on the hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/how_to_contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/support_and_feedback.html">Support and Feedback</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../useful_links.html">Useful Links</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../example_notebooks.html">Example notebooks and code resources</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="GeoMIP_G6_1p5K_on_CloudHub.html">G6-1.5K-SAI/HiLLA on the Cloud Hub</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">G6-1.5K- cloud data workflow example</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GeoMIP_from_GoogleCloud/GCS_intro.html">GeoMIP via Google Cloud</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GeoMIP_from_GoogleCloud/G6sulfur_from_cloud_demo.html">Working with the GeoMIP (and CMIP6) cloud-store</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP via ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_intro.html">ARISE-SAI-1.5 via AWS</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pp_archive/pp_archive_intro.html">Pre-processed ARISE and G6sulfur simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
+
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/ReflectiveCloud/Book/tree/main" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/Resources/G6_1p5K/G6-1.5K-SAI_HiLLA_example.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>G6-1.5K- cloud data workflow example</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-all-the-data">Read in all the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-injection-magnitudes">Get injection magnitudes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Alistair Duffey, Feb 26</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="g6-1-5k-cloud-data-workflow-example">
+<h1>G6-1.5K- cloud data workflow example<a class="headerlink" href="#g6-1-5k-cloud-data-workflow-example" title="Link to this heading">#</a></h1>
+<p>…………</p>
+<p>notebook reads in data G6-1.5K-SAI and -HiLLA simulations from Reflective Cloud Hub S3 buckets, across four models, to plot a summary of SO2 injection and temperature impacts</p>
+<p>…………</p>
+<p>It produces a summary plot for Visioni et al., 2026 (The Geoengineering Model Intercomparison Project (GeoMIP)
+contribution to CMIP7)</p>
+<p>…………</p>
+<p>Runs on the Reflective CLoud Hub, and requires (1) <a class="reference external" href="http://Utils.py">Utils.py</a> (2) prior re-gridding of E3SM data (see steps in Regrid_E3SM_data.ipynb - also stored on the Cloud Hub under /shared/testing/Regrid_E3SM_data_test_AD.ipynb)</p>
+<p>…………</p>
+<p>Note : the workflow here is quite manual for reading in the data. We are developing an intake catalogue tool to make life easier, so look out for future versions whichdo the below with less effort..</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## packages for cloud data intake: </span>
+<span class="kn">import</span> <span class="nn">s3fs</span>
+<span class="kn">import</span> <span class="nn">fsspec</span>
+
+<span class="c1">## packages for analysis</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">dask</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">Utils</span> <span class="kn">import</span> <span class="n">weighted_annual_resample</span><span class="p">,</span> <span class="n">spatial_mean</span><span class="p">,</span> <span class="n">set_time_to_center_of_bounds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># i have had some dependency issues with s3fs/fsspec - try the line below to fix them.. </span>
+<span class="c1">#pip install --upgrade s3fs fsspec boto3 botocore</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### file paths</span>
+
+<span class="n">miroc_base</span><span class="p">,</span> <span class="n">miroc_members</span> <span class="o">=</span> <span class="s1">&#39;s3://reflective-persistent-prod-large/MIROC-ES2H/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;r01&#39;</span><span class="p">,</span> <span class="s1">&#39;r02&#39;</span><span class="p">,</span> <span class="s1">&#39;r03&#39;</span><span class="p">]</span>
+
+<span class="n">ukesm_HiLLA_base</span><span class="p">,</span> <span class="n">ukesm_HiLLA_members</span> <span class="o">=</span> <span class="s1">&#39;s3://reflective-persistent-prod-large/UKESM1-1/G6-1p5K-HiLLA/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;r12i1p1f2&#39;</span><span class="p">,</span> <span class="s1">&#39;r2i1p1f2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3i1p1f2&#39;</span><span class="p">]</span>
+<span class="n">cesm_HiLLA_base</span><span class="p">,</span> <span class="n">cesm_HiLLA_members</span> <span class="o">=</span> <span class="s1">&#39;s3://reflective-persistent-prod-large/CESM2-WACCM/G6-1.5k-HiLLA/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3&#39;</span><span class="p">]</span>
+<span class="c1">#e3sm_HiLLA_base, e3sm_HiLLA_members = &#39;s3://reflective-persistent-prod/alistairduffey/E3SMv3/regridded_combined/&#39;, [&#39;v3.LR.ssp245.g6_hilla.sai.0101&#39;, &#39;v3.LR.ssp245.g6_hilla.sai.0151&#39;, &#39;v3.LR.ssp245.g6_hilla.sai.0201&#39;]</span>
+
+<span class="n">cesm_SAI_base</span><span class="p">,</span> <span class="n">cesm_SAI_members</span> <span class="o">=</span> <span class="s1">&#39;s3://reflective-persistent-prod/alistairduffey/CESM2-WACCM/G6-1.5K-SAI/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3&#39;</span><span class="p">]</span>
+<span class="n">ukesm_SAI_base</span><span class="p">,</span> <span class="n">ukesm_SAI_members</span> <span class="o">=</span> <span class="s1">&#39;s3://reflective-persistent-prod/alistairduffey/UKESM1-1/G6-1.5K-SAI/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3&#39;</span><span class="p">]</span>
+<span class="n">e3sm_SAI_base</span><span class="p">,</span> <span class="n">e3sm_SAI_members</span> <span class="o">=</span> <span class="s1">&#39;s3://reflective-persistent-prod/alistairduffey/E3SMv3/G6-1.5K-SAI/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3&#39;</span><span class="p">]</span>
+
+<span class="n">table</span><span class="o">=</span><span class="s1">&#39;AMON&#39;</span>
+
+<span class="n">miroc_G6HiLLA_T_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">miroc_base</span> <span class="o">+</span> <span class="s1">&#39;G6-1.5K-HiLLA/Amon/&#39;</span> <span class="o">+</span> <span class="s1">&#39;tas_G6-1.5K-HiLLA_</span><span class="si">{}</span><span class="s1">.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">member</span><span class="p">)</span> <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">miroc_members</span><span class="p">]</span>
+<span class="n">miroc_G6SAI_T_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">miroc_base</span> <span class="o">+</span> <span class="s1">&#39;G6-1.5K-SAI/Mon/&#39;</span> <span class="o">+</span> <span class="s1">&#39;SurfT_G6-1.5K-SAI_</span><span class="si">{}</span><span class="s1">.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">member</span><span class="p">)</span> <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">miroc_members</span><span class="p">]</span>
+<span class="n">miroc_ssp245_T_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">miroc_base</span> <span class="o">+</span> <span class="s1">&#39;G6-1.5K-HiLLA/Amon/&#39;</span> <span class="o">+</span> <span class="s1">&#39;tas_baseline_</span><span class="si">{}</span><span class="s1">.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">member</span><span class="p">)</span> <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">miroc_members</span><span class="p">]</span>
+
+
+<span class="n">e3sm_G6SAI_files</span> <span class="o">=</span> <span class="p">[</span> <span class="c1"># these from are Walker Lee&#39;s archive from his preprint, available here https://zenodo.org/records/17613419</span>
+    <span class="s1">&#39;s3://reflective-persistent-prod/alistairduffey/E3SMv3/G6-1.5K-SAI/r1/tas/E3SM_v3.LR.ssp245.0101.g6.sai.TREFHT.203501-208412.nc&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;s3://reflective-persistent-prod/alistairduffey/E3SMv3/G6-1.5K-SAI/r2/tas/E3SM_v3.LR.ssp245.0151.g6.sai.TREFHT.203501-208412.nc&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;s3://reflective-persistent-prod/alistairduffey/E3SMv3/G6-1.5K-SAI/r3/tas/E3SM_v3.LR.ssp245.0201.g6.sai.TREFHT.203501-208412.nc&#39;</span>
+<span class="p">]</span>
+
+
+<span class="c1"># these are regridded already, via seperate notebook</span>
+<span class="n">e3sm_HiLLA_base</span> <span class="o">=</span> <span class="s1">&#39;s3://reflective-persistent-prod/alistairduffey/E3SMv3/regridded_combined/&#39;</span>
+<span class="n">e3sm_HiLLA_members</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;v3.LR.ssp245.g6_hilla.sai.0101/regridded_TREFHT_203501_203912.nc&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;v3.LR.ssp245.g6_hilla.sai.0151/regridded_TREFHT_203501_203912.nc&#39;</span><span class="p">,</span> 
+                      <span class="s1">&#39;v3.LR.ssp245.g6_hilla.sai.0201/regridded_TREFHT_203501_203912.nc&#39;</span><span class="p">]</span>
+
+
+<span class="n">e3sm_ssp245_members</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;v3.LR.ssp245_0101/regridded_TREFHT_201501_201912.nc&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;v3.LR.ssp245_0151/regridded_TREFHT_201501_201912.nc&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;v3.LR.ssp245_0201/regridded_TREFHT_201501_201912.nc&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="read-in-all-the-data">
+<h2>Read in all the data<a class="headerlink" href="#read-in-all-the-data" title="Link to this heading">#</a></h2>
+<p>We need to read in data formatted in various different ways, from various different places. The following set of cells do that. I have split this code up across many cells for easier debugging, it is not fast - takes a couple of minutes, and a few GB of memory. We read in 3 members each for 4 models, for 3 scenarios (SSP2-4.5, G6-1.5K-HiLLA and G6-1.5K-SAI), for near-surface air temp. data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span> 
+<span class="c1">## func to read in datasets to a list</span>
+<span class="k">def</span> <span class="nf">read_in_all_members_to_ds_list</span><span class="p">(</span><span class="n">input_file_paths_for_members</span><span class="p">,</span> <span class="n">renamevar</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">ds_list</span> <span class="o">=</span> <span class="p">[]</span>  
+    <span class="k">for</span> <span class="n">s3_path</span> <span class="ow">in</span> <span class="n">input_file_paths_for_members</span><span class="p">:</span>
+        <span class="c1"># Open the dataset directly from the S3 URL using xarray</span>
+        <span class="k">with</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">s3_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> 
+                                 <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;h5netcdf&quot;</span><span class="p">,</span> 
+                                 <span class="n">chunks</span><span class="o">=</span><span class="p">{})</span><span class="o">.</span><span class="n">load</span><span class="p">()</span> <span class="c1"># load to avoid &quot;I/O on closed file&quot; error later on</span>
+        <span class="k">if</span> <span class="n">renamevar</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="n">renamevar</span><span class="p">:</span><span class="s1">&#39;tas&#39;</span><span class="p">})</span> <span class="c1"># for consistency with others</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">set_time_to_center_of_bounds</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">time_bounds_name</span><span class="o">=</span><span class="s1">&#39;time_bnds&#39;</span><span class="p">)</span> <span class="c1"># for CESM G6 data, monthly files are labelled by end of month not centre by default (why?!). This function sets t to centre of t_bounds</span>
+        <span class="n">ds_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span> 
+    <span class="k">return</span> <span class="n">ds_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### read in CESM data for SAI scenarios</span>
+
+<span class="c1"># just use r2 and r3 for now, as r1 is split into two files. To improve..</span>
+<span class="n">cesm_G6HiLLA_T_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">cesm_HiLLA_base</span><span class="o">+</span><span class="n">cesm_HiLLA_members</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">table</span> <span class="o">+</span> <span class="s1">&#39;/b.e21.BW.f09_g17.SSP245-G6-1p5K-HiLLA.00</span><span class="si">{}</span><span class="s1">.cam.h0.TREFHT.203501-208412.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+
+<span class="c1"># apply for the cesm HiLLA case, takes a couple minutes becuase we are loading data into memory at this stage</span>
+<span class="n">cesm_G6HiLLA_T_datasets</span> <span class="o">=</span> <span class="n">read_in_all_members_to_ds_list</span><span class="p">(</span><span class="n">cesm_G6HiLLA_T_files</span><span class="p">,</span> <span class="n">renamevar</span><span class="o">=</span><span class="s1">&#39;TREFHT&#39;</span><span class="p">)</span>
+
+<span class="c1">## repeat the above for the CESM G6SAI data: </span>
+
+<span class="n">cesm_G6SAI_T_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">cesm_SAI_base</span><span class="o">+</span><span class="n">cesm_SAI_members</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">table</span> <span class="o">+</span> <span class="s1">&#39;/CESM_b.e21.BW.f09_g17.SSP245-G6-1p5K-SAI.00</span><span class="si">{}</span><span class="s1">.cam.h0.TREFHT.203501-208412.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+ 
+<span class="c1"># apply for the cesm SAI case</span>
+<span class="n">cesm_G6SAI_T_datasets</span> <span class="o">=</span> <span class="n">read_in_all_members_to_ds_list</span><span class="p">(</span><span class="n">cesm_G6SAI_T_files</span><span class="p">,</span> <span class="n">renamevar</span><span class="o">=</span><span class="s1">&#39;TREFHT&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## read in the miroc T data</span>
+<span class="n">miroc_G6HiLLA_T_datasets</span> <span class="o">=</span> <span class="n">read_in_all_members_to_ds_list</span><span class="p">(</span><span class="n">miroc_G6HiLLA_T_files</span><span class="p">)</span>
+<span class="n">miroc_G6SAI_T_datasets</span> <span class="o">=</span> <span class="n">read_in_all_members_to_ds_list</span><span class="p">(</span><span class="n">miroc_G6SAI_T_files</span><span class="p">,</span> <span class="n">renamevar</span><span class="o">=</span><span class="s1">&#39;SurfT&#39;</span><span class="p">)</span>
+<span class="n">miroc_ssp245_T_datasets</span> <span class="o">=</span> <span class="n">read_in_all_members_to_ds_list</span><span class="p">(</span><span class="n">miroc_ssp245_T_files</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## read in the UKESM G6-HiLLA data:</span>
+
+<span class="c1"># different structure - multiple ncs in a base level directory for a given variable</span>
+
+<span class="n">ukesm_G6HiLLA_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">ukesm_HiLLA_base</span><span class="o">+</span><span class="n">ukesm_HiLLA_members</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/apm/Amon/tas/&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="n">ukesm_G6SAI_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">ukesm_SAI_base</span><span class="o">+</span><span class="n">ukesm_SAI_members</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/AMON/&#39;</span> <span class="o">+</span> <span class="s1">&#39;UKESM_T1.5m_G6-1p5K-SAI.00</span><span class="si">{}</span><span class="s1">.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## define another read in function for UKESM G6-1.5K-SAI data as it has some weird features (the data sourced via Lee et al.&#39;s zenodo does anyway)</span>
+<span class="k">def</span> <span class="nf">read_in_all_members_to_ds_list_UKESM_from_paths</span><span class="p">(</span><span class="n">path_list</span><span class="p">,</span> <span class="n">SAI_rename_time_dims</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; input: list of paths to bottom level directory for UKESM data on AWS bucket</span>
+<span class="sd">        output: list of opened datasets, each contianing the single merged dataset from multiple time-split .ncs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ds_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">path_list</span><span class="p">:</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">open_files</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">*.nc&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">([</span><span class="n">file</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">],</span> <span class="c1">#don&#39;t specify engine here as the .ncs for G6SAI are weirdly formatted</span>
+                       <span class="n">combine</span><span class="o">=</span><span class="s2">&quot;nested&quot;</span><span class="p">,</span> <span class="n">concat_dim</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{})</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">SAI_rename_time_dims</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;t&#39;</span><span class="p">:</span><span class="s1">&#39;time&#39;</span><span class="p">})</span> <span class="c1"># manual step to fix weird time dims</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;temp&#39;</span><span class="p">:</span><span class="s1">&#39;tas&#39;</span><span class="p">})</span> <span class="c1"># for consistency with others</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">ht</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># also get rid of the ht dimension which confuses things</span>
+        <span class="n">ds_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds_list</span>
+
+<span class="k">def</span> <span class="nf">read_in_all_members_to_ds_list_UKESM_from_files</span><span class="p">(</span><span class="n">file_list</span><span class="p">,</span> <span class="n">SAI_rename_time_dims</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rename_TREFHT</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; input: list of file paths for UKESM data on AWS bucket</span>
+<span class="sd">        output: list of opened datasets, each contianing the single merged dataset from multiple time-split .ncs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ds_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> 
+                                 <span class="c1">#engine=&quot;h5netcdf&quot;, </span>
+                                 <span class="n">chunks</span><span class="o">=</span><span class="p">{})</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">SAI_rename_time_dims</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;t&#39;</span><span class="p">:</span><span class="s1">&#39;time&#39;</span><span class="p">})</span> <span class="c1"># manual step to fix weird time dims</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;temp&#39;</span><span class="p">:</span><span class="s1">&#39;tas&#39;</span><span class="p">})</span> <span class="c1"># for consistency with others</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">ht</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># also get rid of the ht dimension which confuses things</span>
+        
+        <span class="k">if</span> <span class="n">rename_TREFHT</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;TREFHT&#39;</span><span class="p">:</span><span class="s1">&#39;tas&#39;</span><span class="p">})</span>
+
+        <span class="n">ds_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read in the UKESM data</span>
+<span class="n">ukesm_G6HiLLA_T_datasets</span> <span class="o">=</span> <span class="n">read_in_all_members_to_ds_list_UKESM_from_paths</span><span class="p">(</span><span class="n">ukesm_G6HiLLA_paths</span><span class="p">)</span>
+<span class="n">ukesm_G6SAI_T_datasets</span> <span class="o">=</span> <span class="n">read_in_all_members_to_ds_list_UKESM_from_files</span><span class="p">(</span><span class="n">ukesm_G6SAI_files</span><span class="p">,</span> <span class="n">SAI_rename_time_dims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read in the E3SM data</span>
+
+<span class="n">e3sm_G6SAI_T_datasets</span> <span class="o">=</span> <span class="n">read_in_all_members_to_ds_list_UKESM_from_files</span><span class="p">(</span><span class="n">e3sm_G6SAI_files</span><span class="p">,</span> 
+                                                                        <span class="n">SAI_rename_time_dims</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                                        <span class="n">rename_TREFHT</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## repeat for E3SM</span>
+
+<span class="c1">## test reading in one of the combined regridded files on persistent-prod</span>
+<span class="n">e3sm_G6HiLLA_T_datasets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">s3_path</span> <span class="ow">in</span> <span class="p">[</span><span class="n">e3sm_HiLLA_base</span><span class="o">+</span><span class="n">e3sm_HiLLA_members</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]:</span>
+    <span class="c1"># Open the dataset directly from the S3 URL using xarray</span>
+    <span class="k">with</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">s3_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;h5netcdf&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{})</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;TREFHT&#39;</span><span class="p">:</span><span class="s1">&#39;tas&#39;</span><span class="p">})</span>
+        <span class="n">e3sm_G6HiLLA_T_datasets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="n">e3sm_G6HiLLA_T_datasets</span>
+
+<span class="c1">## repeat the above for the ssp245 data which is formatted as for the HiLLA </span>
+<span class="n">e3sm_ssp245_T_datasets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">s3_path</span> <span class="ow">in</span> <span class="p">[</span><span class="n">e3sm_HiLLA_base</span><span class="o">+</span><span class="n">e3sm_ssp245_members</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]:</span>
+    <span class="c1"># Open the dataset directly from the S3 URL using xarray</span>
+    <span class="k">with</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">s3_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;h5netcdf&quot;</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">{})</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;TREFHT&#39;</span><span class="p">:</span><span class="s1">&#39;tas&#39;</span><span class="p">})</span>
+        <span class="n">e3sm_ssp245_T_datasets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="c1">#e3sm_ssp245_T_datasets</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## read in SSP245 for CESM from the AWS CMIP store</span>
+
+<span class="c1"># Connect to AWS S3 storage</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">s3fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">(</span><span class="n">anon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># load catalogue</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://cmip6-pds.s3.amazonaws.com/pangeo-cmip6.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># subset the archive</span>
+<span class="n">df_subset</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;activity_id==&#39;ScenarioMIP&#39; &amp; source_id==&#39;CESM2-WACCM&#39; &amp; experiment_id==&#39;ssp245&#39; &amp; table_id==&#39;Amon&#39; &amp; variable_id==&#39;tas&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># get the path to a specific zarr store</span>
+<span class="c1">#df_subset</span>
+
+<span class="c1"># make a list of datasets for 3 CESM tas ssp245 members</span>
+<span class="n">cesm_ssp245_T_datasets</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">zstore</span> <span class="o">=</span> <span class="n">df_subset</span><span class="o">.</span><span class="n">zstore</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">zstore</span>
+    
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+        <span class="n">zstore</span><span class="p">,</span>
+        <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+        <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">chunks</span><span class="o">=</span><span class="p">{},</span>                        <span class="c1"># or {} / None or &#39;auto&#39; as you prefer</span>
+        <span class="n">storage_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;anon&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>       <span class="c1"># anonymous S3 access</span>
+    <span class="p">)</span>
+    <span class="n">cesm_ssp245_T_datasets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="c1">#cesm_ssp245_T_datasets</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### also get UKESM SSP2-4.5 - this one is pulled from our bucket, as we need to use the recent version of the model</span>
+
+<span class="n">ukesm_ssp245_base</span><span class="p">,</span> <span class="n">ukesm_ssp245_members</span> <span class="o">=</span> <span class="s1">&#39;s3://reflective-persistent-prod-large/UKESM1-1/SSP245/&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;r12i1p1f1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2i1p1f1&#39;</span><span class="p">,</span> <span class="s1">&#39;r3i1p1f1&#39;</span><span class="p">]</span>
+<span class="n">ukesm_ssp245_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">ukesm_ssp245_base</span><span class="o">+</span><span class="n">ukesm_ssp245_members</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/ap5/Amon/tas/&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="n">ukesm_ssp245_T_datasets</span> <span class="o">=</span> <span class="n">read_in_all_members_to_ds_list_UKESM_from_paths</span><span class="p">(</span><span class="n">ukesm_ssp245_paths</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## now reduce to annual time series of global T and plot</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">ds_list</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;tas&#39;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s1">&#39;Global&#39;</span><span class="p">,</span> 
+                                  <span class="n">lat_name</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span>
+                                  <span class="n">drop_2084</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">miroc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; make a list of datasets containing global and annual </span>
+<span class="sd">        means of a list of lat-lon-time datasets &quot;&quot;&quot;</span>
+    
+    <span class="n">out_ds_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">ds_list</span><span class="p">:</span>
+        
+        <span class="k">if</span> <span class="n">drop_2084</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">!=</span> <span class="mi">2084</span><span class="p">))</span> <span class="c1"># hack to fix UKESM data which is missing Dec 2084</span>
+        <span class="k">if</span> <span class="n">miroc</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">sortby</span><span class="p">(</span><span class="n">lat_name</span><span class="p">)</span> <span class="c1"># fix descending latitudes</span>
+        <span class="n">global_mean_tas</span> <span class="o">=</span> <span class="n">spatial_mean</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">lat_name</span><span class="o">=</span><span class="n">lat_name</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="n">lon_name</span><span class="p">)</span>
+        <span class="n">global_annual_mean_tas</span> <span class="o">=</span> <span class="n">weighted_annual_resample</span><span class="p">(</span><span class="n">global_mean_tas</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+        
+        <span class="n">out_ds_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">global_annual_mean_tas</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">out_ds_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## calculate global annual mean timeseries and sort into one dictionary, for easy plotting</span>
+
+<span class="n">cesm_ssp245_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">cesm_ssp245_T_datasets</span><span class="p">)</span>
+<span class="n">cesm_G6SAI_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">cesm_G6SAI_T_datasets</span><span class="p">)</span>
+<span class="n">cesm_G6HiLLA_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">cesm_G6HiLLA_T_datasets</span><span class="p">)</span>
+
+<span class="n">ukesm_ssp245_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">ukesm_ssp245_T_datasets</span><span class="p">)</span>
+<span class="n">ukesm_G6SAI_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">ukesm_G6SAI_T_datasets</span><span class="p">,</span> 
+                                                <span class="n">lat_name</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">)</span>
+<span class="n">ukesm_G6HiLLA_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">ukesm_G6HiLLA_T_datasets</span><span class="p">,</span> 
+                                                                              <span class="n">drop_2084</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">miroc_ssp245_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">miroc_ssp245_T_datasets</span><span class="p">,</span> <span class="n">miroc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">miroc_G6SAI_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">miroc_G6SAI_T_datasets</span><span class="p">,</span> <span class="n">miroc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">miroc_G6HiLLA_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">miroc_G6HiLLA_T_datasets</span><span class="p">,</span> <span class="n">miroc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">e3sm_ssp245_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">e3sm_ssp245_T_datasets</span><span class="p">)</span>
+<span class="n">e3sm_G6SAI_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">e3sm_G6SAI_T_datasets</span><span class="p">)</span>
+<span class="n">e3sm_G6HiLLA_T_global_annual_mean_timeseries</span> <span class="o">=</span> <span class="n">global_annual_mean_timeseries</span><span class="p">(</span><span class="n">e3sm_G6HiLLA_T_datasets</span><span class="p">)</span>
+
+<span class="n">timeseries_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">:{</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">:</span><span class="n">cesm_ssp245_T_global_annual_mean_timeseries</span><span class="p">,</span>
+                                  <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="n">cesm_G6SAI_T_global_annual_mean_timeseries</span><span class="p">,</span>
+                                  <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="n">cesm_G6HiLLA_T_global_annual_mean_timeseries</span><span class="p">},</span>
+                   <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">:{</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">:</span><span class="n">ukesm_ssp245_T_global_annual_mean_timeseries</span><span class="p">,</span>
+                               <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="n">ukesm_G6SAI_T_global_annual_mean_timeseries</span><span class="p">,</span>
+                               <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="n">ukesm_G6HiLLA_T_global_annual_mean_timeseries</span><span class="p">},</span>
+                   <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">:{</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">:</span><span class="n">miroc_ssp245_T_global_annual_mean_timeseries</span><span class="p">,</span>
+                               <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="n">miroc_G6SAI_T_global_annual_mean_timeseries</span><span class="p">,</span>
+                               <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="n">miroc_G6HiLLA_T_global_annual_mean_timeseries</span><span class="p">},</span>
+                   <span class="s1">&#39;E3SMv3&#39;</span><span class="p">:{</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">:</span><span class="n">e3sm_ssp245_T_global_annual_mean_timeseries</span><span class="p">,</span>
+                               <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="n">e3sm_G6SAI_T_global_annual_mean_timeseries</span><span class="p">,</span>
+                               <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="n">e3sm_G6HiLLA_T_global_annual_mean_timeseries</span><span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="get-injection-magnitudes">
+<h2>Get injection magnitudes<a class="headerlink" href="#get-injection-magnitudes" title="Link to this heading">#</a></h2>
+<p>For the final plot, we also need injection magnitudes. Again, these are formatted differently for different models, the code in the various cells below reads in from various file types, and converts them all to the same format pandas dataframes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## also read in injection logs. </span>
+<span class="c1">## There is a copy of these small files for each model under /Shared/Data/G6-1.5K-injection-rates/</span>
+
+<span class="n">CESM_inj_logs_SAI_path</span> <span class="o">=</span> <span class="s1">&#39;~/shared/Data/G6-1.5K-injection-rates/G6-1.5K-SAI/CESM2-WACCM/&#39;</span>
+
+<span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3&#39;</span><span class="p">]:</span>
+    <span class="n">CESM_inj_SAI_r</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">CESM_inj_logs_SAI_path</span> <span class="o">+</span> <span class="s1">&#39;CESM_ControlLog_b.e21.BW.f09_g17.SSP245-G6-1p5K-SAI.00</span><span class="si">{}</span><span class="s1">.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="n">CESM_inj_SAI_r</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)]</span> <span class="o">=</span> <span class="n">CESM_inj_SAI_r</span><span class="p">[</span><span class="s1">&#39;30N(Tg)&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">CESM_inj_SAI_r</span><span class="p">[</span><span class="s1">&#39;30S(Tg)&#39;</span><span class="p">]</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CESM_inj_SAI_r</span><span class="p">[[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)]])</span>
+
+<span class="c1">#CESM_inj_SAI = pd.merge(dfs, on=&#39;Timestamp&#39;, how=&#39;right&#39;)</span>
+<span class="n">CESM_inj_SAI</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">),</span> <span class="n">dfs</span><span class="p">)</span>
+
+<span class="c1">## and for the HiLLA case</span>
+<span class="n">CESM_inj_logs_HiLLA_path</span> <span class="o">=</span> <span class="s1">&#39;~/shared/Data/G6-1.5K-injection-rates/G6-1.5K-HiLLA/CESM2-WACCM/&#39;</span>
+
+<span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3&#39;</span><span class="p">]:</span>
+    <span class="n">CESM_inj_SAI_r</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">CESM_inj_logs_HiLLA_path</span> <span class="o">+</span> <span class="s1">&#39;ControlLog_b.e21.BW.f09_g17.SSP245-G6-1p5K-HiLLA.00</span><span class="si">{}</span><span class="s1">.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="n">CESM_inj_SAI_r</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)]</span> <span class="o">=</span> <span class="n">CESM_inj_SAI_r</span><span class="p">[</span><span class="s1">&#39;60N(Tg)&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">CESM_inj_SAI_r</span><span class="p">[</span><span class="s1">&#39;60S(Tg)&#39;</span><span class="p">]</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CESM_inj_SAI_r</span><span class="p">[[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)]])</span>
+
+<span class="n">CESM_inj_HiLLA</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">),</span> <span class="n">dfs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## repeat injection log read in for UKESM - note different format of file here</span>
+
+<span class="n">UKESM_inj_logs_HiLLA_path</span> <span class="o">=</span> <span class="s1">&#39;~/shared/Data/G6-1.5K-injection-rates/G6-1.5K-HiLLA/UKESM1-1/&#39;</span>
+<span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FeedBack_stats_ds275_2034_mod.log&#39;</span><span class="p">,</span> <span class="s1">&#39;FeedBack_stats_ds286_2034_mod.log&#39;</span><span class="p">,</span> <span class="s1">&#39;FeedBack_stats_ds287_2034_mod.log&#39;</span><span class="p">]</span>
+<span class="n">dfs</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="n">run</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">UKESM_inj_logs_HiLLA_path</span><span class="o">+</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># just taking the last column because the Tg/yr label seems to be confusing python strings</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)]])</span>
+    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">UKESM_inj_HiLLA</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">),</span> <span class="n">dfs</span><span class="p">)</span>
+
+<span class="c1"># drop 2034 0 values</span>
+<span class="n">UKESM_inj_HiLLA</span> <span class="o">=</span> <span class="n">UKESM_inj_HiLLA</span><span class="p">[</span><span class="n">UKESM_inj_HiLLA</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2034</span><span class="p">]</span>
+<span class="c1">#UKESM_inj_HiLLA</span>
+
+
+<span class="c1">## now repeat for SAI scenario</span>
+<span class="n">UKESM_inj_logs_SAI_path</span> <span class="o">=</span> <span class="s1">&#39;~/shared/Data/G6-1.5K-injection-rates/G6-1.5K-SAI/UKESM1-1/&#39;</span>
+<span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;UKESM_FeedBack_stats_di189_2034.log&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM_FeedBack_stats_di864_2034.log&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM_FeedBack_stats_di865_2034.log&#39;</span><span class="p">]</span>
+<span class="n">dfs</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="n">run</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;r3&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">UKESM_inj_logs_SAI_path</span><span class="o">+</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;30S(Tg)&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;30N(Tg)&#39;</span><span class="p">]</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)]])</span>
+    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">UKESM_inj_SAI</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">),</span> <span class="n">dfs</span><span class="p">)</span>
+
+<span class="c1"># drop 2034 0 values</span>
+<span class="n">UKESM_inj_SAI</span> <span class="o">=</span> <span class="n">UKESM_inj_SAI</span><span class="p">[</span><span class="n">UKESM_inj_SAI</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">2034</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## MIROC inj logs </span>
+
+
+<span class="n">MIROC_inj_logs_HiLLA_file</span> <span class="o">=</span> <span class="s1">&#39;~/shared/Data/G6-1.5K-injection-rates/G6-1.5K-HiLLA/MIROC-ES2H/MIROC_r1_2_3_G6-1.5K-HiLLA_injSO2.csv&#39;</span>
+<span class="n">MIROC_inj_HiLLA</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">MIROC_inj_logs_HiLLA_file</span><span class="p">)</span>
+<span class="n">MIROC_inj_HiLLA</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2035</span><span class="p">,</span> <span class="mi">2085</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">MIROC_inj_logs_SAI_path</span> <span class="o">=</span> <span class="s1">&#39;~/shared/Data/G6-1.5K-injection-rates/G6-1.5K-SAI/MIROC-ES2H/&#39;</span>
+<span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;MIROC_SAI_2035-2084_r</span><span class="si">{}</span><span class="s1">.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">MIROC_inj_logs_SAI_path</span><span class="o">+</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;r</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)})</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2035</span><span class="p">,</span> <span class="mi">2085</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">MIROC_inj_SAI</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">),</span> <span class="n">dfs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## E3SM inj logs</span>
+
+<span class="c1"># G6-1.5K-HiLLA</span>
+<span class="n">E3SM_inj_logs_HiLLA_path</span> <span class="o">=</span> <span class="s1">&#39;../shared/Data/G6-1.5K-injection-rates/G6-1.5K-HiLLA/E3SMv3/&#39;</span>
+<span class="n">runs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;0101&#39;</span><span class="p">,</span> <span class="s1">&#39;0151&#39;</span><span class="p">,</span> <span class="s1">&#39;0201&#39;</span><span class="p">]</span>
+
+<span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">runs</span><span class="p">:</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="n">E3SM_inj_logs_HiLLA_path</span><span class="o">+</span><span class="s1">&#39;r&#39;</span><span class="o">+</span><span class="n">run</span><span class="o">+</span><span class="s1">&#39;/&#39;</span><span class="o">+</span><span class="s1">&#39;sai_hist_</span><span class="si">{}</span><span class="s1">.npy&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;r</span><span class="si">{}</span><span class="s1"> SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">array</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    
+<span class="n">E3SM_inj_HiLLA</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">),</span> <span class="n">dfs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># G6-1.5K-SAI </span>
+<span class="n">E3SM_inj_logs_SAI_file</span> <span class="o">=</span> <span class="s1">&#39;~/shared/Data/G6-1.5K-injection-rates/G6-1.5K-SAI/E3SMv3/E3SM_e3sm_tot_so2_inj_hist.csv&#39;</span>
+<span class="n">E3SM_inj_SAI</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">E3SM_inj_logs_SAI_file</span><span class="p">)</span>
+<span class="n">E3SM_inj_SAI</span> <span class="o">=</span> <span class="n">E3SM_inj_SAI</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Year&#39;</span><span class="p">:</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;v3.LR.ssp245.0101.g6.sai&#39;</span><span class="p">:</span><span class="s1">&#39;r1 SO2 (Tg)&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;v3.LR.ssp245.0151.g6.sai&#39;</span><span class="p">:</span><span class="s1">&#39;r2 SO2 (Tg)&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;v3.LR.ssp245.0201.g6.sai&#39;</span><span class="p">:</span><span class="s1">&#39;r3 SO2 (Tg)&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">injection_timeseries_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">:{</span><span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="n">CESM_inj_SAI</span><span class="p">,</span>
+                                      <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="n">CESM_inj_HiLLA</span><span class="p">},</span> 
+                             <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">:{</span><span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="n">UKESM_inj_SAI</span><span class="p">,</span>
+                                         <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="n">UKESM_inj_HiLLA</span><span class="p">},</span>
+                             <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">:{</span><span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="n">MIROC_inj_SAI</span><span class="p">,</span>
+                                           <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="n">MIROC_inj_HiLLA</span><span class="p">},</span>
+                             <span class="s1">&#39;E3SMv3&#39;</span><span class="p">:{</span><span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="n">E3SM_inj_SAI</span><span class="p">,</span>
+                                       <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="n">E3SM_inj_HiLLA</span><span class="p">},</span>
+                            <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### before we can plot, also calculate the zonal mean T change relative to baseline: </span>
+
+
+<span class="n">baseline_years</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">2039</span><span class="p">]</span>
+<span class="n">assessment_years</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2064</span><span class="p">,</span> <span class="mi">2083</span><span class="p">]</span> <span class="c1"># I use 2083 rather than 2084 for top of range, because UKESM data is missing Dec 2084. </span>
+
+<span class="k">def</span> <span class="nf">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">t_range</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">drop_2084</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; inputs: dataset to reduce to zonal mean, </span>
+<span class="sd">                range of years to take time mean over, </span>
+<span class="sd">                longitude dimension name</span>
+<span class="sd">        outputs: zonal time mean dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">drop_2084</span><span class="p">:</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">!=</span> <span class="mi">2084</span><span class="p">))</span> <span class="c1"># hack to fix UKESM data which is missing Dec 2084</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">t_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">t_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">lon_name</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">weighted_annual_resample</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;tas&#39;</span><span class="p">)</span> <span class="c1"># can&#39;t go straight to a time mean as need to account for varying month lengths</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds</span>
+    
+<span class="n">ssp245_baseline_zonal_mean_T_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">cesm_ssp245_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">baseline_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                                     <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">ukesm_ssp245_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">baseline_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                                    <span class="s1">&#39;E3SMv3&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">e3sm_ssp245_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">baseline_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                                    <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">miroc_ssp245_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">baseline_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),}</span>
+
+
+<span class="n">ssp245_future_zonal_mean_T_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">cesm_ssp245_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                                   <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">ukesm_ssp245_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                                   <span class="s1">&#39;E3SMv3&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">e3sm_ssp245_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                                   <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">miroc_ssp245_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),}</span>
+
+
+<span class="n">G6HiLLA_zonal_mean_T_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">cesm_G6HiLLA_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                             <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">ukesm_G6HiLLA_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">drop_2084</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                            <span class="s1">&#39;E3SMv3&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">e3sm_G6HiLLA_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                             <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">miroc_G6HiLLA_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">drop_2084</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),}</span>
+
+
+<span class="n">G6SAI_zonal_mean_T_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">cesm_G6SAI_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                            <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">ukesm_G6SAI_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                             <span class="s1">&#39;E3SMv3&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">e3sm_G6SAI_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),</span>
+                             <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">get_zonal_T_over_t_range</span><span class="p">(</span><span class="n">miroc_G6SAI_T_datasets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_range</span><span class="o">=</span><span class="n">assessment_years</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">drop_2084</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)],</span> <span class="s1">&#39;Ensemble_member&#39;</span><span class="p">),}</span>
+
+                
+<span class="n">zonal_means_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">:</span><span class="n">ssp245_future_zonal_mean_T_dict</span><span class="p">,</span>
+                    <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="n">G6HiLLA_zonal_mean_T_dict</span><span class="p">,</span>
+                    <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="n">G6SAI_zonal_mean_T_dict</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colours</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">:</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;SSP2-4.5_light&#39;</span><span class="p">:</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">:</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;G6-1.5K-HiLLA_light&#39;</span><span class="p">:</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">:</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;G6-1.5K-SAI_light&#39;</span><span class="p">:</span><span class="s1">&#39;plum&#39;</span><span class="p">,}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## MAIN FIG: </span>
+
+<span class="c1"># </span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="s1">&#39;row&#39;</span><span class="p">)</span>
+<span class="n">t_col</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;(a)&#39;</span><span class="p">,</span> <span class="s1">&#39;(b)&#39;</span><span class="p">,</span> <span class="s1">&#39;(c)&#39;</span><span class="p">,</span> <span class="s1">&#39;(d)&#39;</span><span class="p">,</span> <span class="s1">&#39;(e)&#39;</span><span class="p">,</span> <span class="s1">&#39;(f)&#39;</span><span class="p">,</span> <span class="s1">&#39;(g)&#39;</span><span class="p">,</span> <span class="s1">&#39;(h)&#39;</span><span class="p">,</span> <span class="s1">&#39;(i)&#39;</span><span class="p">,</span> <span class="s1">&#39;(j)&#39;</span><span class="p">,</span> <span class="s1">&#39;(k)&#39;</span><span class="p">,</span> <span class="s1">&#39;(l)&#39;</span><span class="p">]</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">l</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">,</span> <span class="s1">&#39;E3SMv3&#39;</span><span class="p">,</span> <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">]:</span>
+        <span class="n">inj_df</span> <span class="o">=</span> <span class="n">injection_timeseries_dict</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="n">scenario</span><span class="p">]</span>
+        <span class="n">ensemble_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r1 SO2 (Tg)&#39;</span><span class="p">,</span> <span class="s1">&#39;r2 SO2 (Tg)&#39;</span><span class="p">,</span> <span class="s1">&#39;r3 SO2 (Tg)&#39;</span><span class="p">]</span>
+        <span class="n">mean_vals</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="n">ensemble_cols</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">min_vals</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="n">ensemble_cols</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">max_vals</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="n">ensemble_cols</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">years</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span>
+        
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">mean_vals</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="n">scenario</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">scenario</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> 
+                        <span class="n">min_vals</span><span class="p">,</span> 
+                        <span class="n">max_vals</span><span class="p">,</span> 
+                        <span class="n">color</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_light&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scenario</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1">#if l == 0:</span>
+    <span class="c1">#    ax.legend()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">2084</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{l}</span><span class="s1"> </span><span class="si">{m}</span><span class="s1">; SO2 (Tg)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">m</span><span class="o">=</span><span class="n">model</span><span class="p">))</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span>
+
+    
+
+<span class="n">l</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">,</span> <span class="s1">&#39;E3SMv3&#39;</span><span class="p">,</span> <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">]:</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">timeseries_dict</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="n">scenario</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="n">scenario</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">scenario</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">Ensemble_member</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">ts</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">ts</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">color</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_light&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scenario</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1">#ax.legend()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{l}</span><span class="s1"> </span><span class="si">{m}</span><span class="s1">; GMSAT (K)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">m</span><span class="o">=</span><span class="n">model</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">2084</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">288</span><span class="p">,</span> <span class="mf">291.1</span><span class="p">)</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span>
+
+
+
+<span class="n">l</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">,</span> <span class="s1">&#39;E3SMv3&#39;</span><span class="p">,</span> <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">]:</span>
+        <span class="n">zm</span> <span class="o">=</span> <span class="n">zonal_means_dict</span><span class="p">[</span><span class="n">scenario</span><span class="p">][</span><span class="n">model</span><span class="p">]</span>
+        <span class="n">baseline</span> <span class="o">=</span> <span class="n">ssp245_baseline_zonal_mean_T_dict</span><span class="p">[</span><span class="n">model</span><span class="p">]</span>
+
+        <span class="c1"># align naming conventions..</span>
+        <span class="k">if</span> <span class="s1">&#39;lat&#39;</span> <span class="ow">in</span> <span class="n">zm</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+            <span class="n">zm</span> <span class="o">=</span> <span class="n">zm</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="s1">&#39;latitude&#39;</span><span class="p">})</span>
+        <span class="k">if</span> <span class="s1">&#39;lat&#39;</span> <span class="ow">in</span> <span class="n">baseline</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+            <span class="n">baseline</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="s1">&#39;latitude&#39;</span><span class="p">})</span>
+            
+        <span class="c1"># check number of members and align on that too (because CESM HiLLA missing 1st member at the moment):</span>
+        <span class="n">num_mems</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zm</span><span class="o">.</span><span class="n">Ensemble_member</span><span class="p">)</span>
+        <span class="n">baseline</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">Ensemble_member</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_mems</span><span class="p">))</span>
+
+        <span class="c1"># get the change relative to baseline</span>
+        <span class="n">zm_anom</span> <span class="o">=</span> <span class="n">zm</span> <span class="o">-</span> <span class="n">baseline</span>
+
+        <span class="c1"># plot</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zm_anom</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">zm_anom</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="n">scenario</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">scenario</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">zm_anom</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">Ensemble_member</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">zm_anom</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">zm_anom</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">color</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_light&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scenario</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+   <span class="c1"># ax.legend()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{l}</span><span class="s1"> </span><span class="si">{m}</span><span class="s1">; ΔT (K)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">m</span><span class="o">=</span><span class="n">model</span><span class="p">))</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span>
+
+
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Tg&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">supxlabel</span><span class="p">(</span><span class="s1">&#39;Latitude (°)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;G6_SAIandHiLLA_overview_all.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/467df203ff5990b7ed41ca4dcdf15a3c09cb5a7925ccf9c1bbd44cc47ea21243.png" src="../../_images/467df203ff5990b7ed41ca4dcdf15a3c09cb5a7925ccf9c1bbd44cc47ea21243.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## also plot a fig with ukesm and cesm, organised the other way round: </span>
+
+<span class="c1"># </span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">)</span>
+<span class="n">t_col</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+
+
+<span class="n">l</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">]:</span>
+        <span class="n">inj_df</span> <span class="o">=</span> <span class="n">injection_timeseries_dict</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="n">scenario</span><span class="p">]</span>
+        <span class="n">ensemble_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r1 SO2 (Tg)&#39;</span><span class="p">,</span> <span class="s1">&#39;r2 SO2 (Tg)&#39;</span><span class="p">,</span> <span class="s1">&#39;r3 SO2 (Tg)&#39;</span><span class="p">]</span>
+        <span class="n">mean_vals</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="n">ensemble_cols</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">min_vals</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="n">ensemble_cols</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">max_vals</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="n">ensemble_cols</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">years</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span>
+        
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">mean_vals</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="n">scenario</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">scenario</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> 
+                        <span class="n">min_vals</span><span class="p">,</span> 
+                        <span class="n">max_vals</span><span class="p">,</span> 
+                        <span class="n">color</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_light&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scenario</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1">#if l == 0:</span>
+    <span class="c1">#    ax.legend()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">2035</span><span class="p">,</span> <span class="mi">2084</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="c1">#ax.set_title(&#39;{}; SO2 (Tg)&#39;.format(model))</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span>
+
+    
+
+<span class="n">l</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">]:</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">timeseries_dict</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="n">scenario</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="n">scenario</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">scenario</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">Ensemble_member</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">ts</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">ts</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">color</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_light&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scenario</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1">#ax.legend()</span>
+    <span class="c1">#ax.set_title(&#39;{}; GMSAT (K)&#39;.format(model))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">2084</span><span class="p">)</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span>
+
+
+
+<span class="n">l</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">]:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">]:</span>
+        <span class="n">zm</span> <span class="o">=</span> <span class="n">zonal_means_dict</span><span class="p">[</span><span class="n">scenario</span><span class="p">][</span><span class="n">model</span><span class="p">]</span>
+        <span class="n">baseline</span> <span class="o">=</span> <span class="n">ssp245_baseline_zonal_mean_T_dict</span><span class="p">[</span><span class="n">model</span><span class="p">]</span>
+
+        <span class="c1"># align naming conventions..</span>
+        <span class="k">if</span> <span class="s1">&#39;lat&#39;</span> <span class="ow">in</span> <span class="n">zm</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+            <span class="n">zm</span> <span class="o">=</span> <span class="n">zm</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="s1">&#39;latitude&#39;</span><span class="p">})</span>
+        <span class="k">if</span> <span class="s1">&#39;lat&#39;</span> <span class="ow">in</span> <span class="n">baseline</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+            <span class="n">baseline</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="s1">&#39;latitude&#39;</span><span class="p">})</span>
+            
+        <span class="c1"># check number of members and align on that too (because CESM HiLLA missing 1st member at the moment):</span>
+        <span class="n">num_mems</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zm</span><span class="o">.</span><span class="n">Ensemble_member</span><span class="p">)</span>
+        <span class="n">baseline</span> <span class="o">=</span> <span class="n">baseline</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">Ensemble_member</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_mems</span><span class="p">))</span>
+
+        <span class="c1"># get the change relative to baseline</span>
+        <span class="n">zm_anom</span> <span class="o">=</span> <span class="n">zm</span> <span class="o">-</span> <span class="n">baseline</span>
+
+        <span class="c1"># plot</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zm_anom</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">zm_anom</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="n">scenario</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">scenario</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">zm_anom</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">Ensemble_member</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">zm_anom</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">zm_anom</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="s1">&#39;Ensemble_member&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+                        <span class="n">color</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_light&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scenario</span><span class="p">)],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> 
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="c1">#ax.set_title(&#39;{}; GMSAT (K)&#39;.format(model))</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span>
+
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="n">colours</span><span class="p">[</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SSP2-4.5&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Tg/yr&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Tg/yr&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;°C&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;°C&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Latitude (°)&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;SO₂ injection rate&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Global mean temperature&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Warming relative to target&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="p">[</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> 
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>                    
+            <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;axes fraction&#39;</span><span class="p">,</span>       
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>                <span class="c1"># Shift 40 points to the left</span>
+            <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span> 
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>        <span class="c1"># Alignment</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="c1"># Large and bold</span>
+            <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span>                      <span class="c1"># Horizontal text</span>
+        <span class="p">)</span>
+
+<span class="c1">#fig.text(-0.06, 0.9, &#39;CESM2-\nWACCM&#39;, va=&#39;center&#39;, rotation=&#39;horizontal&#39;, fontsize=&#39;x-large&#39;, fontweight=&#39;bold&#39;)</span>
+<span class="c1">#fig.text(-0.06, 0.45, &#39;UKESM1&#39;, va=&#39;center&#39;, rotation=&#39;horizontal&#39;, fontsize=&#39;x-large&#39;, fontweight=&#39;bold&#39;)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;G6_SAIandHiLLA_overview_all_landscape.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/887a3ef0ddb2d341f8c902b05d007ef026c0d05215b1610191db67fab6cca799.png" src="../../_images/887a3ef0ddb2d341f8c902b05d007ef026c0d05215b1610191db67fab6cca799.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## also print some output values, for ratio of efficiencies </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CESM2-WACCM&#39;</span><span class="p">,</span> <span class="s1">&#39;UKESM1-1&#39;</span><span class="p">,</span> <span class="s1">&#39;E3SMv3&#39;</span><span class="p">,</span> <span class="s1">&#39;MIROC-ES2H&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">vals</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;G6-1.5K-SAI&#39;</span><span class="p">,</span> <span class="s1">&#39;G6-1.5K-HiLLA&#39;</span><span class="p">]:</span>
+        <span class="n">inj_df</span> <span class="o">=</span> <span class="n">injection_timeseries_dict</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="n">scenario</span><span class="p">]</span>
+        <span class="n">ensemble_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r1 SO2 (Tg)&#39;</span><span class="p">,</span> <span class="s1">&#39;r2 SO2 (Tg)&#39;</span><span class="p">,</span> <span class="s1">&#39;r3 SO2 (Tg)&#39;</span><span class="p">]</span>
+        <span class="n">inj_df</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="n">inj_df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="n">assessment_years</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">inj_df</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="n">inj_df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">assessment_years</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="n">inj_df</span> <span class="o">=</span> <span class="n">inj_df</span><span class="p">[</span><span class="n">ensemble_cols</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">inj_df</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="c1">#mean_vals = inj_df[ensemble_cols].mean(axis=1)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SAI uses &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">+</span><span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f HiLLA SO2&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;HiLLA uses &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39;x SAI SO2&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;HiLLA has &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span><span class="o">+</span><span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f SAI cooling efficiency&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CESM2-WACCM
+11.568077813961793
+20.36471844908666
+SAI uses 57.0% of HiLLA SO2
+HiLLA uses 1.76x SAI SO2
+HiLLA has 57.0% of SAI cooling efficiency
+UKESM1-1
+15.666314098947366
+24.50294410245614
+SAI uses 64.0% of HiLLA SO2
+HiLLA uses 1.564x SAI SO2
+HiLLA has 64.0% of SAI cooling efficiency
+E3SMv3
+14.968296334788521
+23.445693538328
+SAI uses 64.0% of HiLLA SO2
+HiLLA uses 1.566x SAI SO2
+HiLLA has 64.0% of SAI cooling efficiency
+MIROC-ES2H
+8.817396082105263
+14.800579064912279
+SAI uses 60.0% of HiLLA SO2
+HiLLA uses 1.679x SAI SO2
+HiLLA has 60.0% of SAI cooling efficiency
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Resources/G6_1p5K"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="GeoMIP_G6_1p5K_on_CloudHub.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">G6-1.5K-SAI/HiLLA on the Cloud Hub</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../GeoMIP_from_GoogleCloud/GCS_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">GeoMIP via Google Cloud</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-all-the-data">Read in all the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-injection-magnitudes">Get injection magnitudes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Reflective, with infrastructure built by 2i2c
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
