@@ -23,7 +23,11 @@ parts:
       #- file: Resources/Dataset_catalogue.md
       - file: Resources/example_notebooks.md
         sections:
-          # working with GCS
+          # working with G6 data on the hub
+          - file: Resources/G6_1p5K/GeoMIP_G6_1p5K_on_CloudHub.md
+            sections:
+              - file: Resources/G6_1p5K/G6-1.5K-SAI_HiLLA_example.ipynb
+      # working with GCS
           - file: Resources/GeoMIP_from_GoogleCloud/GCS_intro.md
             sections:
               - file: Resources/GeoMIP_from_GoogleCloud/G6sulfur_from_cloud_demo.ipynb

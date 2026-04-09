@@ -4,7 +4,7 @@
 
 | Dataset | Description | Platform |
 | :--- | :--- | :--- |
-| **G6-1.5K-SAI/HiLLA** | ***coming soon!*** | Cloud Hub |
+| **G6-1.5K-SAI/HiLLA** | Example of reading in and plotting G6-1.5K-SAI and G6-1.5K-HiLLA data for four models on the Cloud Hub | Cloud Hub |
 | **GeoMIP (G6sulfur)** | How to work with GeoMIP and CMIP data stored in cloud-optimized (zarr) format. | Google Cloud |
 | **GeoMIP via ESGF** | Working with CMIP data from ESGF nodes using the `intake-esgf` package. | ESGF Nodes |
 | **ARISE-SAI-1.5** | Reading and using simulation data for UKESM1 and CESM2-WACCM. | AWS |
