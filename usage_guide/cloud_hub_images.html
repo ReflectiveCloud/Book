@@ -405,49 +405,49 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">52b0ccfd1fca</span></code></p></td>
-<td><p>:white_check_mark:</p></td>
+<td><p>✅</p></td>
 <td><p>Jul 30, 2026</p></td>
 <td><p>2.7 GiB</p></td>
 <td><p>Pinned <code class="docutils literal notranslate"><span class="pre">pyopenssl</span> <span class="pre">&gt;=</span> <span class="pre">24</span></code> to fix issues connecting to aws S3 buckets; <code class="docutils literal notranslate"><span class="pre">added</span> <span class="pre">and</span> <span class="pre">pinned</span> <span class="pre">arraylake==1.2.0</span></code>; (<a class="reference external" href="https://github.com/reflective-org/reflective-image/commit/52b0ccfd1fca1b584656ae15f14472bad7330222">#6</a>)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">5ba270bf5081</span></code></p></td>
-<td><p>:x:</p></td>
+<td><p>❌</p></td>
 <td><p>Jul 23, 2026</p></td>
 <td><p>2.7 GiB</p></td>
 <td><p>Added <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>; pinned upgrades beyond pangeo-notebook base: <code class="docutils literal notranslate"><span class="pre">xarray==2026.7.0</span></code>, <code class="docutils literal notranslate"><span class="pre">zarr==3.2.1</span></code>, <code class="docutils literal notranslate"><span class="pre">icechunk==2.1.1</span></code>; added <code class="docutils literal notranslate"><span class="pre">issue-creds</span></code> (credential issuing) (<a class="reference external" href="https://github.com/reflective-org/reflective-image/commit/5ba270bf5081">#5</a>)</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">5cb60c85bbb0</span></code></p></td>
-<td><p>:white_check_mark:</p></td>
+<td><p>✅</p></td>
 <td><p>Mar 13, 2026</p></td>
 <td><p>3.0 GiB</p></td>
 <td><p>s3fs fix: aligned S3 stack via pip (<code class="docutils literal notranslate"><span class="pre">s3fs</span></code>, <code class="docutils literal notranslate"><span class="pre">fsspec</span></code>, <code class="docutils literal notranslate"><span class="pre">boto3</span></code>, <code class="docutils literal notranslate"><span class="pre">botocore</span></code>); added <code class="docutils literal notranslate"><span class="pre">cdo</span></code> and <code class="docutils literal notranslate"><span class="pre">nco</span></code> (<a class="reference external" href="https://github.com/reflective-org/reflective-image/commit/5cb60c85bbb0">#4</a>)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">31aa6abf39c9</span></code></p></td>
-<td><p>:white_check_mark:</p></td>
+<td><p>✅</p></td>
 <td><p>Feb 24, 2026</p></td>
 <td><p>2.8 GiB</p></td>
 <td><p>AI integration fix: <code class="docutils literal notranslate"><span class="pre">postBuild</span></code> now actually runs during image build, so VS Code extensions are truly installed (previous tag only echoed the install command); installs run as notebook user with <code class="docutils literal notranslate"><span class="pre">--force</span></code> (<a class="reference external" href="https://github.com/reflective-org/reflective-image/commit/31aa6abf39c9">#3</a>)</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">5757ed417852</span></code></p></td>
-<td><p>:x:</p></td>
+<td><p>❌</p></td>
 <td><p>Feb 24, 2026</p></td>
 <td><p>2.4 GiB</p></td>
 <td><p>Added AI tooling: <code class="docutils literal notranslate"><span class="pre">jupyter-ai[all]</span></code> via pip; added <code class="docutils literal notranslate"><span class="pre">openai.chatgpt</span></code> and <code class="docutils literal notranslate"><span class="pre">anthropic.claude-code</span></code> VS Code extensions to install list (<a class="reference external" href="https://github.com/reflective-org/reflective-image/commit/5757ed417852">#2</a>)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">7bb4358204a5</span></code></p></td>
-<td><p>:x:</p></td>
+<td><p>❌</p></td>
 <td><p>Jan 30, 2026</p></td>
 <td><p>1.9 GiB</p></td>
 <td><p>Added VS Code support: <code class="docutils literal notranslate"><span class="pre">code-server&gt;=4.0</span></code>, <code class="docutils literal notranslate"><span class="pre">jupyter-vscode-proxy</span></code>, <code class="docutils literal notranslate"><span class="pre">jupyter-server-proxy</span></code>; new <code class="docutils literal notranslate"><span class="pre">postBuild</span></code> (ms-python, svelte extensions — echo only, not installed) and <code class="docutils literal notranslate"><span class="pre">start</span></code> script setting <code class="docutils literal notranslate"><span class="pre">VSCODE_PROXY_URI</span></code> (<a class="reference external" href="https://github.com/reflective-org/reflective-image/commit/7bb4358204a5">#1</a>)</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bafdf91292d2</span></code></p></td>
-<td><p>:white_check_mark:</p></td>
+<td><p>✅</p></td>
 <td><p>Oct 8, 2025</p></td>
 <td><p>1.8 GiB</p></td>
 <td><p>Removed version pins in <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>: <code class="docutils literal notranslate"><span class="pre">jupyterhub-singleuser</span></code> and <code class="docutils literal notranslate"><span class="pre">nbgitpuller</span></code> now unpinned (<a class="reference external" href="https://github.com/reflective-org/reflective-image/commit/bafdf91292d2">commit</a>)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">31d6a9045cb1</span></code></p></td>
-<td><p>:white_check_mark:</p></td>
+<td><p>✅</p></td>
 <td><p>Oct 8, 2025</p></td>
 <td><p>1.9 GiB</p></td>
 <td><p>Removed <code class="docutils literal notranslate"><span class="pre">image-tests</span></code> copy from <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>; oldest tag still in the registry (<a class="reference external" href="https://github.com/reflective-org/reflective-image/commit/31d6a9045cb1">commit</a>)</p></td>
