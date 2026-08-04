@@ -60,11 +60,9 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'usage_guide/storing_data';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'usage_guide/storing_data_old';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Accessing community datasets on the hub" href="accessing_community_datasets.html" />
-    <link rel="prev" title="Best Practices" href="best_practice.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -115,6 +113,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -169,10 +169,10 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage guide</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="best_practice.html">Best Practices</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Storing and uploading data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storing_data.html">Storing and uploading data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="accessing_community_datasets.html">Accessing community datasets on the hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud_hub_images.html">Choosing environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="credentials_tool.html">issue-creds — Guide for Hub Users</a></li>
@@ -285,7 +285,7 @@
       
       
       
-      <li><a href="../_sources/usage_guide/storing_data.md" target="_blank"
+      <li><a href="../_sources/usage_guide/storing_data_old.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -377,7 +377,6 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-data-to-the-hub">Uploading data to the hub</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#our-policy-for-community-dataset-uploads">Our policy for community dataset uploads</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-writing-a-netcdf-file-to-the-scratch-bucket">Example - writing a netcdf file to the scratch bucket</a></li>
 </ul>
             </nav>
@@ -399,8 +398,7 @@
 </ul>
 <section id="user-directories">
 <h2>User Directories<a class="headerlink" href="#user-directories" title="Link to this heading">#</a></h2>
-<p>You can navigate this storage like a normal file browser when you open the hub. They behave as a normal UNIX file system. From a terminal on the hub, directories can be navigated and moved around as on a local machine.</p>
-<p>Note that you have only 10 GB of /home directory storage. This is set low because all larger data should be written to S3 buckets, as described below. The directory storage should only be used for code, figures, and small files.</p>
+<p>You can navigate this storage like a normal file browser when you open the hub. They behave as a normal UNIX file system. From a terminal on the hub, directories can be navigated and moved around as on a local machine:</p>
 </section>
 <section id="cloud-buckets">
 <h2>Cloud buckets<a class="headerlink" href="#cloud-buckets" title="Link to this heading">#</a></h2>
@@ -412,7 +410,7 @@
 <p>Data saved in the scratch bucket is <strong>deleted every 7 days</strong>, so the scratch bucket should be used only for intermediate data produced temporarily during analysis, or as a staging location.</p>
 <p>Data produced as part of analyses and in active use, or data which you need to upload for use in a project should typically be stored in the persistent bucket.</p>
 <p>Please only ever write to the folder under your own username on the persistent bucket, except if agreed beforehand with Reflective, as will be the case for some community datasets which we want to store in a more visible location.</p>
-<p>The environment variables <code class="docutils literal notranslate"><span class="pre">SCRATCH_BUCKET</span></code> and <code class="docutils literal notranslate"><span class="pre">PERSISTENT_BUCKET</span></code> come preloaded with your username, e.g. s3://reflective-persistent-prod/alistairduffey. This is on purpose to track file ownership and prevent overwriting of other users’ data. Using these environment variables rather than hard coded file paths is therefore preferable for safety!</p>
+<p>The environment variables <code class="docutils literal notranslate"><span class="pre">SCRATCH_BUCKET</span></code> and <code class="docutils literal notranslate"><span class="pre">PERSISTENT_BUCKET</span></code> come preloaded with your username, e.g. s3://reflective-persistent-prod/alistairduffey. This is on purpose to track file ownership and prevent overwriting of other users’ data. Using these environment variables rather than hard coded file paths is therefore preferable for safety!</p>
 <section id="do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub">
 <h3>Do not put ever sensitive data (e.g. passwords) on the hub!<a class="headerlink" href="#do-not-put-ever-sensitive-data-e-g-passwords-on-the-hub" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -425,20 +423,8 @@
 <h2>Uploading data to the hub<a class="headerlink" href="#uploading-data-to-the-hub" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>for <strong>small-to-medium</strong> files, you can upload in the jupyterlab interface (via the GUI), or run wget scripts on the hub to download from the web, and then move files to buckets using <code class="docutils literal notranslate"> <span class="pre">aws</span> <span class="pre">s3</span> <span class="pre">mv</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;destination&gt;</span></code> or via the python commands below.</p></li>
-<li><p>for <strong>larger</strong> datasets (&gt;10s GB), you will need to make credentials on the hub via the issue-creds tool, see <a class="reference external" href="https://reflectivecloud.github.io/Book/usage_guide/credentials_tool.html">here</a>, which allows for comand line uploading.</p></li>
+<li><p>for <strong>larger</strong> datasets (&gt;10s GB), get in touch with our team and we will advise on if we can store the data, and if we can, share guidance for uploading to the buckets via the command line.</p></li>
 </ul>
-</section>
-<section id="our-policy-for-community-dataset-uploads">
-<h2>Our policy for community dataset uploads<a class="headerlink" href="#our-policy-for-community-dataset-uploads" title="Link to this heading">#</a></h2>
-<p>We encourage users to add datasets that will be useful to other members of the research community.</p>
-<ul class="simple">
-<li><p><strong>Data produced as part of an ongoing project:</strong> write to the scratch or persistent bucket under your own username directory, as described above.</p></li>
-<li><p><strong>Completed datasets smaller than 100 GB:</strong> any dataset of relevance to the solar radiation management (SRM) research community is welcome. We ask that you provide basic information about the dataset so we can keep track of the available data.</p></li>
-<li><p><strong>Datasets larger than 100 GB:</strong> Reflective will decide case-by-case whether to store the data. Decisions are based on the dataset’s expected scientific impact and alignment with Reflective’s ethos of transparent, reproducible SRM research. Ongoing cloud storage is relatively costly, so we are unlikely to store datasets larger than ~1 TB without a compelling case for widespread use (e.g. new GeoMIP experiments).</p></li>
-</ul>
-<p>** Please fill out <a class="reference external" href="https://tally.so/r/0QYea0">this form</a> before uploading so we can track what is on the Hub and make others aware of available date. **</p>
-<p>Where possible, we encourage depositing datasets in a dedicated archive such as Zenodo to generate a permanent, DOI’d version, in addition to Reflective Cloud storage. The purpose of our storage is to make data easy to access on the cloud, not to act as an authoritative data publisher.</p>
-<p>We intend to maintain hosted data for a minimum of 3 years, and will notify users 6 months in advance of any dataset removal. This is not a permanent archive: Reflective makes no commitment to longer-term access, public access, or data back-up.</p>
 </section>
 <section id="example-writing-a-netcdf-file-to-the-scratch-bucket">
 <h2>Example - writing a netcdf file to the scratch bucket<a class="headerlink" href="#example-writing-a-netcdf-file-to-the-scratch-bucket" title="Link to this heading">#</a></h2>
@@ -496,24 +482,6 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="best_practice.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Best Practices</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="accessing_community_datasets.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Accessing community datasets on the hub</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -537,7 +505,6 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-data-to-the-hub">Uploading data to the hub</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#our-policy-for-community-dataset-uploads">Our policy for community dataset uploads</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-writing-a-netcdf-file-to-the-scratch-bucket">Example - writing a netcdf file to the scratch bucket</a></li>
 </ul>
   </nav></div>

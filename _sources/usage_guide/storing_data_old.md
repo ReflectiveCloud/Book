@@ -10,9 +10,7 @@ There are two types of storage on the cloud hub:
 
 ### User Directories
 
-You can navigate this storage like a normal file browser when you open the hub. They behave as a normal UNIX file system. From a terminal on the hub, directories can be navigated and moved around as on a local machine. 
-
-Note that you have only 10 GB of /home directory storage. This is set low because all larger data should be written to S3 buckets, as described below. The directory storage should only be used for code, figures, and small files. 
+You can navigate this storage like a normal file browser when you open the hub. They behave as a normal UNIX file system. From a terminal on the hub, directories can be navigated and moved around as on a local machine:
 
   
 
@@ -40,7 +38,7 @@ Please only ever write to the folder under your own username on the persistent b
 
   
 
-The environment variables `SCRATCH_BUCKET` and `PERSISTENT_BUCKET` come preloaded with your username, e.g. s3://reflective-persistent-prod/alistairduffey. This is on purpose to track file ownership and prevent overwriting of other users' data. Using these environment variables rather than hard coded file paths is therefore preferable for safety!
+The environment variables `SCRATCH_BUCKET` and `PERSISTENT_BUCKET` come preloaded with your username, e.g. s3://reflective-persistent-prod/alistairduffey. This is on purpose to track file ownership and prevent overwriting of other users' data. Using these environment variables rather than hard coded file paths is therefore preferable for safety!
 
   
 
@@ -55,22 +53,7 @@ The environment variables `SCRATCH_BUCKET` and `PERSISTENT_BUCKET` come preloade
 ### Uploading data to the hub
 
 - for **small-to-medium** files, you can upload in the jupyterlab interface (via the GUI), or run wget scripts on the hub to download from the web, and then move files to buckets using ``` aws s3 mv <source> <destination>``` or via the python commands below.
-- for **larger** datasets (>10s GB), you will need to make credentials on the hub via the issue-creds tool, see [here](https://reflectivecloud.github.io/Book/usage_guide/credentials_tool.html), which allows for comand line uploading.
-
-
-### Our policy for community dataset uploads
-
-We encourage users to add datasets that will be useful to other members of the research community.
-
-- **Data produced as part of an ongoing project:** write to the scratch or persistent bucket under your own username directory, as described above.
-- **Completed datasets smaller than 100 GB:** any dataset of relevance to the solar radiation management (SRM) research community is welcome. We ask that you provide basic information about the dataset so we can keep track of the available data.
-- **Datasets larger than 100 GB:** Reflective will decide case-by-case whether to store the data. Decisions are based on the dataset's expected scientific impact and alignment with Reflective's ethos of transparent, reproducible SRM research. Ongoing cloud storage is relatively costly, so we are unlikely to store datasets larger than ~1 TB without a compelling case for widespread use (e.g. new GeoMIP experiments).
-
-** Please fill out [this form](https://tally.so/r/0QYea0) before uploading so we can track what is on the Hub and make others aware of available date. **
-
-Where possible, we encourage depositing datasets in a dedicated archive such as Zenodo to generate a permanent, DOI'd version, in addition to Reflective Cloud storage. The purpose of our storage is to make data easy to access on the cloud, not to act as an authoritative data publisher.
-
-We intend to maintain hosted data for a minimum of 3 years, and will notify users 6 months in advance of any dataset removal. This is not a permanent archive: Reflective makes no commitment to longer-term access, public access, or data back-up.
+- for **larger** datasets (>10s GB), get in touch with our team and we will advise on if we can store the data, and if we can, share guidance for uploading to the buckets via the command line. 
 
 
 
@@ -101,3 +84,4 @@ ds.to_netcdf(tmp.name) # save to a temporary file
 s3.put(tmp.name, out_path_on_scratch) # move that file to the scratch bucket
 
 ```
+
