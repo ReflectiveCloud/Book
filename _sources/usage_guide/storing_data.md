@@ -66,7 +66,7 @@ We encourage users to add datasets that will be useful to other members of the r
 - **Completed datasets smaller than 100 GB:** any dataset of relevance to the solar radiation management (SRM) research community is welcome. We ask that you provide basic information about the dataset so we can keep track of the available data.
 - **Datasets larger than 100 GB:** Reflective will decide case-by-case whether to store the data. Decisions are based on the dataset's expected scientific impact and alignment with Reflective's ethos of transparent, reproducible SRM research. Ongoing cloud storage is relatively costly, so we are unlikely to store datasets larger than ~1 TB without a compelling case for widespread use (e.g. new GeoMIP experiments).
 
-** Please fill out [this form](https://tally.so/r/0QYea0) before uploading so we can track what is on the Hub and make others aware of available date. **
+**Please fill out [this form](https://tally.so/r/0QYea0) before uploading so we can track what is on the Hub and make others aware of available data**
 
 Where possible, we encourage depositing datasets in a dedicated archive such as Zenodo to generate a permanent, DOI'd version, in addition to Reflective Cloud storage. The purpose of our storage is to make data easy to access on the cloud, not to act as an authoritative data publisher.
 
