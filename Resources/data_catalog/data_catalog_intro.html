@@ -1,0 +1,733 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Reflective Data Catalog &#8212; The Reflective Cloud Hub; SRM research Community Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Resources/data_catalog/data_catalog_intro';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reflective Data Catalog - example usage" href="Example.html" />
+    <link rel="prev" title="Example notebooks and code resources" href="../example_notebooks.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="The Reflective Cloud Hub; SRM research Community Book - Home"/>
+    <img src="../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="The Reflective Cloud Hub; SRM research Community Book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Welcome to the Reflective Cloud Hub
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Usage guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/best_practice.html">Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/storing_data.html">Storing and uploading data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/accessing_community_datasets.html">Accessing community datasets on the hub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/cloud_hub_images.html">Choosing environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/credentials_tool.html">issue-creds — Guide for Hub Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/how_to_contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage_guide/support_and_feedback.html">Support and Feedback</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../useful_links.html">Useful Links</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../example_notebooks.html">Example notebooks and code resources</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Reflective Data Catalog</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Example.html">Reflective Data Catalog - example usage</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../G6_1p5K/GeoMIP_G6_1p5K_on_CloudHub.html">G6-1.5K-SAI/HiLLA on the Cloud Hub</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../G6_1p5K/G6-1.5K-SAI_HiLLA_example.html">G6-1.5K- cloud data workflow example</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GeoMIP_from_GoogleCloud/GCS_intro.html">GeoMIP via Google Cloud</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GeoMIP_from_GoogleCloud/G6sulfur_from_cloud_demo.html">Working with the GeoMIP (and CMIP6) cloud-store</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GeoMIP_from_ESGF/ESGF_intro.html">GeoMIP via ESGF</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GeoMIP_from_ESGF/search_and_load_from_esgf.html">Loading data directly from ESGF nodes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_intro.html">ARISE-SAI-1.5 via AWS</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_basic_example.html">Example usage of the AWS ARISE-1.5 data set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../AWS_ARISE/AWS_ARISE_kerchunk_test.html">ARISE-1.5 in the cloud - using kerchunck to improve access</a></li>
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GAUSS/GAUSS_intro.html">GAUSS simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GAUSS/GAUSS_example.html">GAUSS Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GAUSS/s3tree.html">S3 Tree Browser Utility</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pp_archive/pp_archive_intro.html">Pre-processed ARISE and G6sulfur simulations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pp_archive/pp_archive_usage_example.html">Introduction to working with the pre-processed SAI simulations archive</a></li>
+
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/ReflectiveCloud/Book/tree/main" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/Resources/data_catalog/data_catalog_intro.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Reflective Data Catalog</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-sources">Available Sources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-parameters">Selecting Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discovering-available-data">Discovering Available Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#google-cloud-cmip6-geomip-intake-esm">Google Cloud CMIP6 / GeoMIP (intake-esm)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esgf-data">ESGF Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-tests">Running Tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="reflective-data-catalog">
+<h1>Reflective Data Catalog<a class="headerlink" href="#reflective-data-catalog" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://reflective.org"><img alt="Reflective" src="https://img.shields.io/badge/reflective.org-blue?label=%F0%9F%8C%8D" /></a>
+<a class="reference external" href="https://github.com/ReflectiveCloud/reflective-data-catalog/actions"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/ReflectiveCloud/reflective-data-catalog/tests.yml?branch=main" /></a>
+<a class="reference external" href="https://github.com/ReflectiveCloud/reflective-data-catalog/blob/main/LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/github/license/ReflectiveCloud/reflective-data-catalog" /></a>
+<a class="reference external" href="https://pypi.org/project/reflective-data-catalog/"><img alt="PyPI" src="https://img.shields.io/pypi/v/reflective-data-catalog?label=version" /></a>
+<a class="reference external" href="https://github.com/ReflectiveCloud/reflective-data-catalog/commits/main"><img alt="Last Commit" src="https://img.shields.io/github/last-commit/ReflectiveCloud/reflective-data-catalog" /></a></p>
+<p>Reflective’s unified Python interface for accessing SAI (Stratospheric Aerosol Injection) climate model data across cloud providers (S3, GCS, Azure, Cloudflare R2) for use on the <a class="reference external" href="https://reflective.2i2c.cloud">Reflective Cloud Hub</a>.
+Note: At this time, most non ESGF and ESM sources will not be accessible outside of the Reflective Cloud Hub due to technical limitations. We are working on storing the data in new locations and will update when it’s ready.</p>
+<p>This is an <a class="reference external" href="https://github.com/intake/intake">Intake</a>-like interface for browsing, searching, and loading SRM related datasets in a unified manner. All available datasets <a class="reference external" href="https://docs.google.com/spreadsheets/d/1cjgJQSrDV_IQVN68HoTQpy_xGQQhPy4wz1N0u8E2Pe4/edit?usp=sharing">can be seen here</a> with more infomration in <a class="reference external" href="https://reflectivecloud.github.io/Book/usage_guide/accessing_community_datasets.html">the Reflective Cloud Hub documentation</a>. <a class="reference internal" href="#./Examples.ipynb"><span class="xref myst">We’ve also included an example Jupyter Notebook showing how to use the tool.</span></a></p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>reflective-data-catalog
+</pre></div>
+</div>
+<p>For development:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ReflectiveCloud/reflective-data-catalog.git
+<span class="nb">cd</span><span class="w"> </span>reflective-data-catalog
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+pre-commit<span class="w"> </span>install
+</pre></div>
+</div>
+<p>This installs a <a class="reference external" href="https://pre-commit.com/">pre-commit</a> hook that automatically runs <a class="reference external" href="https://docs.astral.sh/ruff/">Ruff</a> linting (with auto-fix) and formatting on every commit.</p>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">reflective_data_catalog</span> <span class="kn">import</span> <span class="n">ReflectiveCatalog</span>
+
+<span class="n">rdc</span> <span class="o">=</span> <span class="n">ReflectiveCatalog</span><span class="p">()</span>
+
+<span class="c1"># Load a dataset lazily with dask</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">cesm2_waccm_g6_1p5k_hilla</span><span class="p">(</span><span class="n">variable</span><span class="o">=</span><span class="s1">&#39;T&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dask</span><span class="p">()</span>
+
+<span class="c1"># Load a dataset into memory</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">miroc_es2h_g6_1p5k_sai</span><span class="p">(</span><span class="n">variable</span><span class="o">=</span><span class="s1">&#39;SurfT&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="available-sources">
+<h2>Available Sources<a class="headerlink" href="#available-sources" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cesm2_waccm_g6_1p5k_hilla</span></code></p></td>
+<td><p>CESM2-WACCM G6-1.5K-HiLLA</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cesm2_waccm_historical</span></code></p></td>
+<td><p>CESM2-WACCM Historical</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cesm2_waccm_ssp245</span></code></p></td>
+<td><p>CESM2-WACCM SSP2-4.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cesm2_waccm6_g6_1p5k_hilla</span></code></p></td>
+<td><p>CESM2-WACCM6 G6-1.5K-HiLLA</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">e3smv3_g6_1p5k_hilla</span></code></p></td>
+<td><p>E3SMv3 G6-1.5K-HiLLA</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">miroc_es2h_g6_1p5k_hilla</span></code></p></td>
+<td><p>MIROC-ES2H G6-1.5K-HiLLA</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">miroc_es2h_g6_1p5k_sai</span></code></p></td>
+<td><p>MIROC-ES2H G6-1.5K-SAI</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ukesm1_g6_1p5k_hilla</span></code></p></td>
+<td><p>UKESM1.1 G6-1.5K-HiLLA</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ukesm1_ssp245</span></code></p></td>
+<td><p>UKESM1.1 SSP2-4.5</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h2>
+<section id="selecting-parameters">
+<h3>Selecting Parameters<a class="headerlink" href="#selecting-parameters" title="Link to this heading">#</a></h3>
+<p>Each source accepts keyword arguments to select the table, variable, ensemble member, and other parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify variable, table, and ensemble</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">cesm2_waccm_g6_1p5k_hilla</span><span class="p">(</span>
+    <span class="n">variable</span><span class="o">=</span><span class="s1">&#39;T&#39;</span><span class="p">,</span>
+    <span class="n">table</span><span class="o">=</span><span class="s1">&#39;AMON&#39;</span><span class="p">,</span>
+    <span class="n">ensemble</span><span class="o">=</span><span class="s1">&#39;r2&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">to_dask</span><span class="p">()</span>
+
+<span class="c1"># MIROC: HiLLA vs SAI are different experiment prefixes in storage — use the matching source</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">miroc_es2h_g6_1p5k_hilla</span><span class="p">(</span>
+    <span class="n">table</span><span class="o">=</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span>
+    <span class="n">variable</span><span class="o">=</span><span class="s1">&#39;tas&#39;</span><span class="p">,</span>
+    <span class="n">variant</span><span class="o">=</span><span class="s1">&#39;baseline&#39;</span><span class="p">,</span>
+    <span class="n">ensemble</span><span class="o">=</span><span class="s1">&#39;r01&#39;</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">to_dask</span><span class="p">()</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">miroc_es2h_g6_1p5k_sai</span><span class="p">(</span>
+    <span class="n">table</span><span class="o">=</span><span class="s1">&#39;Mon&#39;</span><span class="p">,</span>
+    <span class="n">variable</span><span class="o">=</span><span class="s1">&#39;SurfT&#39;</span><span class="p">,</span>
+    <span class="n">ensemble</span><span class="o">=</span><span class="s1">&#39;r01&#39;</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">to_dask</span><span class="p">()</span>  <span class="c1"># default variant is G6-1.5K-SAI</span>
+</pre></div>
+</div>
+</section>
+<section id="discovering-available-data">
+<h3>Discovering Available Data<a class="headerlink" href="#discovering-available-data" title="Link to this heading">#</a></h3>
+<p>Each source provides discovery methods to explore what data is available:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">ukesm1_g6_1p5k_hilla</span><span class="p">()</span>
+
+<span class="c1"># List available variables, ensembles, or tables</span>
+<span class="n">source</span><span class="o">.</span><span class="n">list_variables</span><span class="p">()</span>
+<span class="n">source</span><span class="o">.</span><span class="n">list_ensembles</span><span class="p">()</span>
+<span class="n">source</span><span class="o">.</span><span class="n">list_tables</span><span class="p">()</span>
+
+<span class="c1"># Print a full summary</span>
+<span class="n">source</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="google-cloud-cmip6-geomip-intake-esm">
+<h3>Google Cloud CMIP6 / GeoMIP (intake-esm)<a class="headerlink" href="#google-cloud-cmip6-geomip-intake-esm" title="Link to this heading">#</a></h3>
+<p>Access cloud-optimized Zarr data from the Google Cloud CMIP6 catalog:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Search and load in one step</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">esm</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;G6sulfur&#39;</span><span class="p">,</span> <span class="s1">&#39;ssp245&#39;</span><span class="p">,</span> <span class="s1">&#39;ssp585&#39;</span><span class="p">],</span>
+    <span class="n">variable_id</span><span class="o">=</span><span class="s1">&#39;tas&#39;</span><span class="p">,</span>
+    <span class="n">table_id</span><span class="o">=</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span>
+    <span class="n">require_all_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;source_id&#39;</span><span class="p">,</span> <span class="s1">&#39;institution_id&#39;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Or use the GeoMIP convenience helper</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">geomip_cloud</span><span class="o">.</span><span class="n">load_ensemble</span><span class="p">(</span>
+    <span class="n">experiments</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;G6sulfur&#39;</span><span class="p">,</span> <span class="s1">&#39;ssp245&#39;</span><span class="p">,</span> <span class="s1">&#39;ssp585&#39;</span><span class="p">],</span>
+    <span class="n">variable</span><span class="o">=</span><span class="s1">&#39;tas&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Quick single-experiment load</span>
+<span class="n">ds_dict</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">geomip_cloud</span><span class="o">.</span><span class="n">g6sulfur</span><span class="p">(</span><span class="n">variable</span><span class="o">=</span><span class="s1">&#39;tas&#39;</span><span class="p">)</span>
+
+<span class="c1"># Explore what&#39;s available</span>
+<span class="n">rdc</span><span class="o">.</span><span class="n">geomip_cloud</span><span class="o">.</span><span class="n">list_models</span><span class="p">()</span>
+<span class="n">rdc</span><span class="o">.</span><span class="n">geomip_cloud</span><span class="o">.</span><span class="n">list_variables</span><span class="p">(</span><span class="n">experiment_id</span><span class="o">=</span><span class="s1">&#39;G6sulfur&#39;</span><span class="p">)</span>
+<span class="n">rdc</span><span class="o">.</span><span class="n">geomip_cloud</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+
+<span class="c1"># Advanced: direct search then load</span>
+<span class="n">subset</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">esm</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+    <span class="n">experiment_id</span><span class="o">=</span><span class="s1">&#39;G6sulfur&#39;</span><span class="p">,</span>
+    <span class="n">variable_id</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tas&#39;</span><span class="p">,</span> <span class="s1">&#39;pr&#39;</span><span class="p">],</span>
+    <span class="n">table_id</span><span class="o">=</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="n">subset</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="esgf-data">
+<h3>ESGF Data<a class="headerlink" href="#esgf-data" title="Link to this heading">#</a></h3>
+<p>The catalog also provides access to ESGF (Earth System Grid Federation) data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">rdc</span><span class="o">.</span><span class="n">esgf</span><span class="o">.</span><span class="n">geomip</span><span class="o">.</span><span class="n">g6sulfur</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;UKESM1-0-LL&#39;</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="s1">&#39;tas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-tests">
+<h2>Running Tests<a class="headerlink" href="#running-tests" title="Link to this heading">#</a></h2>
+<p>Run the full test suite:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest
+</pre></div>
+</div>
+<p>Run with coverage report:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--cov<span class="o">=</span>reflective_data_catalog<span class="w"> </span>--cov-report<span class="o">=</span>term-missing
+</pre></div>
+</div>
+<p>Run a specific test file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>tests/test_flexible_sources.py
+</pre></div>
+</div>
+<p>Tests mock all external services (S3, ESGF, intake-esm) so no network access or cloud credentials are required.</p>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Python &gt;= 3.11</p></li>
+<li><p>intake &gt;= 2.0.0</p></li>
+<li><p>intake-esm &gt;= 2025.2.3</p></li>
+<li><p>intake-esgf &gt;= 2025.5.9</p></li>
+<li><p>xarray &gt;= 2025.01.0</p></li>
+<li><p>obstore &gt;= 0.8.0</p></li>
+</ul>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
+<p>Apache 2.0</p>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Resources/data_catalog"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../example_notebooks.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Example notebooks and code resources</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Example.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reflective Data Catalog - example usage</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-sources">Available Sources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-parameters">Selecting Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discovering-available-data">Discovering Available Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#google-cloud-cmip6-geomip-intake-esm">Google Cloud CMIP6 / GeoMIP (intake-esm)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esgf-data">ESGF Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-tests">Running Tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Reflective, with infrastructure built by 2i2c
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
